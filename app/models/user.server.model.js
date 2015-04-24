@@ -143,4 +143,25 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	});
 };
 
+/**
+ * Find user by student number
+ */
+UserSchema.methods.findByStudentNumber = function(studentNumber, callback) {
+  var _this = this;
+
+  _this.findOne({
+    studentNumber: studentNumber
+  }, function(err, user) {
+    if(!err) {
+      if(!user) {
+        callback(null);
+      } else {
+        return user;
+      }
+    } else {
+      callback(null);
+    }
+  });
+};
+
 mongoose.model('User', UserSchema);
