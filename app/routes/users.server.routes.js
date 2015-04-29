@@ -48,4 +48,15 @@ module.exports = function(app) {
 
 	// Finish by binding the user middleware
 	app.param('userId', users.userByID);
+
+  // Setting the SAML routes, for Surfconext
+  app.route('/login/callback').post(passport.authenticate('saml', { failureRedirect: '/login', failureFlash: true }),
+      function(req, res) {
+        res.redirect('/');
+      });
+
+  app.route('/login').get(passport.authenticate('saml', { failureRedirect: '/login', failureFlash: true }),
+      function(req, res) {
+        res.redirect('/');
+      });
 };
