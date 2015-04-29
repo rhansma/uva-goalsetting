@@ -51,7 +51,7 @@ var UserSchema = new Schema({
 	},
 	studentNumber: {
 		type: Number,
-		unique: 'Student Number is already registered',
+		unique: 'Student number is already registered',
 		required: 'Please fill in your student number',
 		trim: true
 	},
