@@ -20,7 +20,7 @@ describe('Article CRUD tests', function() {
 	beforeEach(function(done) {
 		// Create user credentials
 		credentials = {
-			username: 'username',
+			email: 'test@test.com',
 			password: 'password'
 		};
 
@@ -29,9 +29,9 @@ describe('Article CRUD tests', function() {
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',
-			email: 'test@test.com',
-			username: credentials.username,
+			email: credentials.email,
 			password: credentials.password,
+      studentNumber: 123456789,
 			provider: 'local'
 		});
 
