@@ -3,7 +3,9 @@
 /**
  * Module dependencies.
  */
-var passport = require('passport');
+var passport = require('passport'),
+    fs = require('fs'),
+    SamlStrategy = require('passport-saml').Strategy;
 
 module.exports = function(app) {
 	// User Routes
@@ -59,4 +61,12 @@ module.exports = function(app) {
       function(req, res) {
         res.redirect('/');
       });
+
+  // Route for sending metadata for Surfconext
+  app.route('/metadata').get(function(req, res) {
+    var cert = fs.readFileSync('./config/certs/certificate.crt', 'utf-8');
+
+    res.type('application/xml');
+    res.send(200, SamlStrategy.generateServiceProviderMetadata(cert));
+  })
 };
