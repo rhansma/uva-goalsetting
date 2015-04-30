@@ -27,27 +27,6 @@ module.exports = function(app) {
 	app.route('/auth/signin').post(users.signin);
 	app.route('/auth/signout').get(users.signout);
 
-	// Setting the twitter oauth routes
-	app.route('/auth/twitter').get(passport.authenticate('twitter'));
-	app.route('/auth/twitter/callback').get(users.oauthCallback('twitter'));
-
-	// Setting the google oauth routes
-	app.route('/auth/google').get(passport.authenticate('google', {
-		scope: [
-			'https://www.googleapis.com/auth/userinfo.profile',
-			'https://www.googleapis.com/auth/userinfo.email'
-		]
-	}));
-	app.route('/auth/google/callback').get(users.oauthCallback('google'));
-
-	// Setting the linkedin oauth routes
-	app.route('/auth/linkedin').get(passport.authenticate('linkedin'));
-	app.route('/auth/linkedin/callback').get(users.oauthCallback('linkedin'));
-
-	// Setting the github oauth routes
-	app.route('/auth/github').get(passport.authenticate('github'));
-	app.route('/auth/github/callback').get(users.oauthCallback('github'));
-
 	// Finish by binding the user middleware
 	app.param('userId', users.userByID);
 
@@ -60,13 +39,45 @@ module.exports = function(app) {
   app.route('/login').get(passport.authenticate('saml', { failureRedirect: '/login', failureFlash: true }),
       function(req, res) {
         res.redirect('/');
-      });
+      }
+  );
 
   // Route for sending metadata for Surfconext
   app.route('/metadata').get(function(req, res) {
+    //ToDo: Fix this! Ugly way of obtaining the desired result
     var cert = fs.readFileSync('./config/certs/certificate.crt', 'utf-8');
+    var User = require('mongoose').model('User');
+    var pvk = fs.readFileSync('./config/keys/mykey.key', 'utf-8');
+    var samlStrategy = new SamlStrategy({
+          path: '/login/callback',
+          entryPoint: 'https://engine.surfconext.nl/authentication/idp/single-sign-on',
+          issuer: 'https://engine.surfconext.nl/authentication/idp/metadata',
+          decryptionPvk: pvk,
+          callbackUrl: 'https://localhost:3000/login/callback'
+        },
+        function(profile, done) {
+          User.findOne({
+            studentNumber: profile.studentNumber
+          }, function(err, user) {
+            if (err) {
+              return done(err);
+            }
+            if (!user) {
+              return done(null, false, {
+                message: 'Unknown user or invalid password'
+              });
+            }
+            if (!user.authenticate(profile.password)) {
+              return done(null, false, {
+                message: 'Unknown user or invalid password'
+              });
+            }
+
+            return done(null, user);
+          });
+        });
 
     res.type('application/xml');
-    res.send(200, SamlStrategy.generateServiceProviderMetadata(cert));
-  })
+    res.status(200).send(samlStrategy.generateServiceProviderMetadata(cert));
+  });
 };
