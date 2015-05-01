@@ -3,7 +3,7 @@
 module.exports = {
 	port: 443,
 	db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/goalsetting',
-	assets: {
+	/*assets: {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
@@ -20,7 +20,7 @@ module.exports = {
 		},
 		css: 'public/dist/application.min.css',
 		js: 'public/dist/application.min.js'
-	},
+	},*/
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
 		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
