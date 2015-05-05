@@ -17,7 +17,7 @@ module.exports = function(app) {
       .get(goals.list)
       .post(users.requiresLogin, goals.create);
 
-  app.route('/goals/:articleId')
+  app.route('/goals/:goalId')
       .get(goals.read)
       .put(users.requiresLogin, goals.hasAuthorization, goals.update)
       .delete(users.requiresLogin, goals.hasAuthorization, goals.delete);
