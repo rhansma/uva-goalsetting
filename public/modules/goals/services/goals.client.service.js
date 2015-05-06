@@ -3,7 +3,7 @@
 angular.module('goals').factory('Goals', ['$resource',
   function($resource) {
     return $resource('goals/:goalId', {
-      articleId: '@_id'
+      goalId: '@_id'
     }, {
       update: {
         method: 'PUT'
