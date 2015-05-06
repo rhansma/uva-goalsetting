@@ -32,7 +32,8 @@ var GoalSchema = new Schema({
   },
   creator: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: 'Please login to create a goal'
   },
   expires: {
     type: Date,
