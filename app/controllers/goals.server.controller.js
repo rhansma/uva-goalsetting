@@ -18,7 +18,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
   var goal = new Goal(req.body);
-  goal.user = req.user;
+  goal.creator = req.user;
 
   goal.save(function(err) {
     if (err) {
@@ -78,7 +78,7 @@ exports.delete = function(req, res) {
  * List of Goals
  */
 exports.list = function(req, res) {
-  Goal.find().sort('-created').populate('user', 'displayName').exec(function(err, goals) {
+  Goal.find().sort('-created').populate('creator', 'displayName').exec(function(err, goals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
