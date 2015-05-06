@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams',
-	function($scope, Goals, Authentication, $location, $stateParams) {
+    '$filter',
+	function($scope, Goals, Authentication, $location, $stateParams, $filter) {
     $scope.authentication = Authentication;
 
     $scope.create = function() {
@@ -56,5 +57,11 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
         goalId: $stateParams.goalId
       });
     };
+
+    $scope.$watch('goal.expires', function() {
+      if($scope.goal != undefined) {
+        $scope.goal.expires = moment($scope.goal.expires).format('YYYY-MM-DD');
+      }
+    })
 	}
 ]);

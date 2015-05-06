@@ -6,7 +6,7 @@
     <a data-ng-repeat="goal in goals" data-ng-href="#!/goals/{{goal._id}}" class="list-group-item">
       <small class="list-group-item-text">
         Created on
-        <span data-ng-bind="goal.created | date:'mediumDate'"></span>
+          <span data-ng-bind="goal.created | amDateFormat:'MMMM Do YYYY'"></span>
         by
         <span data-ng-bind="goal.creator.displayName"></span>
       </small>
