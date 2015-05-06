@@ -17,7 +17,7 @@
         <div class="form-group" ng-class="{ 'has-error' : submitted && goalForm.expires.$invalid}">
           <label class="control-label" for="expires">Date</label>
           <div class="controls">
-            <input name="expires" type="date" data-ng-model="expires" id="expires" class="form-control" required>
+            <input name="expires" type="date" data-ng-model="goal.expires" id="expires" class="form-control" required>
           </div>
           <div ng-show="submitted && goalForm.expires.$invalid" class="help-block">
             <p ng-show="goalForm.expires.$error.required" class="text-danger">Date is required</p>

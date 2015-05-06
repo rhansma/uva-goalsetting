@@ -93,7 +93,7 @@ exports.list = function(req, res) {
  * Goal middleware
  */
 exports.goalByID = function(req, res, next, id) {
-  Goal.findById(id).populate('user', 'displayName').exec(function(err, goal) {
+  Goal.findById(id).populate('creator', 'displayName').exec(function(err, goal) {
     if (err) return next(err);
     if (!goal) return next(new Error('Failed to load goal ' + id));
     req.goal = goal;
@@ -105,7 +105,7 @@ exports.goalByID = function(req, res, next, id) {
  * Goal authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-  if (req.goal.user.id !== req.user.id) {
+  if (req.goal.creator.id !== req.user.id) {
     return res.status(403).send({
       message: 'User is not authorized'
     });

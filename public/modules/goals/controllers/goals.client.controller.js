@@ -31,6 +31,22 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       });
     };
 
+    $scope.remove = function(goal) {
+      if (goal) {
+        goal.$remove();
+
+        for (var i in $scope.goals) {
+          if ($scope.goals[i] === goal) {
+            $scope.goals.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.goal.$remove(function() {
+          $location.path('goals');
+        });
+      }
+    };
+
     $scope.find = function() {
       $scope.goals = Goals.query();
     };
