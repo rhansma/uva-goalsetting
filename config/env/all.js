@@ -15,6 +15,7 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+        'public/lib/font-awesome/css/font-awesome.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -31,8 +32,7 @@ module.exports = {
         'public/lib/moment-timezone/moment-timezone.js',
         'public/lib/modernizr/modernizr.js',
         'public/lib/jquery/dist/jquery.js',
-        'public/lib/foundation/js/foundation.js',
-        'public/lib/font-awesome/css/font-awesome.min.css'
+        'public/lib/foundation/js/foundation.js'
 			]
 		},
 		css: [
