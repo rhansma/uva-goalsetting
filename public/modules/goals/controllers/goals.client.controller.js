@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams',
-    '$filter',
-	function($scope, Goals, Authentication, $location, $stateParams, $filter) {
+	function($scope, Goals, Authentication, $location, $stateParams, moment) {
     $scope.authentication = Authentication;
 
     $scope.create = function() {
