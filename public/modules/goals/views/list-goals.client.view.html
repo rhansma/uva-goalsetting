@@ -7,15 +7,17 @@
   <div class="row">
     <div class="columns large-12">
       <!-- Used bootstrap list for convenience, has to change this to custom implementation -->
-      <a data-ng-repeat="goal in goals" data-ng-href="#!/goals/{{goal._id}}" class="list-group-item">
-        <small class="list-group-item-text">
-          Created on
-          <span data-ng-bind="goal.created | amDateFormat:'MMMM Do YYYY'"></span>
-          by
-          <span data-ng-bind="goal.creator.displayName"></span>
-        </small>
-        <h4 class="list-group-item-heading" data-ng-bind="goal.title"></h4>
-        <p class="list-group-item-text" data-ng-bind="goal.content"></p>
+      <a data-ng-repeat="goal in goals" data-ng-href="#!/goals/{{goal._id}}">
+        <div class="panel">
+          <small>
+            Created on
+            <span data-ng-bind="goal.created | amDateFormat:'MMMM Do YYYY'"></span>
+            by
+            <span data-ng-bind="goal.creator.displayName"></span>
+          </small>
+          <h4 data-ng-bind="goal.title"></h4>
+          <p data-ng-bind="goal.content"></p>
+        </div>
       </a>
     </div>
     <div class="alert-box warning text-center" data-ng-if="goals.$resolved && !goals.length">
