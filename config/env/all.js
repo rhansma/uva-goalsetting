@@ -28,11 +28,16 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/moment/moment.js',
         'public/lib/angular-moment/angular-moment.js',
-        'public/lib/moment-timezone/moment-timezone.js'
+        'public/lib/moment-timezone/moment-timezone.js',
+        'public/lib/modernizr/modernizr.js',
+        'public/lib/jquery/dist/jquery.js',
+        'public/lib/foundation/js/foundation.js',
+        'public/lib/font-awesome/css/font-awesome.min.css'
 			]
 		},
 		css: [
-			'public/modules/**/css/*.css'
+			'public/modules/**/css/*.css',
+      'public/lib/foundation/css/foundation.css'
 		],
 		js: [
 			'public/config.js',
