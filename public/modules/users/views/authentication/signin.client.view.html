@@ -5,26 +5,39 @@
       <div class="large-6 large-offset-3">
         <form data-ng-submit="signin()" class="signin" autocomplete="off">
           <fieldset>
-            <div class="large-12 columns">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" data-ng-model="credentials.email" placeholder="E-mail">
+            <div class="row">
+              <div class="large-12 columns">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" data-ng-model="credentials.email" placeholder="E-mail">
+              </div>
             </div>
-            <div class="large-12 columns">
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" data-ng-model="credentials.password" placeholder="Password">
+            <div class="row">
+              <div class="large-12 columns">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" data-ng-model="credentials.password" placeholder="Password">
+              </div>
             </div>
-            <div class="text-center large-12 columns">
-              <button type="submit" class="button">Sign in</button>&nbsp; or&nbsp;
-              <a href="/#!/signup">Sign up</a>
+            <div class="row">
+              <div class="text-center large-12 columns">
+                <button type="submit" class="button">Sign in</button>&nbsp; or&nbsp;
+                <a href="/#!/signup">Sign up</a>
+              </div>
             </div>
-            <div class="text-center large-12 columns">
-              <a href="http://localhost:3000/login">UvA login</a>
+            <div class="row">
+              <div class="text-center large-12 columns">
+                <a href="http://localhost:3000/login">UvA login</a>
+              </div>
             </div>
-            <div class="forgot-password large-12 columns">
-              <a href="/#!/password/forgot">Forgot your password?</a>
+            <div class="row">
+              <div class="forgot-password large-12 columns">
+                <a href="/#!/password/forgot">Forgot your password?</a>
+              </div>
             </div>
-            <div data-ng-show="error" class="alert-box alert large-12 columns">
-              <strong data-ng-bind="error"></strong>
+            <div class="row">
+              <div class="large-12 columns">
+                <div data-ng-show="error" class="alert-box alert large-12 columns">
+                  <strong data-ng-bind="error"></strong>
+                </div>
             </div>
           </fieldset>
         </form>
