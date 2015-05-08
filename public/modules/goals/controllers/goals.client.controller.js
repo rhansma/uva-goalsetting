@@ -59,9 +59,9 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
     };
 
     $scope.$watch('goal.expires', function() {
-      if($scope.goal != undefined) {
+      if($scope.goal !== undefined) {
         $scope.goal.expires = moment($scope.goal.expires).format('YYYY-MM-DD');
       }
-    })
+    });
 	}
 ]);
