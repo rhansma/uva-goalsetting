@@ -1,20 +1,25 @@
 <section data-ng-controller="GoalsController" data-ng-init="find()">
-  <div class="page-header">
-    <h1>Goals</h1>
+  <div class="row">
+    <div class="columns large-12">
+      <h1>Goals</h1>
+    </div>
   </div>
-  <div class="list-group">
-    <a data-ng-repeat="goal in goals" data-ng-href="#!/goals/{{goal._id}}" class="list-group-item">
-      <small class="list-group-item-text">
-        Created on
+  <div class="row">
+    <div class="columns large-12">
+      <!-- Used bootstrap list for convenience, has to change this to custom implementation -->
+      <a data-ng-repeat="goal in goals" data-ng-href="#!/goals/{{goal._id}}" class="list-group-item">
+        <small class="list-group-item-text">
+          Created on
           <span data-ng-bind="goal.created | amDateFormat:'MMMM Do YYYY'"></span>
-        by
-        <span data-ng-bind="goal.creator.displayName"></span>
-      </small>
-      <h4 class="list-group-item-heading" data-ng-bind="goal.title"></h4>
-      <p class="list-group-item-text" data-ng-bind="goal.content"></p>
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" data-ng-if="goals.$resolved && !goals.length">
-    No goals yet, why don't you <a href="/#!/goals/create">create one</a>?
+          by
+          <span data-ng-bind="goal.creator.displayName"></span>
+        </small>
+        <h4 class="list-group-item-heading" data-ng-bind="goal.title"></h4>
+        <p class="list-group-item-text" data-ng-bind="goal.content"></p>
+      </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-if="goals.$resolved && !goals.length">
+      No goals yet, why don't you <a href="/#!/goals/create">create one</a>?
+    </div>
   </div>
 </section>
