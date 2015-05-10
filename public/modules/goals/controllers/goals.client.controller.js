@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams',
+angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment',
 	function($scope, Goals, Authentication, $location, $stateParams, moment) {
     $scope.authentication = Authentication;
 
