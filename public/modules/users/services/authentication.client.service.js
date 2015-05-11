@@ -11,19 +11,23 @@ angular.module('users').factory('Authentication', ['$http', '$q',
 
     /* Define all access levels */
     _this.AUTH_LEVEL = {
-      'public': 7, //111
-      'student': 6, //110
-      'teacher': 4 //100
+      'public': 0,
+      'student': 1,
+      'teacher': 2
     };
 
     /* Check if user may access the route */
-    _this.authorize = function(accessLevel, role) {
-      if(role === undefined) {
-        role = _this._data.user.role;
-      }
+    _this.authorize = function(accessLevel) {
+      var authorized = false;
 
-      /* Use bitwise operations to check access level */
-      return accessLevel & role;
+      /* Check all roles if one is sufficient */
+      angular.forEach(_this._data.user.roles, function(role, i) {
+        if(accessLevel - _this.AUTH_LEVEL[role] <= 0) {
+          authorized = true;
+        }
+      });
+
+      return authorized;
     };
 
     /* Check if user is logged in */
