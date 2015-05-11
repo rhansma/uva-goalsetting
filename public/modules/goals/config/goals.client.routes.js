@@ -4,9 +4,9 @@
 
 //Fix this
 angular.module('goals').constant('AUTH_LEVEL', {
-  'public': 7, //111
-  'student': 6, //110
-  'teacher': 4 //100
+  'public': 0,
+  'student': 1,
+  'teacher': 2
 });
 
 angular.module('goals').config(['$stateProvider', 'AUTH_LEVEL',

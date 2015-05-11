@@ -29,9 +29,23 @@ angular.module('users').config(['$httpProvider',
 	}
 ]);
 
-angular.module('users').constant('AUTH_LEVEL', [{
-  'public': 7, //111
-  'student': 6, //110
-  'teacher': 4 //100
-}]);
+angular.module('users').constant('AUTH_LEVEL', {
+  'public': 0,
+  'student': 1,
+  'teacher': 2
+});
 
+angular.module('users').run(['Authentication', '$rootScope', '$location',
+  function(Authentication, $rootScope, $location) {
+    /* Authorize all requests */
+    $rootScope.$on('$stateChangeStart', function(event, next, current) {
+      if(!Authentication.authorize(next.accessLevel)) {
+        if(Authentication.isLoggedIn()) {
+          $location.path('unauthorized');
+        } else {
+          $location.path('signin');
+        }
+      }
+    });
+  }
+]);
