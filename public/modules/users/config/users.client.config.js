@@ -17,7 +17,7 @@ angular.module('users').config(['$httpProvider',
 								$location.path('signin');
 								break;
 							case 403:
-								// Add unauthorized behaviour 
+								$location.path('unauthorized');
 								break;
 						}
 
@@ -28,3 +28,10 @@ angular.module('users').config(['$httpProvider',
 		]);
 	}
 ]);
+
+angular.module('users').constant('AUTH_LEVEL', [{
+  'public': 7, //111
+  'student': 6, //110
+  'teacher': 4 //100
+}]);
+
