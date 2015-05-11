@@ -2,7 +2,13 @@
 
 angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus',
 	function($scope, Authentication, Menus) {
-		$scope.authentication = Authentication;
+    /* Check if user is authenticated for showing or hiding the menu */
+		Authentication.isLoggedIn().then(function(data) {
+      $scope.authenticated = data;
+    });
+
+    $scope.user = Authentication._data.user;
+
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
 

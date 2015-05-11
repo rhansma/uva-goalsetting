@@ -209,7 +209,7 @@ exports.removeOAuthProvider = function(req, res, next) {
  * Dummy route for checking if user is authenticated, just send HTTP status codes
  */
 exports.authenticated = function(req, res, next) {
-  if(res.isAuthenticated()) {
+  if(req.isAuthenticated()) {
     res.status(200).send();
   } else {
     res.status(401).send();
