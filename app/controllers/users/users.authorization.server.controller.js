@@ -52,3 +52,14 @@ exports.hasAuthorization = function(roles) {
 		});
 	};
 };
+
+exports.getRole = function(req, res, next, id) {
+  User.findOne({
+    _id: id
+  }).exec(function(err, user) {
+    if (err) return next(err);
+    if (!user) return next(new Error('Failed to load User ' + id));
+    req.role = user.role;
+    next();
+  });
+};

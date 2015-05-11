@@ -26,6 +26,7 @@ module.exports = function(app) {
 	app.route('/auth/signup').post(users.signup);
 	app.route('/auth/signin').post(users.signin);
 	app.route('/auth/signout').get(users.signout);
+  app.route('/auth/authenticated').get(users.authenticated);
 
 	// Finish by binding the user middleware
 	app.param('userId', users.userByID);
