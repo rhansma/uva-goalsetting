@@ -1,8 +1,8 @@
 'use strict';
 
 // Authentication service for user variables
-angular.module('users').factory('Authentication', [
-	function() {
+angular.module('users').factory('Authentication', ['$http', '$q',
+	function($http, $q) {
 		var _this = this;
 
 		_this._data = {
@@ -28,9 +28,15 @@ angular.module('users').factory('Authentication', [
 
     /* Check if user is logged in */
     _this.isLoggedIn = function() {
-      return true;
+      var deferred = $q.defer();
 
-      //ToDo: Make this work
+      $http.get('auth/authenticated').success(function(){
+        deferred.resolve(true);
+      }).error(function(){
+        deferred.reject(false);
+      });
+
+      return deferred.promise;
     };
 
 		return _this;
