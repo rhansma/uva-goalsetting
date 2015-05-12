@@ -5,13 +5,6 @@ angular.module('users').config(['$stateProvider', 'AUTH_LEVEL',
 	function($stateProvider, AUTH_LEVEL) {
 		// Users state routing
 		$stateProvider.
-		state('signout', {
-			url: '/auth/signout',
-			controller: function($http, $location) {
-        $http.get('auth/signout');
-        $location.path('/');
-      }
-		}).
 		state('unauthorized', {
 			url: '/unauthorized',
 			templateUrl: 'modules/users/views/unauthorized.client.view.html',

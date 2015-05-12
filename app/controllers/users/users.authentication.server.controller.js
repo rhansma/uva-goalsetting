@@ -74,7 +74,7 @@ exports.signin = function(req, res, next) {
  */
 exports.signout = function(req, res) {
 	req.logout();
-  res.status(200).send();
+	res.redirect('/');
 };
 
 /**
