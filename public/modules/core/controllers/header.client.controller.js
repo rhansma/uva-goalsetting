@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus',
-	function($scope, Authentication, Menus) {
-    /* Check if user is authenticated for showing or hiding the menu */
-		Authentication.isLoggedIn().then(function(data) {
-      $scope.authenticated = data;
-    });
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$rootScope',
+	function($scope, Authentication, Menus, $rootScope) {
+	  $scope.checkAuthenticated = function() {
+      /* Check if user is authenticated for showing or hiding the menu */
+      Authentication.isLoggedIn().then(function(data) {
+          $scope.authenticated = data;
+      });
+    };
 
     $scope.user = Authentication._data.user;
 
@@ -20,5 +22,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.$on('$stateChangeSuccess', function() {
 			$scope.isCollapsed = false;
 		});
+
+    $rootScope.$on(Authentication.AUTH_EVENTS.reloadMenu, $scope.checkAuthenticated);
+    $scope.checkAuthenticated();
 	}
 ]);

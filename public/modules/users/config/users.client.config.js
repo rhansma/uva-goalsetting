@@ -4,20 +4,25 @@
 angular.module('users').config(['$httpProvider',
 	function($httpProvider) {
 		// Set the httpProvider "not authorized" interceptor
-		$httpProvider.interceptors.push(['$q', '$location',
-			function($q, $location) {
+		$httpProvider.interceptors.push(['$q', '$rootScope', '$injector',
+			function($q, $rootScope, $injector) {
 				return {
 					responseError: function(rejection) {
 						switch (rejection.status) {
 							case 401:
-								/*// Deauthenticate the global user
-								Authentication.user = null;*/
+                var Authentication = $injector.get('Authentication');
 
-								// Redirect to signin page
-								$location.path('signin');
+                /* Only emit event and deauthenticate if state is not public */
+                if(!Authentication.checkStateIsPublic()) {
+                  // Deauthenticate the global user
+                  Authentication._data.user = null;
+
+                  /* Emit event so this can be handled equally */
+                  $rootScope.$emit(Authentication.AUTH_EVENTS.unauthenticated);
+                }
 								break;
 							case 403:
-								$location.path('unauthorized');
+                $rootScope.$emit(Authentication.AUTH_EVENTS.unauthorized);
 								break;
 						}
 
@@ -41,11 +46,20 @@ angular.module('users').run(['Authentication', '$rootScope', '$location',
     $rootScope.$on('$stateChangeStart', function(event, next, current) {
       if(!Authentication.authorize(next.accessLevel)) {
         if(Authentication.isLoggedIn()) {
-          $location.path('unauthorized');
+          $rootScope.$emit(Authentication.AUTH_EVENTS.unauthorized);
         } else {
-          $location.path('signin');
+          $rootScope.$emit(Authentication.AUTH_EVENTS.unauthenticated);
         }
       }
+    });
+
+    /* Catch authentication and authorization events */
+    $rootScope.$on(Authentication.AUTH_EVENTS.unauthenticated, function() {
+      $location.path('signin');
+    });
+
+    $rootScope.$on(Authentication.AUTH_EVENTS.unauthorized, function() {
+      $location.path('unauthorized');
     });
   }
 ]);
