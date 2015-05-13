@@ -4,8 +4,7 @@
 angular.module('goals').run(['Menus',
   function(Menus) {
     //Set topbar menu
-    Menus.addMenuItem('topbar', 'Goals', 'goals', 'dropdown', '/goals(/create)?');
-    Menus.addSubMenuItem('topbar', 'goals', 'List Goals', 'goals');
-    Menus.addSubMenuItem('topbar', 'goals', 'New Goal', 'goals/create');
+    Menus.addMenuItem('topbar', 'Goals', 'goals', 'item', '/goals');
+    Menus.addMenuItem('topbar', 'Create Goal', 'goals/create', 'item', '/goals/create');
   }
 ]);
