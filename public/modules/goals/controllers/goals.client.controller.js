@@ -3,7 +3,7 @@
 angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment',
 	function($scope, Goals, Authentication, $location, $stateParams, moment) {
     $scope.authentication = Authentication._data;
-    $scope.teacher = true;
+    $scope.teacher = Authentication.isTeacher();
 
     $scope.create = function() {
       var goal = new Goals({
