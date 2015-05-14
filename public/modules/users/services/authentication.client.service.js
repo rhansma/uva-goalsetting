@@ -76,6 +76,19 @@ angular.module('users').factory('Authentication', ['$http', '$q', '$state', '$ro
       $rootScope.$emit(_this.AUTH_EVENTS.reloadMenu);
     };
 
+    /* Checks if the user is a teacher */
+    _this.isTeacher = function() {
+      var teacher = false;
+
+      angular.forEach(_this._data.user.roles, function(role) {
+        if(role === 'teacher') {
+          teacher = true;
+        }
+      });
+
+      return teacher;
+    };
+
     $rootScope.$on(_this.AUTH_EVENTS.loggedin, _this.reloadUser);
     $rootScope.$on(_this.AUTH_EVENTS.loggedout, _this.reloadUser);
 
