@@ -2,7 +2,8 @@
 
 angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment',
 	function($scope, Goals, Authentication, $location, $stateParams, moment) {
-    $scope.authentication = Authentication;
+    $scope.authentication = Authentication._data;
+    $scope.teacher = true;
 
     $scope.create = function() {
       var goal = new Goals({
@@ -57,6 +58,19 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       });
     };
 
+    /* Save teacher edits */
+    $scope.save = function() {
+      /* Loop through all goals and update them */
+      angular.forEach($scope.goals, function(goal) {
+        goal.$teacherUpdate(function() {
+          $location.path('goals');
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      });
+    };
+
+    /* Convert date to date readable for input field */
     $scope.$watch('goal.expires', function() {
       if($scope.goal !== undefined) {
         $scope.goal.expires = moment($scope.goal.expires).format('YYYY-MM-DD');

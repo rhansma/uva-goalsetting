@@ -53,6 +53,16 @@ exports.hasAuthorization = function(roles) {
 	};
 };
 
+exports.isTeacher = function(req, res, next) {
+  if (!_.contains(req.user.roles, 'teacher')) {
+    return res.status(403).send({
+      message: 'User is not authorized'
+    });
+  }
+
+  next();
+};
+
 exports.getRole = function(req, res, next, id) {
   User.findOne({
     _id: id

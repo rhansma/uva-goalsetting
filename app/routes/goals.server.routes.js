@@ -22,6 +22,10 @@ module.exports = function(app) {
       .put(users.requiresLogin, goals.hasAuthorization, goals.update)
       .delete(users.requiresLogin, goals.hasAuthorization, goals.delete);
 
+  app.route('/goals/:goalId/teacher')
+      .put(users.requiresLogin, users.isTeacher, goals.updateByTeacher);
+
+
   // Finish by binding the goal middleware
   app.param('goalId', goals.goalByID);
 };
