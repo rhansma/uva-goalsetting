@@ -38,6 +38,11 @@ var GoalSchema = new Schema({
   expires: {
     type: Date,
     required: 'Make your goals SMART'
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10
   }
 });
 

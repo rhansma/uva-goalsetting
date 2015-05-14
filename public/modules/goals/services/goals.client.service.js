@@ -7,6 +7,10 @@ angular.module('goals').factory('Goals', ['$resource',
     }, {
       update: {
         method: 'PUT'
+      },
+      teacherUpdate: {
+        method: 'PUT',
+        url: 'goals/:goalId/teacher'
       }
     });
   }

@@ -39,13 +39,12 @@ exports.read = function(req, res) {
 };
 
 /**
- * Update a goal
+ * Base method for updating, used for both update methods, so normal update can filter
+ * @param req
+ * @param res
+ * @private
  */
-exports.update = function(req, res) {
-  var goal = req.goal;
-
-  goal = _.extend(goal, req.body);
-
+function _update(goal, res) {
   goal.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -55,6 +54,29 @@ exports.update = function(req, res) {
       res.json(goal);
     }
   });
+}
+
+/**
+ * Update a goal
+ */
+exports.update = function(req, res) {
+  var goal = req.goal;
+
+  /* Omit rating property, may only be changed by teacher */
+  goal = _.extend(goal, _.omit(req.body, 'rating'));
+  _update(goal, res);
+};
+
+/**
+ * Update by teacher, for also updating rating
+ * @param req
+ * @param res
+ */
+exports.updateByTeacher = function(req, res) {
+  var goal = req.goal;
+
+  goal = _.extend(goal, req.body);
+  _update(goal, res);
 };
 
 /**
