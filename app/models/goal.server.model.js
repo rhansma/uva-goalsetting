@@ -8,7 +8,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    SubgoalSchema = require('./subgoal.server.model.js');
 
 /**
  * Goal Schema
@@ -43,7 +44,8 @@ var GoalSchema = new Schema({
     type: Number,
     min: 1,
     max: 10
-  }
+  },
+  subgoals: [SubgoalSchema]
 });
 
 mongoose.model('Goal', GoalSchema);

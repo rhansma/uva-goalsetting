@@ -9,14 +9,17 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       var goal = new Goals({
         title: this.title,
         content: this.content,
-        expires: this.expires
+        expires: this.expires,
+        subgoals: this.subgoals
       });
+
       goal.$save(function(response) {
         $location.path('goals/' + response._id);
 
         $scope.title = '';
         $scope.content = '';
         $scope.expires = '';
+        $scope.subgoals = [];
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -68,6 +71,11 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
           $scope.error = errorResponse.data.message;
         });
       });
+    };
+
+    /* Add a empty subgoal */
+    $scope.addSubgoal = function() {
+      this.goal.subgoals.push({});
     };
 
     /* Convert date to date readable for input field */
