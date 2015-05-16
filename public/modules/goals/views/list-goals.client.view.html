@@ -1,6 +1,11 @@
 <section data-ng-controller="GoalsController" data-ng-init="find()">
   <div class="row collapse">
-    <div class="columns large-12" ng-show="teacher">
+    <div class="columns large-9">
+      <div class="left">
+        <a class="button tiny" data-ng-href="/#!/goals/commit">Commit to goals</a>
+      </div>
+    </div>
+    <div class="columns large-3" ng-show="teacher">
       <div class="right">
         <div class="switch small">
           Edit:

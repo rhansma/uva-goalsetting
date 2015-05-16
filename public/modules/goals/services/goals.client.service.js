@@ -11,6 +11,11 @@ angular.module('goals').factory('Goals', ['$resource',
       teacherUpdate: {
         method: 'PUT',
         url: 'goals/:goalId/teacher'
+      },
+      getApproved: {
+        method: 'get',
+        isArray: true,
+        url: 'goals/approved'
       }
     });
   }
