@@ -62,5 +62,14 @@ exports.delete = function(req, res) {
  * List of User goals
  */
 exports.list = function(req, res) {
+  UserGoals.find({user: req.user, status: 'committed'}).populate('goal').sort('-created').exec(function(err, userGoals) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
 
+      res.json(userGoals);
+    }
+  });
 };

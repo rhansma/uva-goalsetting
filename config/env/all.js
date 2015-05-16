@@ -30,7 +30,8 @@ module.exports = {
         'public/lib/moment-timezone/moment-timezone.js',
         'public/lib/modernizr/modernizr.js',
         'public/lib/jquery/dist/jquery.js',
-        'public/lib/foundation/js/foundation.js'
+        'public/lib/foundation/js/foundation.js',
+        'public/lib/ngDraggable/ngDraggable.js'
 			]
 		},
 		css: [

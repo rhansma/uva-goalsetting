@@ -11,5 +11,6 @@ var users = require('../../app/controllers/users.server.controller.js'),
 module.exports = function(app) {
 	// User Goals routes
   app.route('/user/goals')
+      .get(userGoals.list)
       .post(users.requiresLogin, userGoals.create);
 };
