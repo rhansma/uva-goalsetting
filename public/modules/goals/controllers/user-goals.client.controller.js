@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals',
-	function($scope, UserGoals, Goals) {
+angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state) {
     /* Find committed goals */
     $scope.find = function() {
       $scope.userGoals = UserGoals.query();
@@ -47,8 +47,31 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
       $scope._saveUserGoal(goal, 'committed');
     };
 
+    /* Drag-and-drop functionality for groupping goals */
     $scope.onDropComplete = function(source, target){
+      /* Create a new userGoalGroup */
+      if($scope.userGoals[target].group === undefined) {
+        var userGoalGroup = new UserGoalGroups({
+          parent: $scope.userGoals[target]._id,
+          children: [$scope.userGoals[source]._id]
+        });
 
+        userGoalGroup.$save(function() {
+          $state.reload();
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      } else { /* Or update existing */
+        //update
+      }
     };
+
 	}
 ]);
+
+/* Filter for conditionally showing a plus only if not empty */
+angular.module('goals').filter('addPlus', function() {
+  return function(input) {
+    return((input === undefined) | (input === 0))? "" : "+" + input;
+  }
+});

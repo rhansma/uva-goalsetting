@@ -27,6 +27,15 @@ var UserGoalsSchema = new Schema({
     type: String,
     enum: ['committed', 'rejected'],
     required: 'Status is required'
+  },
+  grouped: {
+    type: Number,
+    min: 0,
+    default: 0
+  },
+  group: {
+    type: Schema.ObjectId,
+    ref: 'UserGoalGroups'
   }
 });
 UserGoalsSchema.index({user: 1, goal: 1});

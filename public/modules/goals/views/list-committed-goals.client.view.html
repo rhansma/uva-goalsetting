@@ -1,12 +1,24 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="find()">
   <div class="row">
     <div class="large-12 columns">
+      <p>Drag and drop goals on each other to group them.</p>
       <ul class="large-block-grid-3">
-        <li data-ng-repeat="userGoal in userGoals" class="panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
+        <li data-ng-repeat="userGoal in userGoals" class="noselect panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
           <h3 class="subheader" data-ng-bind="userGoal.goal.title"></h3>
+          <small class="inline" data-ng-bind="userGoal.grouped | addPlus"></small>
           <p data-ng-bind="userGoal.goal.content"></p>
         </li>
       </ul>
     </div>
   </div>
 </section>
+<style type="text/css">
+  .noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+</style>
