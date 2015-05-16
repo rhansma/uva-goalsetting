@@ -5,15 +5,19 @@
     </div>
   </div>
   <div class="row">
-    <div class="columns large-12">
+    <div class="large-12 columns collapse">
       <div class="pull-right" data-ng-show="authentication.user._id == goal.creator._id">
         <a class="button tiny" href="/#!/goals/{{goal._id}}/edit">
-          <i class="fa fa-pencil-square-o"></i>
+          <i class="fa fa-pencil-square-o"> Edit</i>
         </a>
         <a class="button tiny" data-ng-click="remove();">
-          <i class="fa fa-trash-o"></i>
+          <i class="fa fa-trash-o"> Delete</i>
         </a>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns collapse">
       <small>
         <em class="text-muted">
           Posted on

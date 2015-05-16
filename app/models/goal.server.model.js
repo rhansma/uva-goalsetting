@@ -45,7 +45,12 @@ var GoalSchema = new Schema({
     min: 1,
     max: 10
   },
-  subgoals: [SubgoalSchema]
+  subgoals: [SubgoalSchema],
+  committed: {
+    type: Number,
+    min: 0,
+    default: 0
+  }
 });
 
 mongoose.model('Goal', GoalSchema);

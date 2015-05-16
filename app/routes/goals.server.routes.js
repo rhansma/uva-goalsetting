@@ -12,10 +12,13 @@ var users = require('../../app/controllers/users.server.controller'),
     goals = require('../../app/controllers/goals.server.controller');
 
 module.exports = function(app) {
-  // Article Routes
+  // Goals Routes
   app.route('/goals')
       .get(goals.list)
       .post(users.requiresLogin, goals.create);
+
+  app.route('/goals/approved')
+    .get(users.requiresLogin, goals.approved);
 
   app.route('/goals/:goalId')
       .get(goals.read)

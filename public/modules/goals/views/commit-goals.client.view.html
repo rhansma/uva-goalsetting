@@ -1,0 +1,31 @@
+<section data-ng-controller="UserGoalsController" data-ng-init="findApproved()">
+  <div class="row">
+    <div class="large-6 large-centered columns">
+      <p data-ng-hide="!goals.length">Swipe to commit or drop goal</p>
+      <!-- Message if no goals have a rating above a 5 yet -->
+      <p data-ng-show="!goals.length">There are no approved goals yet.</p>
+      <ul>
+        <li data-ng-repeat="goal in goals">
+          <div data-ng-swipe-left="reject(goal);" data-ng-swipe-right="commit(goal);">
+            <h3 data-ng-bind="goal.title"></h3>
+            <p data-ng-bind="goal.content"></p>
+            <p>Before: <span data-ng-bind="goal.expires | amDateFormat:'MMMM Do'"></span> </p>
+            <p>Rating: <span data-ng-bind="goal.rating + '/10'"></span></p>
+            <p data-ng-show="goal.committed"><span data-ng-bind="goal.committed"></span> others already committed to this goal</p>
+            <a class="left" data-ng-click="reject(goal);"><i class="fa fa-arrow-left"></i> Ignore</a><a class="right" data-ng-click="commit(goal);">Commit <i class="fa fa-arrow-right"></i></a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<style type="text/css">
+  li {
+    display: none;
+  }
+
+  li:nth-child(1) {
+    display: block;
+  }
+
+</style>

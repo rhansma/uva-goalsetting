@@ -11,6 +11,7 @@
 var mongoose = require('mongoose'),
     errorHandler = require('./errors.server.controller'),
     Goal = mongoose.model('Goal'),
+    UserGoals = mongoose.model('UserGoals'),
     _ = require('lodash');
 
 
@@ -64,7 +65,7 @@ exports.update = function(req, res) {
   var goal = req.goal;
 
   /* Omit rating property, may only be changed by teacher */
-  goal = _.extend(goal, _.omit(req.body, 'rating'));
+  goal = _.extend(goal, _.omit(req.body, ['rating', 'committed']));
   _update(goal, res);
 };
 
@@ -109,6 +110,32 @@ exports.list = function(req, res) {
     } else {
       res.json(goals);
     }
+  });
+};
+
+/**
+ * Find and return all approved goals which are not approved or rejected by the user
+ * @param req
+ * @param res
+ */
+exports.approved = function(req, res) {
+  /* Find all goals committed or rejected */
+  UserGoals.find({'user': req.user}, {goal: 1}).exec(function(err, usergoals) {
+    var goals = [];
+    for(var i in usergoals){
+      goals.push(usergoals[i].goal);
+    }
+
+    /* Find and return all goals not already committed or rejected */
+    Goal.find({_id: {$nin: goals}}).where('rating').gt(5).exec(function(err, goals) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.json(goals);
+      }
+    });
   });
 };
 
