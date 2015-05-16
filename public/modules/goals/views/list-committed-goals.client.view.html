@@ -1,0 +1,12 @@
+<section data-ng-controller="UserGoalsController" data-ng-init="find()">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="large-block-grid-3">
+        <li data-ng-repeat="userGoal in userGoals" class="panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
+          <h3 class="subheader" data-ng-bind="userGoal.goal.title"></h3>
+          <p data-ng-bind="userGoal.goal.content"></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

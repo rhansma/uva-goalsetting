@@ -2,6 +2,12 @@
 
 angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals',
 	function($scope, UserGoals, Goals) {
+    /* Find committed goals */
+    $scope.find = function() {
+      $scope.userGoals = UserGoals.query();
+    };
+
+    /* Find approved but not committed or rejected goals */
     $scope.findApproved = function() {
       $scope.goals = Goals.getApproved();
     };
@@ -39,6 +45,10 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
       }
 
       $scope._saveUserGoal(goal, 'committed');
+    };
+
+    $scope.onDropComplete = function(source, target){
+
     };
 	}
 ]);
