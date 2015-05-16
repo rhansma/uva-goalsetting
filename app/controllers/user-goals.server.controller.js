@@ -23,7 +23,7 @@ exports.create = function(req, res) {
       });
     } else {
       /* Increment committed field in goal */
-      Goal.update({_id: userGoals.goal}, {$inc: {committed: 1}}, function(err, goals) {
+      Goal.update({_id: userGoals.goal}, {$inc: {committed: 1}}, function(err) {
         if (err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
@@ -62,7 +62,7 @@ exports.delete = function(req, res) {
  * List of User goals
  */
 exports.list = function(req, res) {
-  UserGoals.find({user: req.user, status: 'committed'}).populate('goal').sort('-created').exec(function(err, userGoals) {
+  UserGoals.find({user: req.user, status: 'committed', $or: [{group: null}, {grouped:{$gt: 0}}]}).populate('goal').sort('-created').exec(function(err, userGoals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
