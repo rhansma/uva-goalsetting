@@ -28,6 +28,10 @@ var SubgoalSchema = new Schema({
   expires: {
     type: Date,
     required: 'Make your goals SMART'
+  },
+  finished: {
+    type: Boolean,
+    default: false
   }
 });
 

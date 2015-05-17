@@ -8,7 +8,7 @@
 angular.module('goals').factory('UserGoalGroups', ['$resource',
   function($resource) {
     return $resource('user/goal/groups/:userGoalGroupId', {
-      goalId: '@_id'
+      userGoalGroupId: '@_id'
     }, {
       update: {
         method: 'PUT'

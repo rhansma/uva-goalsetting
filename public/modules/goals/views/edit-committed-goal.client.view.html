@@ -1,0 +1,22 @@
+<section data-ng-controller="UserGoalsController" data-ng-init="findOne()">
+  <div class="row">
+    <div class="large-12 columns">
+      <h3 data-ng-bind="userGoal.goal.title"></h3>
+      <small data-ng-bind="userGoal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
+      <p>
+        <input type="checkbox" data-ng-model="userGoal.goal.finished" /><span data-ng-bind="userGoal.goal.content"></span>
+      </p>
+      <div data-ng-hide="!userGoal.goal.subgoals.length">
+        <h3 class="subheader">Subgoals</h3>
+        <ul>
+          <li data-ng-repeat="subgoal in userGoal.goal.subgoals">
+            <input type="checkbox" data-ng-model="subgoal.finished" /><span data-ng-bind="subgoal.content"></span>
+          </li>
+        </ul>
+      </div>
+      <p>
+        <a class="button" data-ng-click="save()">Save</a>
+      </p>
+    </div>
+  </div>
+</section>
