@@ -1,11 +1,11 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="findApproved()">
   <div class="row">
-    <div class="large-6 large-centered columns">
+    <div class="large-12 large-centered columns">
       <p data-ng-hide="!goals.length">Swipe to commit or drop goal</p>
       <!-- Message if no goals have a rating above a 5 yet -->
       <p data-ng-show="!goals.length">There are no approved goals yet.</p>
       <ul>
-        <li data-ng-repeat="goal in goals">
+        <li data-ng-repeat="goal in goals" class="commit-goals">
           <div data-ng-swipe-left="reject(goal);" data-ng-swipe-right="commit(goal);">
             <h3 data-ng-bind="goal.title"></h3>
             <p data-ng-bind="goal.content"></p>
@@ -20,11 +20,11 @@
   </div>
 </section>
 <style type="text/css">
-  li {
+  li.commit-goals {
     display: none;
   }
 
-  li:nth-child(1) {
+  li:nth-child(1).commit-goals {
     display: block;
   }
 

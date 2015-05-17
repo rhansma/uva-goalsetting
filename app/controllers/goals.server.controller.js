@@ -124,7 +124,7 @@ exports.approved = function(req, res) {
   UserGoals.find({'user': req.user}, {goal: 1}).exec(function(err, usergoals) {
     var goals = [];
     for(var i in usergoals){
-      goals.push(usergoals[i].goal);
+      goals.push(usergoals[i].goal._id);
     }
 
     /* Find and return all goals not already committed or rejected */
