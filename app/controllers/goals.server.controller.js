@@ -21,6 +21,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
   var goal = new Goal(req.body);
   goal.creator = req.user;
+  goal.finished = false;
 
   goal.save(function(err) {
     if (err) {
@@ -65,7 +66,7 @@ exports.update = function(req, res) {
   var goal = req.goal;
 
   /* Omit rating property, may only be changed by teacher */
-  goal = _.extend(goal, _.omit(req.body, ['rating', 'committed']));
+  goal = _.extend(goal, _.omit(req.body, ['rating', 'committed', 'finished']));
   _update(goal, res);
 };
 

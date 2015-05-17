@@ -19,11 +19,18 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
       });
     };
 
+    /* Find one user goal */
+    $scope.findOne = function() {
+      $scope.userGoal = UserGoals.get({
+        userGoalId: $stateParams.userGoalId
+      });
+    };
+
     /* Save user goal status */
     $scope._saveUserGoal = function(goal, status) {
       var userGoal = new UserGoals({
         status: status,
-        goal: goal._id
+        goal: goal
       });
 
       userGoal.$save(function(response) {
@@ -87,6 +94,17 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
       }
     };
 
+    /* Save goal with new state */
+    $scope.save = function() {
+      var goal = new UserGoals($scope.userGoal);
+
+      console.log(goal);
+      goal.$update(function() {
+        notify({message: 'Succesfully saved', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+      }, function(errorResponse) {
+        notify({message: errorResponse.data.message, templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+      });
+    };
 	}
 ]);
 

@@ -6,8 +6,8 @@
  */
 angular.module('goals').factory('UserGoals', ['$resource',
   function($resource) {
-    return $resource('user/goals/:goalId', {
-      goalId: '@_id'
+    return $resource('user/goals/:userGoalId', {
+      userGoalId: '@_id'
     }, {
       update: {
         method: 'PUT'

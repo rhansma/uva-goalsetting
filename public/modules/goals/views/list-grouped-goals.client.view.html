@@ -3,9 +3,11 @@
     <div class="large-12 columns">
       <h1>Goals in this group</h1>
       <div class="panel" data-ng-repeat="goal in userGoals">
-        <h3 data-ng-bind="goal.goal.title"></h3>
-        <small data-ng-bind="goal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
-        <p data-ng-bind="goal.goal.content"></p>
+        <a data-ng-href="#!/goal/committed/{{goal._id}}">
+          <h3 data-ng-bind="goal.goal.title"></h3>
+          <small data-ng-bind="goal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
+          <p data-ng-bind="goal.goal.content"></p>
+        </a>
       </div>
     </div>
   </div>

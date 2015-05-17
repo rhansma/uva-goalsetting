@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+  GoalSchema = require('./goal.server.model.js');
 
 /**
  * UserGoals Schema
@@ -19,10 +20,7 @@ var UserGoalsSchema = new Schema({
     ref: 'User',
     required: 'Please login to commit or reject the goal'
   },
-  goal: {
-    type: Schema.ObjectId,
-    ref: 'Goal'
-  },
+  goal: GoalSchema,
   status: {
     type: String,
     enum: ['committed', 'rejected'],

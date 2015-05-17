@@ -50,7 +50,12 @@ var GoalSchema = new Schema({
     type: Number,
     min: 0,
     default: 0
+  },
+  finished: {
+    type: Boolean,
+    default: false
   }
 });
 
+exports.GoalSchema;
 mongoose.model('Goal', GoalSchema);

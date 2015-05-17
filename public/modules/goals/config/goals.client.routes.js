@@ -13,7 +13,12 @@ angular.module('goals').config(['$stateProvider', 'AUTH_LEVEL',
 	function($stateProvider, AUTH_LEVEL) {
 		// Goals state routing
 		$stateProvider.
-		state('list-grouped-goals', {
+		state('editCommittedGoal', {
+			url: '/goal/committed/:userGoalId',
+			templateUrl: 'modules/goals/views/edit-committed-goal.client.view.html',
+      accessLevel: AUTH_LEVEL.student
+		}).
+		state('listGroupedGoals', {
 			url: '/goals/grouped/:userGoalGroupId',
 			templateUrl: 'modules/goals/views/list-grouped-goals.client.view.html',
       accessLevel: AUTH_LEVEL.student
