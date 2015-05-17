@@ -1,0 +1,12 @@
+<section data-ng-controller="UserGoalsController" data-ng-init="findGrouped()">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Goals in this group</h1>
+      <div class="panel" data-ng-repeat="goal in userGoals">
+        <h3 data-ng-bind="goal.goal.title"></h3>
+        <small data-ng-bind="goal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
+        <p data-ng-bind="goal.goal.content"></p>
+      </div>
+    </div>
+  </div>
+</section>

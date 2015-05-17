@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify) {
+angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams) {
     /* Find committed goals */
     $scope.find = function() {
       $scope.userGoals = UserGoals.query();
@@ -10,6 +10,13 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
     /* Find approved but not committed or rejected goals */
     $scope.findApproved = function() {
       $scope.goals = Goals.getApproved();
+    };
+
+    /* Find grouped goals */
+    $scope.findGrouped = function() {
+      $scope.userGoals = UserGoalGroups.get({
+        userGoalGroupId: $stateParams.userGoalGroupId
+      });
     };
 
     /* Save user goal status */
@@ -86,6 +93,6 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 /* Filter for conditionally showing a plus only if not empty */
 angular.module('goals').filter('addPlus', function() {
   return function(input) {
-    return((input === undefined) | (input === 0))? "" : "+" + input;
+    return((input === undefined) | (input === 0))? '' : '+' + input;
   }
 });
