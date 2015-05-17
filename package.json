@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git://git@github.com:rhansma/uva-goalsetting.git"
-  }
+  },
   "scripts": {
     "start": "grunt",
     "test": "grunt test",
