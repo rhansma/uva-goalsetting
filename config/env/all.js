@@ -13,7 +13,8 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-        'public/lib/font-awesome/css/font-awesome.min.css'
+        'public/lib/font-awesome/css/font-awesome.min.css',
+        'public/lib/angular-notify/dist/angular-notify.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -31,7 +32,8 @@ module.exports = {
         'public/lib/modernizr/modernizr.js',
         'public/lib/jquery/dist/jquery.js',
         'public/lib/foundation/js/foundation.js',
-        'public/lib/ngDraggable/ngDraggable.js'
+        'public/lib/ngDraggable/ngDraggable.js',
+        'public/lib/angular-notify/dist/angular-notify.js'
 			]
 		},
 		css: [
