@@ -1,12 +1,14 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="find()">
   <div class="row">
     <div class="large-12 columns">
-      <p>Drag and drop goals on each other to group them.</p>
+      <p data-ng-show="userGoals.length">Drag and drop goals on each other to group them.</p>
+      <p data-ng-hide="userGoals.length">Not committed to goals yet.</p>
       <ul class="large-block-grid-3">
         <li data-ng-repeat="userGoal in userGoals" class="noselect panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
           <h3 class="subheader" data-ng-bind="userGoal.goal.title"></h3>
           <a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><small class="inline" data-ng-bind="userGoal.grouped | addPlus"></small></a>
           <p data-ng-bind="userGoal.goal.content"></p>
+          <p><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group"><i class="fa fa-folder-open"></i></a></p>
         </li>
       </ul>
     </div>
