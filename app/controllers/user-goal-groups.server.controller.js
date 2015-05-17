@@ -57,7 +57,35 @@ exports.read = function(req, res) {
  * Update a User goal group
  */
 exports.update = function(req, res) {
+  var requestBody = req.body;
 
+  /* Find existing user goal group and push new child on children property */
+  UserGoalGroups.findByIdAndUpdate(requestBody._id, {$push: {children: requestBody.child}}, function(err, userGoalGroup) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      /* Update user goals with group id and increment parent*/
+      UserGoals.update({_id: userGoalGroup.parent}, {$inc: {grouped: 1}}, function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          UserGoals.update({_id: requestBody.child}, {$set: {group: userGoalGroup._id}}, function (err) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              res.json(userGoalGroup);
+            }
+          });
+        }
+      });
+    }
+  });
 };
 
 /**

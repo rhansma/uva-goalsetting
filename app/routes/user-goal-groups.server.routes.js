@@ -12,4 +12,7 @@ module.exports = function(app) {
 	// User goal groups
   app.route('/user/goal/groups')
     .post(users.requiresLogin, userGoalGroups.create);
+
+  app.route('/user/goal/groups/:userGoalGroupId')
+    .put(users.requiresLogin, userGoalGroups.update);
 };

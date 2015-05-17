@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state) {
+angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify) {
     /* Find committed goals */
     $scope.find = function() {
       $scope.userGoals = UserGoals.query();
@@ -62,7 +62,21 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
           $scope.error = errorResponse.data.message;
         });
       } else { /* Or update existing */
-        //update
+        /* Dont group already grouped goals */
+        if($scope.userGoals[source].group !== undefined) {
+          notify({message: 'It is not possible to group already grouped goals.', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+        } else {
+          var userGoalGroup = new UserGoalGroups({
+            _id: $scope.userGoals[target].group,
+            child: $scope.userGoals[source]._id
+          });
+
+          userGoalGroup.$update(function() {
+            $state.reload();
+          }, function(errorResponse) {
+            $scope.error = errorResponse.data.message;
+          });
+        }
       }
     };
 
