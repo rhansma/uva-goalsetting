@@ -65,7 +65,7 @@ describe('User goal groups Model Unit Tests:', function() {
                       done();
                   });
               });
-            })
+            });
         });
 		});
 	});

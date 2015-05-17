@@ -6,5 +6,6 @@ angular.module('goals').run(['Menus',
     //Set topbar menu
     Menus.addMenuItem('topbar', 'Goals', 'goals', 'item', '/goals');
     Menus.addMenuItem('topbar', 'Create Goal', 'goals/create', 'item', '/goals/create');
+    Menus.addMenuItem('topbar', 'Show committed goals', 'goals/committed', 'item', '/goals/committed');
   }
 ]);

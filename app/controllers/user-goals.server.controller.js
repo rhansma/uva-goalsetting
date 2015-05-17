@@ -73,3 +73,21 @@ exports.list = function(req, res) {
     }
   });
 };
+
+/**
+ * Get user goals by group id
+ * @param req
+ * @param res
+ */
+exports.listByGroup = function(req, res) {
+  UserGoals.find({group: req.param('userGoalGroupId')}).populate('goal').sort('-created').exec(function(err, userGoals) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+
+      res.json(userGoals);
+    }
+  });
+};

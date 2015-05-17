@@ -5,7 +5,7 @@
       <ul class="large-block-grid-3">
         <li data-ng-repeat="userGoal in userGoals" class="noselect panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
           <h3 class="subheader" data-ng-bind="userGoal.goal.title"></h3>
-          <small class="inline" data-ng-bind="userGoal.grouped | addPlus"></small>
+          <a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><small class="inline" data-ng-bind="userGoal.grouped | addPlus"></small></a>
           <p data-ng-bind="userGoal.goal.content"></p>
         </li>
       </ul>
