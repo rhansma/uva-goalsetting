@@ -5,7 +5,8 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 	  $scope.checkAuthenticated = function() {
       /* Check if user is authenticated for showing or hiding the menu */
       Authentication.isLoggedIn().then(function(data) {
-          $scope.authenticated = data;
+        $scope.user = Authentication._data.user;
+        $scope.authenticated = data;
       });
     };
 
