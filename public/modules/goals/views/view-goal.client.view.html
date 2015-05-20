@@ -38,7 +38,7 @@
     <div class="row" data-ng-repeat="subgoal in goal.subgoals" data-ng-hide="!goal.subgoals.length">
       <div class="large-12 columns">
         <span class="lead" data-ng-bind="subgoal.content"></span>
-        <small class="right" data-ng-bind="subgoal.expires"></small>
+        <small class="right" data-ng-bind="subgoal.expires | amDateFormat:'MMMM Do YYYY'"></small>
       </div>
     </div>
   </div>

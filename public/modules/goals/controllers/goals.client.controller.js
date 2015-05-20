@@ -58,6 +58,13 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
     $scope.findOne = function() {
       $scope.goal = Goals.get({
         goalId: $stateParams.goalId
+      }, function() {
+        /* Rewrite all dates for input[date] */
+        $scope.goal.expires = new Date(moment($scope.goal.expires).format('YYYY-MM-DD'));
+
+        for(var i = 0 in $scope.goal.subgoals) {
+          $scope.goal.subgoals[i].expires = new Date(moment($scope.goal.subgoals[i].expires).format('YYYY-MM-DD'));
+        }
       });
     };
 
@@ -77,12 +84,5 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
     $scope.addSubgoal = function() {
       this.goal.subgoals.push({});
     };
-
-    /* Convert date to date readable for input field */
-    $scope.$watch('goal.expires', function() {
-      if($scope.goal !== undefined) {
-        $scope.goal.expires = moment($scope.goal.expires).format('YYYY-MM-DD');
-      }
-    });
 	}
 ]);
