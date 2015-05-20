@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment',
-	function($scope, Goals, Authentication, $location, $stateParams, moment) {
+angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify',
+	function($scope, Goals, Authentication, $location, $stateParams, moment, notify) {
     $scope.authentication = Authentication._data;
     $scope.teacher = Authentication.isTeacher();
 
@@ -70,10 +70,16 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
 
     /* Save teacher edits */
     $scope.save = function() {
+      var successes = 0;
       /* Loop through all goals and update them */
       angular.forEach($scope.goals, function(goal) {
         goal.$teacherUpdate(function() {
-          $location.path('goals');
+          successes++;
+
+          /* Show message if all changes are saved */
+          if(successes === $scope.goals.length) {
+            notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+          }
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
