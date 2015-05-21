@@ -33,12 +33,14 @@ module.exports = {
         'public/lib/jquery/dist/jquery.js',
         'public/lib/foundation/js/foundation.js',
         'public/lib/ngDraggable/ngDraggable.js',
-        'public/lib/angular-notify/dist/angular-notify.js'
+        'public/lib/angular-notify/dist/angular-notify.js',
+        'public/lib/angular-ui-select/dist/select.js'
 			]
 		},
 		css: [
 			'public/modules/**/css/*.css',
-      'public/lib/foundation/css/foundation.css'
+      'public/lib/foundation/css/foundation.css',
+      'public/lib/angular-ui-select/dist/select.css'
 		],
 		js: [
 			'public/config.js',

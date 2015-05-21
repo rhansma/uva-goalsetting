@@ -1,4 +1,4 @@
 'use strict';
 
 // Use application configuration module to register a new module
-ApplicationConfiguration.registerModule('goals', ['angularMoment', 'ngDraggable', 'cgNotify']);
+ApplicationConfiguration.registerModule('goals', ['angularMoment', 'ngDraggable', 'cgNotify', 'ui.select']);

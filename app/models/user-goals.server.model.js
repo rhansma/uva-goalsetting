@@ -34,7 +34,11 @@ var UserGoalsSchema = new Schema({
   group: {
     type: Schema.ObjectId,
     ref: 'UserGoalGroups'
-  }
+  },
+  tags: [{
+    type: String,
+    trim: true
+  }]
 });
 UserGoalsSchema.index({user: 1, goal: 1});
 
