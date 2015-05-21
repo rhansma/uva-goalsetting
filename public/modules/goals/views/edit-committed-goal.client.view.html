@@ -5,6 +5,12 @@
       <small data-ng-bind="userGoal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
       <p>
         <input type="checkbox" data-ng-model="userGoal.goal.finished" /><span data-ng-bind="userGoal.goal.content"></span>
+        <ui-select multiple tagging tagging-label="(custom 'new' label)" ng-model="userGoal.tags" theme="bootstrap" sortable="true" ng-disabled="disabled" style="width: 300px;" title="Choose a color">
+          <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
+          <ui-select-choices repeat="color in availableColors | filter:$select.search">
+            {{color}}
+          </ui-select-choices>
+        </ui-select>
       </p>
       <div data-ng-hide="!userGoal.goal.subgoals.length">
         <h3 class="subheader">Subgoals</h3>
