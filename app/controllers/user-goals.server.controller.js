@@ -48,7 +48,9 @@ exports.read = function(req, res) {
  * Update a User goal
  */
 exports.update = function(req, res) {
-  var userGoal = _.extend(req.userGoal, req.body);
+  var tags = _.pluck(req.body.tags, 'text');
+  var requestBody = _.extend(_.omit(req.body, 'tags'), {tags: tags});
+  var userGoal = _.extend(req.userGoal, requestBody);
 
   userGoal.save(function(err) {
     if (err) {

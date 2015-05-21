@@ -14,7 +14,8 @@ module.exports = {
 		lib: {
 			css: [
         'public/lib/font-awesome/css/font-awesome.min.css',
-        'public/lib/angular-notify/dist/angular-notify.css'
+        'public/lib/angular-notify/dist/angular-notify.css',
+        'public/lib/ng-tags-input/ng-tags-input.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -34,7 +35,7 @@ module.exports = {
         'public/lib/foundation/js/foundation.js',
         'public/lib/ngDraggable/ngDraggable.js',
         'public/lib/angular-notify/dist/angular-notify.js',
-        'public/lib/angular-ui-select/dist/select.js'
+        'public/lib/ng-tags-input/ng-tags-input.js'
 			]
 		},
 		css: [
