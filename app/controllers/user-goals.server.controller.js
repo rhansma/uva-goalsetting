@@ -119,3 +119,19 @@ exports.userGoalByID = function(req, res, next, id) {
     next();
   });
 };
+
+/**
+ * Check if user is creator of user goal
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
+exports.hasAuthorization = function(req, res, next) {
+  if (req.userGoal.user.toString() !== req.user.id) {
+    return res.status(403).send({
+      message: 'User is not authorized'
+    });
+  }
+  next();
+};
