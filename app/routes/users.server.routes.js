@@ -52,4 +52,8 @@ module.exports = function(app) {
     res.type('application/xml');
     res.status(200).send(samlStrategy.generateServiceProviderMetadata(cert));
   });
+
+  // Route for adding teacher role to teacher for testing purposes
+  // ToDo: Remove after testing
+  app.route('/user/teacher/add/:user').get(users.addTeacherRole);
 };
