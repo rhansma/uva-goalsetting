@@ -73,3 +73,13 @@ exports.getRole = function(req, res, next, id) {
     next();
   });
 };
+
+exports.addTeacherRole = function(req, res) {
+  User.findByIdAndUpdate(req.params.user, {$set: {roles: ['teacher']}}, function(err, item) {
+    if(err) {
+      return res.status(500);
+    } else {
+      return res.status(200).send(item);
+    }
+  });
+};
