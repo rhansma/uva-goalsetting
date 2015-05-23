@@ -7,6 +7,7 @@
 angular.module('core').run(['$rootScope',
   function($rootScope) {
     $rootScope.$on('$viewContentLoaded', function () {
+      /* global $ */
       $(document).foundation();
     });
   }

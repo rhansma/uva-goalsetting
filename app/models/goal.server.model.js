@@ -57,5 +57,5 @@ var GoalSchema = new Schema({
   }
 });
 
-exports.GoalSchema;
+exports.GoalSchema; // jshint ignore:line
 mongoose.model('Goal', GoalSchema);

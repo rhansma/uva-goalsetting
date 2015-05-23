@@ -62,7 +62,7 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
         /* Rewrite all dates for input[date] */
         $scope.goal.expires = new Date(moment($scope.goal.expires).format('YYYY-MM-DD'));
 
-        for(var i = 0 in $scope.goal.subgoals) {
+        for(var i in $scope.goal.subgoals) {
           $scope.goal.subgoals[i].expires = new Date(moment($scope.goal.subgoals[i].expires).format('YYYY-MM-DD'));
         }
       });

@@ -35,5 +35,5 @@ var SubgoalSchema = new Schema({
   }
 });
 
-exports.SubgoalSchema;
+exports.SubgoalSchema; // jshint ignore:line
 mongoose.model('Subgoal', SubgoalSchema);

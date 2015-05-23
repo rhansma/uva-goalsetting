@@ -63,9 +63,10 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 
     /* Drag-and-drop functionality for groupping goals */
     $scope.onDropComplete = function(source, target){
+      var userGoalGroup;
       /* Create a new userGoalGroup */
       if($scope.userGoals[target].group === undefined) {
-        var userGoalGroup = new UserGoalGroups({
+        userGoalGroup = new UserGoalGroups({
           parent: $scope.userGoals[target]._id,
           children: [$scope.userGoals[source]._id]
         });
@@ -80,7 +81,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
         if($scope.userGoals[source].group !== undefined) {
           notify({message: 'It is not possible to group already grouped goals.', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
         } else {
-          var userGoalGroup = new UserGoalGroups({
+          userGoalGroup = new UserGoalGroups({
             _id: $scope.userGoals[target].group,
             child: $scope.userGoals[source]._id
           });
@@ -111,5 +112,5 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 angular.module('goals').filter('addPlus', function() {
   return function(input) {
     return((input === undefined) | (input === 0))? '' : '+' + input;
-  }
+  };
 });
