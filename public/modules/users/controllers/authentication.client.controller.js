@@ -28,8 +28,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 
         /* Emit login event */
         $rootScope.$emit(Authentication.AUTH_EVENTS.loggedin);
-				// And redirect to the index page
-				$location.path('/');
+				// And redirect to the public goal feed
+				$location.path('/goals');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
