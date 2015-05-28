@@ -54,7 +54,22 @@ var GoalSchema = new Schema({
   finished: {
     type: Boolean,
     default: false
+  },
+  published: {
+    type: Boolean,
+    default: false
   }
+});
+
+/**
+ * Make sure goal is only published after a minimum rating of 5.5
+ */
+GoalSchema.pre('update', function(next) {
+  if (this.published && this.rating < 5.5) {
+    this.published = false;
+  }
+
+  next();
 });
 
 exports.GoalSchema; // jshint ignore:line

@@ -86,6 +86,24 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       });
     };
 
+    /* Publish all rated goals */
+    $scope.publish = function() {
+      var successes = 0;
+      /* Loop through all goals and update them */
+      angular.forEach($scope.goals, function(goal) {
+        goal.$publish(function() {
+          successes++;
+
+          /* Show message if all changes are saved */
+          if(successes === $scope.goals.length) {
+            notify({message: 'All rated goals are published, students can now commit or reject to them.', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+          }
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      });
+    };
+
     /* Add a empty subgoal */
     $scope.addSubgoal = function() {
       this.goal.subgoals.push({});

@@ -1,17 +1,21 @@
 <section data-ng-controller="GoalsController" data-ng-init="find()">
   <div class="row collapse">
-    <div class="columns large-9">
+    <div class="columns large-6">
       <div class="left">
         <a class="button tiny" data-ng-href="/#!/goals/commit">Commit to goals</a>
       </div>
     </div>
-    <div class="columns large-3" ng-show="teacher">
-      <div class="right">
+    <div class="columns large-6" data-ng-show="teacher">
+      <div class="small-3 right">
         <div class="switch small">
           Edit:
-          <input id="editMode" ng-model="edit" type="checkbox">
+          <input id="editMode" data-ng-model="edit" type="checkbox">
           <label for="editMode">Edit mode</label>
         </div>
+      </div>
+
+      <div class="right small-3">
+        <a class="button small" data-ng-click="publish();">Publish!</a>
       </div>
     </div>
   </div>
@@ -20,7 +24,7 @@
       <h1>Goals</h1>
     </div>
     <div class="columns large-3" data-ng-show="teacher && edit">
-      <a class="button small right" ng-click="save();">Save</a>
+      <a class="button small right" data-ng-click="save();">Save</a>
     </div>
   </div>
   <div class="row">
