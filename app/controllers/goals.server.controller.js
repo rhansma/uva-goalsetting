@@ -141,6 +141,19 @@ exports.approved = function(req, res) {
 };
 
 /**
+ * Publish all goals, model checks if rating is above 5.5, so not necessary to check here
+ * @param req
+ * @param res
+ */
+exports.publish = function(req, res) {
+  var goal = req.goal;
+
+  goal = _.extend(goal, req.body);
+  goal.published = true;
+  _update(goal, res);
+};
+
+/**
  * Goal middleware
  */
 exports.goalByID = function(req, res, next, id) {

@@ -23,7 +23,7 @@ var SubgoalSchema = new Schema({
   creator: {
     type: Schema.ObjectId,
     ref: 'User',
-    required: 'Please login to create a goal'
+    required: 'Please login to create a subgoal'
   },
   expires: {
     type: Date,
