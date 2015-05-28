@@ -38,7 +38,8 @@ var GoalSchema = new Schema({
   },
   expires: {
     type: Date,
-    required: 'Make your goals SMART'
+    required: 'Make your goals SMART',
+    validate: [dateInFutureValidation, 'Make sure your expiry date is in the future']
   },
   rating: {
     type: Number,
@@ -62,15 +63,21 @@ var GoalSchema = new Schema({
 });
 
 /**
- * Make sure goal is only published after a minimum rating of 5.5
+ * Run some validation before saving/updating
  */
-GoalSchema.pre('update', function(next) {
+GoalSchema.pre('validate', function(next) {
+  /* Make sure goal is only published after a minimum rating of 5.5 */
   if (this.published && this.rating < 5.5) {
     this.published = false;
   }
 
   next();
 });
+
+/* Make sure date is in future */
+function dateInFutureValidation(value) {
+  return new Date() < value;
+}
 
 exports.GoalSchema; // jshint ignore:line
 mongoose.model('Goal', GoalSchema);
