@@ -25,11 +25,11 @@ module.exports = function(app) {
       .put(users.requiresLogin, goals.hasAuthorization, goals.update)
       .delete(users.requiresLogin, goals.hasAuthorization, goals.delete);
 
+  app.route('/goals/teacher/publish')
+      .put(users.requiresLogin, users.isTeacher, goals.publish);
+
   app.route('/goals/teacher/:goalId')
       .put(users.requiresLogin, users.isTeacher, goals.updateByTeacher);
-
-  app.route('/goals/publish/:goalId')
-    .put(users.requiresLogin, users.isTeacher, goals.publish);
 
 
   // Finish by binding the goal middleware
