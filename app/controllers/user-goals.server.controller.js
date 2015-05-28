@@ -64,13 +64,6 @@ exports.update = function(req, res) {
 };
 
 /**
- * Delete an User goal
- */
-exports.delete = function(req, res) {
-
-};
-
-/**
  * List of User goals
  */
 exports.list = function(req, res) {
