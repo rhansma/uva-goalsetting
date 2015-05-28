@@ -52,14 +52,21 @@ exports.update = function(req, res) {
   var requestBody = _.extend(_.omit(req.body, 'tags'), {tags: tags});
   var userGoal = _.extend(req.userGoal, requestBody);
 
-  userGoal.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(userGoal);
+  UserGoals.findById(userGoal._id).exec(function(err, oldGoal) {
+    /* Changed finished date if finished value is flipped */
+    if(oldGoal.goal.finished !== userGoal.goal.finished) {
+      userGoal.goal.finishedDate = new Date();
     }
+
+    userGoal.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.json(userGoal);
+      }
+    });
   });
 };
 
@@ -93,6 +100,18 @@ exports.listByGroup = function(req, res) {
     } else {
 
       res.json(userGoals);
+    }
+  });
+};
+
+exports.getGoalStatistics = function(req, res) {
+  UserGoals.find({'goal.finished': true, user: req.user}, 'goal.finished goal.finishedDate').exec(function(err, finished) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(finished);
     }
   });
 };
