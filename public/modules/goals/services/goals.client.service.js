@@ -19,7 +19,7 @@ angular.module('goals').factory('Goals', ['$resource',
       },
       publish: {
         method: 'PUT',
-        url: 'goals/publish/:goalId'
+        url: 'goals/teacher/publish'
       }
     });
   }

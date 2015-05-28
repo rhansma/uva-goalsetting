@@ -12,7 +12,8 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors.server.controller'),
     Goal = mongoose.model('Goal'),
     UserGoals = mongoose.model('UserGoals'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    mail = require('./mail.server.controller.js');
 
 
 /**
@@ -146,11 +147,30 @@ exports.approved = function(req, res) {
  * @param res
  */
 exports.publish = function(req, res) {
-  var goal = req.goal;
+  Goal.find().exec(function(err, goals) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      _.each(goals, function(goal, index, list) {
+        goal.published = true;
+        goal.save();
 
-  goal = _.extend(goal, req.body);
-  goal.published = true;
-  _update(goal, res);
+        /* If this was the last goal, send mail and respond with 200 */
+        if(index === (_.size(list) - 1)) {
+          /* Send mail to students */
+          var subject = 'Goals are published';
+          var body = '<html><body><h1>The goals are published</h1><p>It is now possible to commit to goals, ' +
+            'reject goals and report on the status of your goals. Follow this <a href="' + process.env.APP_URL +
+            '">link</a> (' + process.env.APP_URL + ') to commit to goals.</p></body></html>';
+          mail.mailToAll(subject, body);
+
+          res.status(200).send();
+        }
+      });
+    }
+  });
 };
 
 /**
