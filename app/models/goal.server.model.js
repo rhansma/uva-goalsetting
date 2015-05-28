@@ -56,6 +56,9 @@ var GoalSchema = new Schema({
     type: Boolean,
     default: false
   },
+  finishedDate: {
+    type: Date
+  },
   published: {
     type: Boolean,
     default: false

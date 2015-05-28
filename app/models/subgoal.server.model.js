@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Subgoal Schema
  */
 var SubgoalSchema = new Schema({
-  create: {
+  created: {
     type: Date,
     default: Date.now
   },
@@ -33,6 +33,9 @@ var SubgoalSchema = new Schema({
   finished: {
     type: Boolean,
     default: false
+  },
+  finishedDate: {
+    type: Date
   }
 });
 
