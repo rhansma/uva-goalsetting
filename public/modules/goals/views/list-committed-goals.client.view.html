@@ -1,5 +1,8 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="find()">
   <div class="row">
+    <a class="button" data-ng-href="#!/user/goals/statistics">Show statistics</a>
+  </div>
+  <div class="row">
     <div class="large-12 columns">
       <p data-ng-show="userGoals.length">Drag and drop goals on each other to group them.</p>
       <p data-ng-hide="userGoals.length">Not committed to goals yet.</p>

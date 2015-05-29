@@ -1,0 +1,11 @@
+<section data-ng-controller="UserGoalsController" data-ng-init="getStatistics()">
+	<div class="row">
+    <div class="large-12 columns">
+      Total: {{ statistics.total}}
+      Completed: {{ statistics.completed }}
+      <canvas id="line" class="chart chart-line" data="data" labels="labels" options="options"
+              legend="true" series="series"></canvas>
+
+    </div>
+  </div>
+</section>

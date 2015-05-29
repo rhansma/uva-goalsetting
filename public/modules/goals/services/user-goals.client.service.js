@@ -11,6 +11,10 @@ angular.module('goals').factory('UserGoals', ['$resource',
     }, {
       update: {
         method: 'PUT'
+      },
+      getStatistics: {
+        method: 'GET',
+        url: 'user/goals/statistics'
       }
     });
   }
