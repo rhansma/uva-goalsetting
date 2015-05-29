@@ -101,3 +101,22 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
     };
 	}
 ]);
+
+/* Directive for checking if specified date is in future */
+angular.module('goals')
+  .directive('dateInFuture', function() {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, element, attr, ctrl) {
+        ctrl.$parsers.unshift(function(value) {
+          if(value) {
+            var valid = new Date() < new Date(value);
+            ctrl.$setValidity('dateInPast', valid);
+          }
+
+          return valid ? value : undefined;
+        });
+      }
+    }
+  });
