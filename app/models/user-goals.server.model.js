@@ -23,7 +23,7 @@ var UserGoalsSchema = new Schema({
   goal: GoalSchema,
   status: {
     type: String,
-    enum: ['committed', 'rejected'],
+    enum: ['committed', 'rejected', 'aborted'],
     required: 'Status is required'
   },
   grouped: {

@@ -61,6 +61,16 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
       $scope._saveUserGoal(goal, 'committed');
     };
 
+    $scope.abort = function() {
+      var userGoal = $scope.userGoal;
+
+      userGoal.$abort(function() {
+        notify({message: 'You\'ve aborted this goal', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+      }, function(errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+
     /* Drag-and-drop functionality for groupping goals */
     $scope.onDropComplete = function(source, target){
       var userGoalGroup;
@@ -97,6 +107,11 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 
     /* Save goal with new state */
     $scope.save = function() {
+      /* Do nothing if goal is aborted */
+      if($scope.userGoal.status === 'aborted') {
+        return false;
+      }
+
       var goal = new UserGoals($scope.userGoal);
 
       goal.$update(function() {
