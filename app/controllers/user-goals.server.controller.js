@@ -7,7 +7,8 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     errorHandler = require('./errors.server.controller'),
     UserGoals = mongoose.model('UserGoals'),
-    Goal = mongoose.model('Goal');
+    Goal = mongoose.model('Goal'),
+    tincan = require('./tincan.server.controller.js');
 
 /**
  * Create a User goal
@@ -15,6 +16,11 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
   var userGoals = new UserGoals(req.body);
   userGoals.user = req.user;
+
+  /* Send statement to LRS if committed to goal */
+  if(userGoals.status === 'committed') {
+    tincan.committedToGoal(req.user.email, req.user.displayName);
+  }
 
   userGoals.save(function(err) {
     if (err) {
@@ -56,7 +62,21 @@ exports.update = function(req, res) {
     /* Changed finished date if finished value is flipped */
     if(oldGoal.goal.finished !== userGoal.goal.finished) {
       userGoal.goal.finishedDate = new Date();
+
+      /* Send tincan statement to LRS */
+      if(userGoal.goal.finished) {
+        tincan.finishedGoal(req.user.email, req.user.displayName);
+      }
     }
+
+    /* Check if any subgoals are finished and send to LRS */
+    _.each(userGoal.subgoals, function(subgoal) {
+      _.each(oldGoal.subgoals, function(oldSubgoal) {
+        if(subgoal.finished && oldSubgoal.finished === false) {
+          tincan.progressedGoal(req.user.email, req.user.displayName);
+        }
+      });
+    });
 
     userGoal.save(function(err) {
       if (err) {

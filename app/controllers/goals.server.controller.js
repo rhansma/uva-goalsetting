@@ -13,7 +13,8 @@ var mongoose = require('mongoose'),
     Goal = mongoose.model('Goal'),
     UserGoals = mongoose.model('UserGoals'),
     _ = require('lodash'),
-    mail = require('./mail.server.controller.js');
+    mail = require('./mail.server.controller.js'),
+    tincan = require('./tincan.server.controller.js');
 
 
 /**
@@ -30,6 +31,7 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      tincan.createdGoal(req.user.email, req.user.displayName);
       res.json(goal);
     }
   });
