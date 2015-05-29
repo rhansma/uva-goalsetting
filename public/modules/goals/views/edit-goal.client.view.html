@@ -27,7 +27,7 @@
               <div class="row" ng-class="{ 'has-error' : submitted && goalForm.expires.$invalid}">
                 <div class="large-12 columns">
                   <label for="expires">Date
-                    <input name="expires" type="date" data-ng-model="goal.expires" id="expires" required>
+                    <input name="expires" type="date" date-in-future data-ng-model="goal.expires" id="expires" required>
                   </label>
                 </div>
               </div>

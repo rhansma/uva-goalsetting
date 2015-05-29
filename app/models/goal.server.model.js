@@ -38,8 +38,7 @@ var GoalSchema = new Schema({
   },
   expires: {
     type: Date,
-    required: 'Make your goals SMART',
-    validate: [dateInFutureValidation, 'Make sure your expiry date is in the future']
+    required: 'Make your goals SMART'
   },
   rating: {
     type: Number,
@@ -76,11 +75,6 @@ GoalSchema.pre('validate', function(next) {
 
   next();
 });
-
-/* Make sure date is in future */
-function dateInFutureValidation(value) {
-  return new Date() < value;
-}
 
 exports.GoalSchema; // jshint ignore:line
 mongoose.model('Goal', GoalSchema);

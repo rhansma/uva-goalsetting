@@ -27,8 +27,7 @@ var SubgoalSchema = new Schema({
   },
   expires: {
     type: Date,
-    required: 'Make your goals SMART',
-    validate: [dateInFutureValidation, 'Make sure your expiry date is in the future']
+    required: 'Make your goals SMART'
   },
   finished: {
     type: Boolean,
@@ -38,11 +37,6 @@ var SubgoalSchema = new Schema({
     type: Date
   }
 });
-
-/* Make sure date is in future */
-function dateInFutureValidation(value) {
-  return new Date() < value;
-}
 
 exports.SubgoalSchema; // jshint ignore:line
 mongoose.model('Subgoal', SubgoalSchema);
