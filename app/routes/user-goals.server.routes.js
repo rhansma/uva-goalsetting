@@ -21,5 +21,8 @@ module.exports = function(app) {
       .put(users.requiresLogin, userGoals.hasAuthorization, userGoals.update)
       .get(users.requiresLogin, userGoals.hasAuthorization, userGoals.read);
 
+  app.route('/user/goals/:userGoalId/abort')
+      .put(users.requiresLogin, userGoals.hasAuthorization, userGoals.abort);
+
   app.param('userGoalId', userGoals.userGoalByID);
 };

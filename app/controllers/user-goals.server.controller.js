@@ -91,6 +91,27 @@ exports.update = function(req, res) {
 };
 
 /**
+ * Abort a goal
+ * @param req
+ * @param res
+ */
+exports.abort = function(req, res) {
+  var userGoal = req.userGoal;
+  userGoal.status = 'aborted';
+
+  userGoal.save(function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      tincan.abortedGoal(req.user.email, req.user.displayName);
+      res.json(userGoal);
+    }
+  });
+};
+
+/**
  * List of User goals
  */
 exports.list = function(req, res) {

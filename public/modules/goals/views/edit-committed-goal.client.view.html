@@ -1,7 +1,13 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="findOne()">
   <div class="row">
     <div class="large-12 columns">
-      <h3 data-ng-bind="userGoal.goal.title"></h3>
+      <a class="alert button tiny right" data-ng-click="abort();">Abort goal</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <h3 data-ng-show="userGoal.status === 'aborted'" class="alert">This goal is aborted</h3>
+      <h3 data-ng-bind="userGoal.goal.title" data-ng-class="{ alert: userGoal.status === 'aborted' }"></h3>
       <small data-ng-bind="userGoal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
       <p>
         <input type="checkbox" data-ng-model="userGoal.goal.finished" /><span data-ng-bind="userGoal.goal.content"></span>
@@ -16,7 +22,7 @@
         </ul>
       </div>
       <p>
-        <a class="button" data-ng-click="save()">Save</a>
+        <a class="button" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted' }" >Save</a>
       </p>
     </div>
   </div>

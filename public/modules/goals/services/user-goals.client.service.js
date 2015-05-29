@@ -15,6 +15,10 @@ angular.module('goals').factory('UserGoals', ['$resource',
       getStatistics: {
         method: 'GET',
         url: 'user/goals/statistics'
+      },
+      abort: {
+        method: 'PUT',
+        url: 'user/goals/:userGoalId/abort'
       }
     });
   }
