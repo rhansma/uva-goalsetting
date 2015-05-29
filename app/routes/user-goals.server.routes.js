@@ -15,7 +15,7 @@ module.exports = function(app) {
       .post(users.requiresLogin, userGoals.create);
 
   app.route('/user/goals/statistics')
-      .get(userGoals.getGoalStatistics);
+      .get(users.requiresLogin, userGoals.getGoalStatistics);
 
   app.route('/user/goals/:userGoalId')
       .put(users.requiresLogin, userGoals.hasAuthorization, userGoals.update)

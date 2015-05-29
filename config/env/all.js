@@ -35,7 +35,9 @@ module.exports = {
         'public/lib/foundation/js/foundation.js',
         'public/lib/ngDraggable/ngDraggable.js',
         'public/lib/angular-notify/dist/angular-notify.js',
-        'public/lib/ng-tags-input/ng-tags-input.js'
+        'public/lib/ng-tags-input/ng-tags-input.js',
+        'public/lib/Chart.js/Chart.js',
+        'public/lib/angular-chart.js/dist/angular-chart.js'
 			]
 		},
 		css: [

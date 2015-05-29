@@ -105,7 +105,30 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
         notify({message: errorResponse.data.message, templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
       });
     };
-	}
+
+    /* Retrieve statistics for chart */
+    $scope.getStatistics = function() {
+      $scope.labels = [];
+      $scope.data = [[]];
+      $scope.series = ['Completed goals'];
+      $scope.options = {
+        scaleBeginAtZero: true
+      };
+
+      /* Get statistics on goals */
+      $scope.statistics = UserGoals.getStatistics(function(){
+        $scope.statistics.completed = 0;
+
+        angular.forEach($scope.statistics.finished, function(elem) {
+          $scope.statistics.completed += elem.total;
+
+          var date = elem._id.finishedDate;
+          $scope.labels.push(moment(new Date(date.year, date.month, date.day)).format("MMM Do"));
+          $scope.data[0].push($scope.statistics.completed);
+        });
+      });
+    };
+  }
 ]);
 
 /* Filter for conditionally showing a plus only if not empty */

@@ -105,13 +105,48 @@ exports.listByGroup = function(req, res) {
 };
 
 exports.getGoalStatistics = function(req, res) {
-  UserGoals.find({'goal.finished': true, user: req.user}, 'goal.finished goal.finishedDate').exec(function(err, finished) {
+  var result = {};
+  UserGoals.aggregate(
+    {
+      $match: {
+        'goal.finishedDate': {$exists: true},
+        'user': req.user._id
+      }
+    },
+    {
+      $sort: {
+        'goal.finishedDate': -1
+      }
+    },
+    {
+      $group:  {
+        _id : {
+          finishedDate: {
+            day: {$dayOfMonth: '$goal.finishedDate'},
+            month: {$month: '$goal.finishedDate'},
+            year: {$year: '$goal.finishedDate'}
+          }
+        },
+        total: {$sum: 1}
+      }
+    }).exec(function(err, finished) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(finished);
+      result.finished = finished;
+
+      UserGoals.count({user: req.user._id}).exec(function(err, count) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          result.total = count;
+          res.json(result);
+        }
+      });
     }
   });
 };
