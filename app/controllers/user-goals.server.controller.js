@@ -147,6 +147,7 @@ exports.listByGroup = function(req, res) {
 
 exports.getGoalStatistics = function(req, res) {
   var result = {};
+  /* Count completed goals */
   UserGoals.aggregate(
     {
       $match: {
@@ -178,6 +179,7 @@ exports.getGoalStatistics = function(req, res) {
     } else {
       result.finished = finished;
 
+      /* Count total number of goals */
       UserGoals.count({user: req.user._id}).exec(function(err, count) {
         if (err) {
           return res.status(400).send({
@@ -185,7 +187,18 @@ exports.getGoalStatistics = function(req, res) {
           });
         } else {
           result.total = count;
-          res.json(result);
+
+          /* Get number of aborted goals */
+          UserGoals.count({user: req.user._id, status: 'aborted'}).exec(function(err, count) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              result.aborted = count;
+              res.json(result);
+            }
+          });
         }
       });
     }
