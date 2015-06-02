@@ -42,7 +42,7 @@ module.exports = {
 		},
 		css: [
 			'public/modules/**/css/*.css',
-      'public/lib/foundation/css/foundation.css',
+      'public/css/foundation.css',
       'public/lib/angular-ui-select/dist/select.css'
 		],
 		js: [
