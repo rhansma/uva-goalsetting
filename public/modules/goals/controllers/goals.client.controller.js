@@ -110,13 +110,15 @@ angular.module('goals')
       require: 'ngModel',
       link: function(scope, element, attr, ctrl) {
         ctrl.$parsers.unshift(function(value) {
+          var valid;
+
           if(value) {
-            var valid = new Date() < new Date(value);
+            valid = new Date() < new Date(value);
             ctrl.$setValidity('dateInPast', valid);
           }
 
           return valid ? value : undefined;
         });
       }
-    }
+    };
   });

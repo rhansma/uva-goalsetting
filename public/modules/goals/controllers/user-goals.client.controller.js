@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams) {
+angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment) {
     /* Find committed goals */
     $scope.find = function() {
       $scope.userGoals = UserGoals.query();
@@ -138,7 +138,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
           $scope.statistics.completed += elem.total;
 
           var date = elem._id.finishedDate;
-          $scope.labels.push(moment(new Date(date.year, date.month, date.day)).format("MMM Do"));
+          $scope.labels.push(moment(new Date(date.year, date.month, date.day)).format('MMM Do'));
           $scope.data[0].push($scope.statistics.completed);
         });
       });
