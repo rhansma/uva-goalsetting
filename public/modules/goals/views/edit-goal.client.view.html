@@ -45,22 +45,6 @@
                   </label>
                 </div>
               </div>
-              <!-- Subgoals -->
-              <div class="row">
-                <div class="large-12 columns">
-                  <a class="button tiny" ng-click="addSubgoal();">Add subgoal</a>
-                </div>
-                <div class="large-12 columns" ng-repeat="subgoal in goal.subgoals">
-                  <div class="row">
-                    <div class="large-9 columns">
-                      <input name="subgoalContent" type="text" data-ng-model="subgoal.content" placeholder="Content" required />
-                    </div>
-                    <div class="large-3 columns">
-                      <input name="subgoalExpires" type="date" data-ng-model="subgoal.expires" data-ng-options="{allowInvalid: true}" required />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div class="row">
                 <div class="large-12 columns">
                   <div ng-show="submitted && goalForm.content.$invalid" class="help-block">

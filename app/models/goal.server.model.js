@@ -8,8 +8,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    SubgoalSchema = require('./subgoal.server.model.js');
+    Schema = mongoose.Schema;
 
 /**
  * Goal Schema
@@ -45,18 +44,10 @@ var GoalSchema = new Schema({
     min: 1,
     max: 10
   },
-  subgoals: [SubgoalSchema],
   committed: {
     type: Number,
     min: 0,
     default: 0
-  },
-  finished: {
-    type: Boolean,
-    default: false
-  },
-  finishedDate: {
-    type: Date
   },
   published: {
     type: Boolean,
@@ -76,5 +67,4 @@ GoalSchema.pre('validate', function(next) {
   next();
 });
 
-exports.GoalSchema; // jshint ignore:line
 mongoose.model('Goal', GoalSchema);
