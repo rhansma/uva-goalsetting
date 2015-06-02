@@ -14,13 +14,10 @@ var mongoose = require('mongoose'),
  * Create a User goal
  */
 exports.create = function(req, res) {
-  var userGoals = new UserGoals(req.body);
+  var goal = req.body.goal;
+  var userGoals = new UserGoals(_.omit(req.body, 'goal'));
   userGoals.user = req.user;
-
-  /* Send statement to LRS if committed to goal */
-  if(userGoals.status === 'committed') {
-    tincan.committedToGoal(req.user.email, req.user.displayName);
-  }
+  userGoals.goal = goal._id;
 
   userGoals.save(function(err) {
     if (err) {
@@ -35,6 +32,11 @@ exports.create = function(req, res) {
             message: errorHandler.getErrorMessage(err)
           });
         } else {
+          /* Send statement to LRS if committed to goal */
+          if(userGoals.status === 'committed') {
+            tincan.committedToGoal(req.user.email, req.user.displayName);
+          }
+
           res.json(userGoals);
         }
       });
@@ -60,11 +62,11 @@ exports.update = function(req, res) {
 
   UserGoals.findById(userGoal._id).exec(function(err, oldGoal) {
     /* Changed finished date if finished value is flipped */
-    if(oldGoal.goal.finished !== userGoal.goal.finished) {
-      userGoal.goal.finishedDate = new Date();
+    if(oldGoal.finished !== userGoal.finished) {
+      userGoal.finishedDate = new Date();
 
       /* Send tincan statement to LRS */
-      if(userGoal.goal.finished) {
+      if(userGoal.finished) {
         tincan.finishedGoal(req.user.email, req.user.displayName);
       }
     }
@@ -115,7 +117,7 @@ exports.abort = function(req, res) {
  * List of User goals
  */
 exports.list = function(req, res) {
-  UserGoals.find({user: req.user, status: 'committed', $or: [{group: null}, {grouped:{$gt: 0}}]}).sort('-created').exec(function(err, userGoals) {
+  UserGoals.find({user: req.user, status: 'committed', $or: [{group: null}, {grouped:{$gt: 0}}]}).populate('goal').sort('-created').exec(function(err, userGoals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -151,57 +153,60 @@ exports.getGoalStatistics = function(req, res) {
   UserGoals.aggregate(
     {
       $match: {
-        'goal.finishedDate': {$exists: true},
+        'finishedDate': {$exists: true},
         'user': req.user._id
       }
     },
     {
       $sort: {
-        'goal.finishedDate': -1
+        'finishedDate': -1
       }
     },
     {
       $group:  {
         _id : {
           finishedDate: {
-            day: {$dayOfMonth: '$goal.finishedDate'},
-            month: {$month: '$goal.finishedDate'},
-            year: {$year: '$goal.finishedDate'}
+            day: {$dayOfMonth: 'finishedDate'},
+            month: {$month: 'finishedDate'},
+            year: {$year: 'finishedDate'}
           }
         },
         total: {$sum: 1}
       }
     }).exec(function(err, finished) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      result.finished = finished;
+      console.log(err);
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        result.finished = finished;
 
-      /* Count total number of goals */
-      UserGoals.count({user: req.user._id}).exec(function(err, count) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          result.total = count;
+        /* Count total number of goals */
+        UserGoals.count({user: req.user._id}).exec(function(err, count) {
+          console.log(err);
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            result.total = count;
 
-          /* Get number of aborted goals */
-          UserGoals.count({user: req.user._id, status: 'aborted'}).exec(function(err, count) {
-            if (err) {
-              return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-              });
-            } else {
-              result.aborted = count;
-              res.json(result);
-            }
-          });
-        }
-      });
-    }
+            /* Get number of aborted goals */
+            UserGoals.count({user: req.user._id, status: 'aborted'}).exec(function(err, count) {
+              console.log(err);
+              if (err) {
+                return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+                });
+              } else {
+                result.aborted = count;
+                res.json(result);
+              }
+            });
+          }
+        });
+      }
   });
 };
 
@@ -213,7 +218,7 @@ exports.getGoalStatistics = function(req, res) {
  * @param id
  */
 exports.userGoalByID = function(req, res, next, id) {
-  UserGoals.findById(id).exec(function(err, goal) {
+  UserGoals.findById(id).populate('goal').exec(function(err, goal) {
     if (err) return next(err);
     if (!goal) return next(new Error('Failed to load user goal ' + id));
     req.userGoal = goal;

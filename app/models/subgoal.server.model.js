@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
 /**
  * Subgoal Schema
  */
+
 var SubgoalSchema = new Schema({
   created: {
     type: Date,
@@ -38,5 +39,5 @@ var SubgoalSchema = new Schema({
   }
 });
 
-exports.SubgoalSchema; // jshint ignore:line
+module.exports = SubgoalSchema;
 mongoose.model('Subgoal', SubgoalSchema);

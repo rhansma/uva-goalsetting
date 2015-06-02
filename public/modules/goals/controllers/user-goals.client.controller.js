@@ -112,7 +112,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
         return false;
       }
 
-      var goal = new UserGoals($scope.userGoal);
+      var goal = $scope.userGoal;//new UserGoals();
 
       goal.$update(function() {
         notify({message: 'Succesfully saved', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
