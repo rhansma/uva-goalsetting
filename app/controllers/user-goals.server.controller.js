@@ -136,7 +136,7 @@ exports.list = function(req, res) {
  * @param res
  */
 exports.listByGroup = function(req, res) {
-  UserGoals.find({group: req.param('userGoalGroupId')}).sort('-created').exec(function(err, userGoals) {
+  UserGoals.find({group: req.param('userGoalGroupId')}).populate('goal').sort('-created').exec(function(err, userGoals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
