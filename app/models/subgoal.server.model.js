@@ -21,11 +21,6 @@ var SubgoalSchema = new Schema({
     trim: true,
     required: 'Content must be provided'
   },
-  creator: {
-    type: Schema.ObjectId,
-    ref: 'User',
-    required: 'Please login to create a subgoal'
-  },
   expires: {
     type: Date,
     required: 'Make your goals SMART'

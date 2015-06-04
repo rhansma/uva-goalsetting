@@ -23,6 +23,10 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
     $scope.findOne = function() {
       $scope.userGoal = UserGoals.get({
         userGoalId: $stateParams.userGoalId
+      }, function() {
+        for(var i in $scope.userGoal.subgoals) {
+          $scope.userGoal.subgoals[i].expires = new Date(moment($scope.userGoal.subgoals[i].expires).format('YYYY-MM-DD'));
+        }
       });
     };
 
@@ -143,6 +147,10 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
         });
       });
     };
+
+    $scope.addSubgoal = function() {
+      $scope.userGoal.subgoals.push({});
+    }
   }
 ]);
 

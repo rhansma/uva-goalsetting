@@ -19,7 +19,7 @@
           <h3 class="subheader">Subgoals</h3>
           <a class="button tiny" ng-click="addSubgoal();">Add subgoal</a>
         </div>
-        <div class="large-12 columns" ng-repeat="subgoal in userGoal.goal.subgoals">
+        <div class="large-12 columns" ng-repeat="subgoal in userGoal.subgoals">
           <div class="row">
             <div class="large-3 columns">
               <input type="checkbox" data-ng-model="subgoal.finished" />
@@ -32,14 +32,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div data-ng-hide="!userGoal.goal.subgoals.length">
-        <h3 class="subheader">Subgoals</h3>
-        <ul>
-          <li data-ng-repeat="subgoal in userGoal.goal.subgoals">
-            <span data-ng-bind="subgoal.content"></span>
-          </li>
-        </ul>
       </div>
       <p>
         <a class="button" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted' }" >Save</a>
