@@ -140,7 +140,7 @@ exports.abort = function(req, res) {
                 }
 
                 /* If the aborted goal is the group parent, move grouped - 1 to new parent */
-                if(groupParent._id.toString() == userGoal._id.toString()) {
+                if(groupParent._id.toString() === userGoal._id.toString()) {
                   UserGoals.update({'group': userGoalGroup, 'status': 'committed'},{$set: {'grouped': groupParent.grouped - 1}}).exec(function(err) {
                     if(err) {
                       return res.status(400).send({
@@ -180,7 +180,7 @@ exports.abort = function(req, res) {
                   });
                 }
               }
-            })
+            });
           } else {
             /* Remove group from both linked goals */
             UserGoals.update({'_id': {$in: goals}}, {$unset: {group: 1}, $set: {grouped: 0}}, {multi: true}).exec(function (err) {
@@ -191,7 +191,7 @@ exports.abort = function(req, res) {
               } else {
                 res.json(userGoal);
               }
-            })
+            });
           }
         }
       });
@@ -251,9 +251,9 @@ exports.getGoalStatistics = function(req, res) {
     {
       $group:  {
         _id : {
-          day: {$dayOfMonth: "$finishedDate"},
-          month: {$month: "$finishedDate"},
-          year: {$year: "$finishedDate"}
+          day: {$dayOfMonth: '$finishedDate'},
+          month: {$month: '$finishedDate'},
+          year: {$year: '$finishedDate'}
         },
         total: {$sum: 1}
       }
