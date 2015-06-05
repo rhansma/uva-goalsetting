@@ -165,13 +165,7 @@ exports.getGoalStatistics = function(req, res) {
     },
     {
       $group:  {
-        _id : {
-          finishedDate: {
-            day: {$dayOfMonth: 'finishedDate'},
-            month: {$month: 'finishedDate'},
-            year: {$year: 'finishedDate'}
-          }
-        },
+        _id : "$finishedDate",
         total: {$sum: 1}
       }
     }).exec(function(err, finished) {
