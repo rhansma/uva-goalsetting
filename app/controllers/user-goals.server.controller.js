@@ -100,7 +100,13 @@ exports.update = function(req, res) {
  */
 exports.abort = function(req, res) {
   var userGoal = req.userGoal;
+  var userGoalGroup = userGoal.group;
   userGoal.status = 'aborted';
+
+  /* Remove group if was grouped */
+  if(userGoal.grouped === 1) {
+    userGoal.grouped = 0;
+  }
 
   userGoal.save(function(err) {
     if (err) {
@@ -109,7 +115,86 @@ exports.abort = function(req, res) {
       });
     } else {
       tincan.abortedGoal(req.user.email, req.user.displayName);
-      res.json(userGoal);
+      UserGoals.find({$and: [
+          {'group': userGoalGroup},
+          {'group': {$exists: true}}
+        ]}).exec(function(err, goals) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          if(goals.length > 2) {
+            /* Find group parent */
+            UserGoals.findOne({'grouped': {$gt: 0}, 'group': userGoalGroup}).exec(function(err, groupParent) {
+              if(err) {
+                return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+                });
+              } else {
+                /* Catch error condition if groupparent not found */
+                if(groupParent.length === 0) {
+                  return res.status(400).send({
+                    message: errorHandler.getErrorMessage('Error handling call')
+                  });
+                }
+
+                /* If the aborted goal is the group parent, move grouped - 1 to new parent */
+                if(groupParent._id.toString() == userGoal._id.toString()) {
+                  UserGoals.update({'group': userGoalGroup, 'status': 'committed'},{$set: {'grouped': groupParent.grouped - 1}}).exec(function(err) {
+                    if(err) {
+                      return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                      });
+                    } else {
+                      UserGoals.update({'_id': userGoal._id}, {$unset: {group: 1}}).exec(function(err) {
+                        if(err) {
+                          return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                          });
+                        } else {
+                          res.json(userGoal);
+                        }
+                      });
+                    }
+                  });
+                /* Just lower the number of group members */
+                } else {
+                  groupParent.grouped -= 1;
+                  groupParent.save(function(err) {
+                    if(err) {
+                      return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                      });
+                    } else {
+                      UserGoals.update({'_id': userGoal._id}, {$unset: {group: 1}, $set: {grouped: 0}}).exec(function(err) {
+                        if(err) {
+                          return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                          });
+                        } else {
+                          res.json(userGoal);
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            })
+          } else {
+            /* Remove group from both linked goals */
+            UserGoals.update({'_id': {$in: goals}}, {$unset: {group: 1}, $set: {grouped: 0}}, {multi: true}).exec(function (err) {
+              if(err) {
+                return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+                });
+              } else {
+                res.json(userGoal);
+              }
+            })
+          }
+        }
+      });
     }
   });
 };
@@ -120,7 +205,6 @@ exports.abort = function(req, res) {
 exports.list = function(req, res) {
   UserGoals.find({user: req.user, status: 'committed', $or: [{group: null}, {grouped:{$gt: 0}}]}).populate('goal').sort('-created').exec(function(err, userGoals) {
     if (err) {
-      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -137,7 +221,7 @@ exports.list = function(req, res) {
  * @param res
  */
 exports.listByGroup = function(req, res) {
-  UserGoals.find({group: req.param('userGoalGroupId')}).populate('goal').sort('-created').exec(function(err, userGoals) {
+  UserGoals.find({group: req.param('userGoalGroupId'), status: 'committed'}).populate('goal').sort('-created').exec(function(err, userGoals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -183,7 +267,6 @@ exports.getGoalStatistics = function(req, res) {
 
         /* Count total number of goals */
         UserGoals.count({user: req.user._id}).exec(function(err, count) {
-          console.log(err);
           if (err) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(err)
