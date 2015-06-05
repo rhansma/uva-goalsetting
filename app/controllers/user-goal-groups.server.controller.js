@@ -5,7 +5,6 @@
  */
 var mongoose = require('mongoose'),
     _ = require('lodash'),
-    ObjectId = require('mongoose').Types.ObjectId,
     errorHandler = require('./errors.server.controller'),
     UserGoals = mongoose.model('UserGoals'),
     UserGoalGroups = mongoose.model('UserGoalGroups');

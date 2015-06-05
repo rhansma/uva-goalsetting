@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-  GoalSchema = require('./goal.server.model.js');
+  SubgoalSchema = require('./subgoal.server.model.js'),
+  DateOnly = require('mongoose-dateonly')(mongoose);
 
 /**
  * UserGoals Schema
@@ -20,7 +21,11 @@ var UserGoalsSchema = new Schema({
     ref: 'User',
     required: 'Please login to commit or reject the goal'
   },
-  goal: GoalSchema,
+  goal: {
+    type: Schema.ObjectId,
+    ref: 'Goal',
+    required: 'Goal is required'
+  },
   status: {
     type: String,
     enum: ['committed', 'rejected', 'aborted'],
@@ -38,7 +43,18 @@ var UserGoalsSchema = new Schema({
   tags: [{
     type: String,
     trim: true
-  }]
+  }],
+  reminded: {
+    type: Date
+  },
+  finished: {
+    type: Boolean,
+    default: false
+  },
+  finishedDate: {
+    type: Date
+  },
+  subgoals: [SubgoalSchema]
 });
 UserGoalsSchema.index({user: 1, goal: 1});
 
