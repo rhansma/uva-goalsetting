@@ -5,8 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-  SubgoalSchema = require('./subgoal.server.model.js'),
-  DateOnly = require('mongoose-dateonly')(mongoose);
+  SubgoalSchema = require('./subgoal.server.model.js');
 
 /**
  * UserGoals Schema
