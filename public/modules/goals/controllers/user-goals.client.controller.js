@@ -150,7 +150,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 
     $scope.addSubgoal = function() {
       $scope.userGoal.subgoals.push({});
-    }
+    };
   }
 ]);
 
