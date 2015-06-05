@@ -63,7 +63,8 @@ exports.update = function(req, res) {
   UserGoals.findById(userGoal._id).exec(function(err, oldGoal) {
     /* Changed finished date if finished value is flipped */
     if(oldGoal.finished !== userGoal.finished) {
-      userGoal.finishedDate = new Date();
+      var date = new Date();
+      userGoal.finishedDate = date;
 
       /* Send tincan statement to LRS */
       if(userGoal.finished) {
@@ -165,11 +166,14 @@ exports.getGoalStatistics = function(req, res) {
     },
     {
       $group:  {
-        _id : "$finishedDate",
+        _id : {
+          day: {$dayOfMonth: "$finishedDate"},
+          month: {$month: "$finishedDate"},
+          year: {$year: "$finishedDate"}
+        },
         total: {$sum: 1}
       }
     }).exec(function(err, finished) {
-      console.log(err);
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
