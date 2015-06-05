@@ -75,11 +75,11 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
       });
     };
 
-    /* Drag-and-drop functionality for groupping goals */
+    /* Drag-and-drop functionality for grouping goals */
     $scope.onDropComplete = function(source, target){
       var userGoalGroup;
       /* Create a new userGoalGroup */
-      if($scope.userGoals[target].group === undefined) {
+      if($scope.userGoals[target].group === undefined && $scope.userGoals[source].group === undefined) {
         userGoalGroup = new UserGoalGroups({
           parent: $scope.userGoals[target]._id,
           children: [$scope.userGoals[source]._id]
@@ -93,7 +93,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
       } else { /* Or update existing */
         /* Dont group already grouped goals */
         if($scope.userGoals[source].group !== undefined) {
-          notify({message: 'It is not possible to group already grouped goals.', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+          notify({message: 'It is not possible to group already grouped goals. Drag a non grouped goal to a group for grouping more than two goals.', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
         } else {
           userGoalGroup = new UserGoalGroups({
             _id: $scope.userGoals[target].group,
