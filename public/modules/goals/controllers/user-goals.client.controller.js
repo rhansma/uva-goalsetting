@@ -141,8 +141,8 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
         angular.forEach($scope.statistics.finished, function(elem) {
           $scope.statistics.completed += elem.total;
 
-          var date = elem._id.finishedDate;
-          $scope.labels.push(moment(new Date(date.year, date.month, date.day)).format('MMM Do'));
+          var date = elem._id;
+          $scope.labels.push(moment(new Date(date.year, date.month - 1, date.day)).format('MMM Do')); // Subtract one month because months are from 0-11 instead of 1-12
           $scope.data[0].push($scope.statistics.completed);
         });
       });
