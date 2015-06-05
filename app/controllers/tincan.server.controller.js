@@ -43,8 +43,7 @@ function _sendStatement(email, name, verb) {
           type: 'http://adlnet.gov/expapi/activities/objective'
         }
       }
-    }
-  , function(results, statement) {}); // Can be used for logging, last parameter is the exact statement sent to LRS
+    }, function(results, statement) {}); // Can be used for logging, last parameter is the exact statement sent to LRS
 }
 
 exports.createdGoal = function(email, name) {

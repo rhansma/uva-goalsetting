@@ -14,7 +14,8 @@ var mongoose = require('mongoose'),
     UserGoals = mongoose.model('UserGoals'),
     _ = require('lodash'),
     mail = require('./mail.server.controller.js'),
-    tincan = require('./tincan.server.controller.js');
+    tincan = require('./tincan.server.controller.js'),
+    CronJob = require('cron').CronJob;
 
 
 /**
@@ -127,7 +128,7 @@ exports.approved = function(req, res) {
   UserGoals.find({'user': req.user}, {goal: 1}).exec(function(err, usergoals) {
     var goals = [];
     for(var i in usergoals){
-      goals.push(usergoals[i].goal._id);
+      goals.push(usergoals[i].goal);
     }
 
     /* Find and return all goals not already committed or rejected */
@@ -198,3 +199,14 @@ exports.hasAuthorization = function(req, res, next) {
   }
   next();
 };
+
+new CronJob('0,10,20,30,40,50 * * * * *', function() {
+  var date = new Date();
+  date.setHours(date.getHours() + 96);
+
+  /* Get goals with expiry date less than reminder time and not reminded yet */
+  /*UserGoals.find({'goal.expires': {$gte: date}}, 'goal.expires').exec(function(err, userGoals) {
+    if(err) console.log(err);
+    console.log(userGoals);
+  });*/
+}, null, true, 'Europe/Amsterdam');

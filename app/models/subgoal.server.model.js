@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
 /**
  * Subgoal Schema
  */
+
 var SubgoalSchema = new Schema({
   created: {
     type: Date,
@@ -19,11 +20,6 @@ var SubgoalSchema = new Schema({
     default: '',
     trim: true,
     required: 'Content must be provided'
-  },
-  creator: {
-    type: Schema.ObjectId,
-    ref: 'User',
-    required: 'Please login to create a subgoal'
   },
   expires: {
     type: Date,
@@ -38,5 +34,5 @@ var SubgoalSchema = new Schema({
   }
 });
 
-exports.SubgoalSchema; // jshint ignore:line
+module.exports = SubgoalSchema;
 mongoose.model('Subgoal', SubgoalSchema);
