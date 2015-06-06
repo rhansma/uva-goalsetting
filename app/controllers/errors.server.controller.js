@@ -32,6 +32,8 @@ function _log(err, type) {
       logger.error(err, {timestamp: new Date()});
       break;
     case 'info':
+      logger.info(err, {timestamp: new Date()});
+      break;
     default:
       logger.info(err, {timestamp: new Date()});
       break;
