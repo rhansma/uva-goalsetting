@@ -1,5 +1,43 @@
 'use strict';
 
+var winston = require('winston');
+
+/**
+ * Instantiate winston for logging, catch uncaught exceptions
+ */
+var logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)(),
+    new (winston.transports.File)({
+      filename: 'error.log',
+      level: 'error'
+    }),
+    new (winston.transports.File)({
+      filename: 'info.log',
+      level: 'info'
+    }),
+    new (winston.transports.File)({
+      name: 'exceptions-log',
+      filename: 'exceptions.log',
+      handleExceptions: true
+    })
+  ],
+  exitOnError: false
+});
+
+/* Write log with timestamp */
+function _log(err, type) {
+  switch (type) {
+    case 'error':
+      logger.error(err, {timestamp: new Date()});
+      break;
+    case 'info':
+    default:
+      logger.info(err, {timestamp: new Date()});
+      break;
+  }
+}
+
 /**
  * Get unique error field name
  */
@@ -23,6 +61,9 @@ var getUniqueErrorMessage = function(err) {
 exports.getErrorMessage = function(err) {
 	var message = '';
 
+  /* Log error */
+  _log(err, 'error');
+
 	if (err.code) {
 		switch (err.code) {
 			case 11000:
@@ -39,4 +80,10 @@ exports.getErrorMessage = function(err) {
 	}
 
 	return message;
+};
+
+exports.log = function(err, type) {
+  type = typeof type !== 'undefined' ? a : 'error';
+
+  _log(err, type);
 };
