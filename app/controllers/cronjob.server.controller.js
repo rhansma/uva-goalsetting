@@ -17,7 +17,7 @@ var mongoose = require('mongoose'),
 /* Cronjob for sending reminder mails */
 new CronJob('0 0 * * * *', function() {
   var date = new Date();
-  date.setHours(date.getHours() + 96);
+  date.setHours(date.getHours() + process.env.REMINDER_TIME);
 
   errorHandler.log('Checking for goals about to expire', 'info');
 
