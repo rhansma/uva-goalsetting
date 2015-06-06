@@ -9,3 +9,7 @@ angular.module('goals').run(['Menus',
     Menus.addMenuItem('topbar', 'Show committed goals', 'goals/committed', 'item', '/goals/committed');
   }
 ]);
+
+angular.module('goals').constant('angularMomentConfig', {
+  timezone: 'Europe/Amsterdam'
+});

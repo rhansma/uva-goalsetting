@@ -29,7 +29,7 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/moment/moment.js',
         'public/lib/angular-moment/angular-moment.js',
-        'public/lib/moment-timezone/moment-timezone.js',
+        'public/lib/moment-timezone/build/moment-timezone-with-data.js',
         'public/lib/modernizr/modernizr.js',
         'public/lib/jquery/dist/jquery.js',
         'public/lib/foundation/js/foundation.js',

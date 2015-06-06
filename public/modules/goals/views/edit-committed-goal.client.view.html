@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="large-12 columns">
-      <h3 data-ng-show="userGoal.status === 'aborted'" class="alert">This goal is aborted</h3>
+      <h3 data-ng-show="userGoal.status === 'aborted'" class="alert">This goal is aborted</h3><h3 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h3>
       <h3 data-ng-bind="userGoal.goal.title" data-ng-class="{ alert: userGoal.status === 'aborted' }"></h3>
       <small data-ng-bind="userGoal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
       <p>
@@ -34,7 +34,7 @@
         </div>
       </div>
       <p>
-        <a class="button" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted' }" >Save</a>
+        <a class="button" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted', disabled: checkExpired(userGoal.goal.expires) }" >Save</a>
       </p>
     </div>
   </div>
