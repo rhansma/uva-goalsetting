@@ -48,7 +48,8 @@
     "passport-saml": "^0.9.1",
     "passport-twitter": "~1.0.2",
     "swig": "~1.4.1",
-    "tincanjs": "^0.33.0"
+    "tincanjs": "^0.33.0",
+    "winston": "^1.0.0"
   },
   "devDependencies": {
     "grunt-concurrent": "~1.0.0",

@@ -14,8 +14,7 @@ var mongoose = require('mongoose'),
     UserGoals = mongoose.model('UserGoals'),
     _ = require('lodash'),
     mail = require('./mail.server.controller.js'),
-    tincan = require('./tincan.server.controller.js'),
-    CronJob = require('cron').CronJob;
+    tincan = require('./tincan.server.controller.js');
 
 
 /**
@@ -199,14 +198,3 @@ exports.hasAuthorization = function(req, res, next) {
   }
   next();
 };
-
-new CronJob('0,10,20,30,40,50 * * * * *', function() {
-  var date = new Date();
-  date.setHours(date.getHours() + 96);
-
-  /* Get goals with expiry date less than reminder time and not reminded yet */
-  /*UserGoals.find({'goal.expires': {$gte: date}}, 'goal.expires').exec(function(err, userGoals) {
-    if(err) console.log(err);
-    console.log(userGoals);
-  });*/
-}, null, true, 'Europe/Amsterdam');

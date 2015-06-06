@@ -21,7 +21,8 @@ var fs = require('fs'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
-	path = require('path');
+	path = require('path'),
+  errorHandler = require('../app/controllers/errors.server.controller.js');
 
 module.exports = function(db) {
 	// Initialize express app
@@ -124,7 +125,7 @@ module.exports = function(db) {
 		if (!err) return next();
 
 		// Log it
-		console.error(err.stack);
+    errorHandler.log(err.stack);
 
 		// Error page
 		res.status(500).render('500', {
