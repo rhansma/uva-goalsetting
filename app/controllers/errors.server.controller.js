@@ -9,10 +9,12 @@ var logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)(),
     new (winston.transports.File)({
+      name: 'error-log',
       filename: 'error.log',
       level: 'error'
     }),
     new (winston.transports.File)({
+      name: 'info-log',
       filename: 'info.log',
       level: 'info'
     }),
@@ -85,7 +87,7 @@ exports.getErrorMessage = function(err) {
 };
 
 exports.log = function(err, type) {
-  type = typeof type !== 'undefined' ? a : 'error';
+  type = typeof type !== 'undefined' ? type : 'error';
 
   _log(err, type);
 };
