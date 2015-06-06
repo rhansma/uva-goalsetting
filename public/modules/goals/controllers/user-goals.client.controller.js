@@ -112,7 +112,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
     /* Save goal with new state */
     $scope.save = function() {
       /* Do nothing if goal is aborted */
-      if($scope.userGoal.status === 'aborted') {
+      if($scope.userGoal.status === 'aborted' || $scope.checkExpired($scope.userGoal.goal.expires)) {
         return false;
       }
 
@@ -151,6 +151,11 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
     $scope.addSubgoal = function() {
       $scope.userGoal.subgoals.push({});
     };
+
+    /* Check if a goal is expired */
+    $scope.checkExpired = function(expiryDate) {
+      return moment(expiryDate).isBefore(new Date());
+    }
   }
 ]);
 
