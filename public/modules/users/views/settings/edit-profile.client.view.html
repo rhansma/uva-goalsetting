@@ -1,62 +1,55 @@
 <div class="row">
-  <div class="large-12 columns">
-    <section data-ng-controller="SettingsController">
-      <div class="row">
-        <h3 class="large-12 columns text-center">Edit your profile</h3>
-      </div>
-      <div class="row">
-        <div class="large-6 large-centered columns">
-          <form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" autocomplete="off">
-            <fieldset>
-              <div class="row">
-                <div class="large-12 columns">
-                  Student number: {{ user.studentNumber }}
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <label for="firstName">First Name
-                    <input type="text" id="firstName" name="firstName" data-ng-model="user.firstName" placeholder="First Name">
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <label for="lastName">Last Name
-                    <input type="text" id="lastName" name="lastName" data-ng-model="user.lastName" placeholder="Last Name">
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <label for="email">Email
-                  <input type="email" id="email" name="email" data-ng-model="user.email" placeholder="Email">
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <button type="submit" class="button">Save Profile</button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <div data-ng-show="success" class="alert-box success">
-                    <strong>Profile Saved Successfully</strong>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <div data-ng-show="error" class="alert-box alert">
-                    <strong data-ng-bind="error"></strong>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </form>
+  <section data-ng-controller="SettingsController">
+    <div class="small-12 medium-6 medium-centered large-4 columns panel">
+      <form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" autocomplete="off">
+
+        <div class="row">
+          <div class="large-12 columns">
+            Student number: {{ user.studentNumber }}
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <label for="firstName">First Name
+              <input type="text" id="firstName" name="firstName" data-ng-model="user.firstName" placeholder="First Name">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <label for="lastName">Last Name
+              <input type="text" id="lastName" name="lastName" data-ng-model="user.lastName" placeholder="Last Name">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <label for="email">Email
+              <input type="email" id="email" name="email" data-ng-model="user.email" placeholder="Email">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <button type="submit" class="expand button">Save Profile</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <div data-ng-show="success" class="alert-box success">
+              <strong>Profile Saved Successfully</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <div data-ng-show="error" class="alert-box alert">
+              <strong data-ng-bind="error"></strong>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
 </div>
