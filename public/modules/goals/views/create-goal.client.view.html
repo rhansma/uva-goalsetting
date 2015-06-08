@@ -1,38 +1,29 @@
 <div class="row">
   <div class="large-12 columns">
     <section data-ng-controller="GoalsController">
-      <div class="row">
-        <div class="large-12 columns text-center">
-          <h1>New Goal</h1>
-        </div>
-      </div>
-      <div class="large-12 columns">
+      <div class="small-12 medium-6 medium-centered columns panel">
         <form name="goalForm" data-ng-submit="create()" novalidate>
-          <fieldset>
+
             <div class="row">
               <div class="large-12 columns" ng-class="{ 'has-error': goalForm.title.$dirty && goalForm.title.$invalid }">
+                <br />
                 <label for="title">Title
-                  <input name="title" type="text" data-ng-model="title" id="title" placeholder="Title" required>
+                  <input class="custom-input-class" name="title" type="text" data-ng-model="title" id="title" placeholder="Title" required>
                 </label>
               </div>
             </div>
             <div class="row">
               <div class="large-12 columns" ng-class="{ 'has-error': goalForm.expires.$dirty && goalForm.expires.$invalid }">
                 <label for="expires">Date
-                  <input name="expires" type="date" date-in-future data-ng-model="expires" id="expires" required>
+                  <input name="expires" type="date" date-in-future data-ng-model="expires" id="expires" placeholder="Date" required>
                 </label>
               </div>
             </div>
             <div class="row">
               <div class="large-12 columns" ng-class="{ 'has-error': goalForm.content.$dirty && goalForm.content.$invalid }">
                 <label for="content">Content
-                  <textarea name="content" data-ng-model="content" id="content" cols="30" rows="10" placeholder="Content" required></textarea>
+                  <textarea name="content" data-ng-model="content" id="content" cols="30" rows="5" placeholder="Content" required></textarea>
                 </label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="large-12 columns">
-                <input type="submit" class="button">
               </div>
             </div>
             <div class="row">
@@ -40,7 +31,12 @@
                 <strong data-ng-bind="error"></strong>
               </div>
             </div>
-          </fieldset>
+            <div class="row">
+              <div class="large-12 columns">
+                <br />
+                <input type="submit" class="medium button right">
+              </div>
+            </div>
         </form>
       </div>
     </section>
