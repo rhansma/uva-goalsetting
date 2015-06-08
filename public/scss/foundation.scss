@@ -44,10 +44,19 @@
 @import 'foundation/components/offcanvas';
 @import 'foundation/components/visibility';
 
-body { background-color: rgb(219, 219, 219); }
+body { background: url(/modules/core/img/background.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
 
 .top-header { height: 95px; background-color: #ffffff; }
 .top-header img { margin-top: 35px; }
 
 .top-bar img { height: 52px; margin: 0; padding: 0 1em 0 1em; }
+
+.top-breadcrumbs { background-color: rgba(0,0,0,0.4); height: 40px; padding-top: 8px; color: $white; }
+
+.goals { max-width: 93.75rem; }
+
 .panel { background-color: #FFFFFF; }
+.goal { margin-bottom: 30px; }
+.goal h4 { margin-bottom: 0px; }
+.goal a { color: $oil; }
+.goal small { color: $monsoon; }

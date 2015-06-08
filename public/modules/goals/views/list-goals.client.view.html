@@ -1,62 +1,55 @@
 <section data-ng-controller="GoalsController" data-ng-init="find()">
-  <div class="row collapse">
-    <div class="columns large-6">
-      <div class="left">
-        <a class="button tiny" data-ng-href="/#!/goals/commit">Commit to goals</a>
+
+  <div class="row goals">
+    <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="goal in goals">
+      <div class="goal panel">
+        <a data-ng-href="#!/goals/{{goal._id}}">
+          <h4 data-ng-bind="goal.title"></h4>
+          <small>
+            Created on
+            <span data-ng-bind="goal.created | amDateFormat:'MMMM Do YYYY'"></span>
+            by
+            <span data-ng-bind="goal.creator.displayName"></span>
+          </small>
+          <br />
+          <span data-ng-bind="goal.content"></span>
+
+          <!-- Teacher options -->
+          <div data-ng-show="teacher && edit">
+            <input type="number" min="1" max="10" data-ng-model="goal.rating" />
+          </div>
+          <div data-ng-show="teacher && edit">
+            <a class="button tiny" data-ng-click="remove(goal);"><i class="fa fa-trash-o fa-lg"></i> Delete</a>
+          </div>
+        </a>
       </div>
     </div>
-    <div class="columns large-6" data-ng-show="teacher">
-      <div class="small-3 right">
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="columns large-3" data-ng-show="teacher && edit">
+        <a class="button small right" data-ng-click="save();">Save</a>
+      </div>
+      <div data-ng-if="goals.$resolved && !goals.length">
+        No goals yet, why don't you <a href="/#!/goals/create">create one</a>?
+      </div>
+      <a class="medium button right" data-ng-href="/#!/goals/commit">Commit to goals</a>
+      <div data-ng-show="teacher">
         <div class="switch small">
           Edit:
           <input id="editMode" data-ng-model="edit" type="checkbox">
           <label for="editMode">Edit mode</label>
         </div>
-      </div>
-
-      <div class="right small-3">
         <a class="button small" data-ng-click="publish();">Publish!</a>
       </div>
+
     </div>
   </div>
-  <div class="row">
-    <div class="columns large-9">
-      <h1>Goals</h1>
-    </div>
-    <div class="columns large-3" data-ng-show="teacher && edit">
-      <a class="button small right" data-ng-click="save();">Save</a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="columns large-12">
-        <div class="panel" data-ng-repeat="goal in goals">
-          <div class="row">
-            <div class="columns large-9">
-              <small>
-                Created on
-                <span data-ng-bind="goal.created | amDateFormat:'MMMM Do YYYY'"></span>
-                by
-                <span data-ng-bind="goal.creator.displayName"></span>
-              </small>
-            </div>
-            <!-- Teacher options -->
-            <div class="columns large-1" data-ng-show="teacher && edit">
-              <input type="number" min="1" max="10" data-ng-model="goal.rating" />
-            </div>
-            <div class="columns large-2" data-ng-show="teacher && edit">
-              <a class="button tiny" data-ng-click="remove(goal);"><i class="fa fa-trash-o fa-lg"></i> Delete</a>
-            </div>
-          </div>
-          <a data-ng-href="#!/goals/{{goal._id}}">
-            <div class="row">
-              <h4 data-ng-bind="goal.title"></h4>
-              <p data-ng-bind="goal.content"></p>
-            </div>
-          </a>
-        </div>
-    </div>
-    <div class="alert-box warning text-center" data-ng-if="goals.$resolved && !goals.length">
-      No goals yet, why don't you <a href="/#!/goals/create">create one</a>?
-    </div>
-  </div>
+
+
+
+
+
+
 </section>
