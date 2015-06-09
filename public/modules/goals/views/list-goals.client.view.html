@@ -28,12 +28,12 @@
           by
           <span data-ng-bind="goal.creator.displayName"></span>
         </small>
-        <br />
+        <hr />
         <span data-ng-bind="goal.content"></span>
       </a>
       <!-- Teacher options -->
-      <div class="row goals-edit">
-        <div class="small-4 small-offset-5 columns" data-ng-show="teacher && edit">
+      <div class="row goals-edit" data-ng-show="teacher && edit">
+        <div class="small-4 small-offset-5 columns">
           <input type="number" min="1" max="10" data-ng-model="goal.rating" />
         </div>
         <div class="small-3 columns" data-ng-show="teacher && edit">
