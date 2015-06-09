@@ -1,4 +1,20 @@
 <section data-ng-controller="GoalsController" data-ng-init="find()">
+<div class="row" data-ng-show="teacher">
+  <div class="small-6 columns">
+      <div class="switch small">
+        <input id="editMode" data-ng-model="edit" type="checkbox">
+        <label for="editMode">Edit mode</label>
+        <span>Edit and rate goals</span>
+      </div>
+  </div>
+  <div class="small-6 columns">
+      <div data-ng-show="teacher && edit">
+         <a class="tiny button right" data-ng-click="publish();">Publish!</a>
+        <a class="tiny button right" data-ng-click="save();">Save</a>
+      </div>
+
+  </div>
+</div>
 
   <div class="row goals">
     <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="goal in goals">
@@ -29,28 +45,11 @@
 
   <div class="row">
     <div class="small-12 columns">
-      <div class="columns large-3" data-ng-show="teacher && edit">
-        <a class="button small right" data-ng-click="save();">Save</a>
-      </div>
       <div data-ng-if="goals.$resolved && !goals.length">
         No goals yet, why don't you <a href="/#!/goals/create">create one</a>?
       </div>
       <a class="medium button right" data-ng-href="/#!/goals/commit">Commit to goals</a>
-      <div data-ng-show="teacher">
-        <div class="switch small">
-          Edit:
-          <input id="editMode" data-ng-model="edit" type="checkbox">
-          <label for="editMode">Edit mode</label>
-        </div>
-        <a class="button small" data-ng-click="publish();">Publish!</a>
-      </div>
-
     </div>
   </div>
-
-
-
-
-
 
 </section>
