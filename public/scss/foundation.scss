@@ -60,5 +60,9 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 .goal h4 { margin-bottom: 0px; }
 .goal a { color: $oil; }
 .goal small { color: $monsoon; }
+.goal input { margin-bottom: 0; }
+
+.goals-edit { padding-top: 1em; }
+.goals-edit a { position: relative; top: 15px; color: $primary-color; }
 
 .switch span { color: white; position: relative; top: -8px; }
