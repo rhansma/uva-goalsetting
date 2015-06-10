@@ -111,16 +111,19 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 
     /* Save goal with new state */
     $scope.save = function() {
+      $scope.spinner = true;
       /* Do nothing if goal is aborted */
       if($scope.userGoal.status === 'aborted' || $scope.checkExpired($scope.userGoal.goal.expires)) {
         return false;
       }
 
-      var goal = $scope.userGoal;//new UserGoals();
+      var goal = $scope.userGoal;
 
       goal.$update(function() {
+        $scope.spinner = false;
         notify({message: 'Succesfully saved', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
       }, function(errorResponse) {
+        $scope.spinner = false;
         notify({message: errorResponse.data.message, templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
       });
     };
