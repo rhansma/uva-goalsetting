@@ -31,7 +31,8 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      tincan.createdGoal(req.user.email, req.user.displayName);
+      var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + goal._id;
+      tincan.createdGoal(req.user.email, goal._id, requestUrl);
       res.json(goal);
     }
   });
