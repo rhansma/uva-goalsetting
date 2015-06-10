@@ -6,6 +6,8 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
     $scope.teacher = Authentication.isTeacher();
 
     $scope.create = function() {
+      $scope.spinner = true;
+
       var goal = new Goals({
         title: this.title,
         content: this.content,
@@ -20,7 +22,9 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
         $scope.content = '';
         $scope.expires = '';
         $scope.subgoals = [];
+        $scope.spinner = false
       }, function(errorResponse) {
+        $scope.spinner = false;
         $scope.error = errorResponse.data.message;
       });
     };
