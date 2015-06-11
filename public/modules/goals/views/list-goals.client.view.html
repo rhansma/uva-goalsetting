@@ -1,21 +1,4 @@
 <section data-ng-controller="GoalsController" data-ng-init="find()">
-
-  <div class="row" data-ng-show="teacher">
-    <div class="small-6 columns">
-      <div class="switch small">
-        <input id="editMode" data-ng-model="edit" type="checkbox">
-        <label for="editMode">Edit mode</label>
-        <span>Edit and rate goals</span>
-      </div>
-    </div>
-    <div class="small-6 columns">
-      <div data-ng-show="teacher && edit">
-       <a class="tiny button right" data-ng-click="publish();">Publish!</a>
-       <a class="tiny button right" data-ng-click="save();">Save</a>
-     </div>
-   </div>
- </div>
-
  <div class="row goals">
   <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="goal in goals">
     <div class="goal panel">

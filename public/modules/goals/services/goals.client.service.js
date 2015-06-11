@@ -13,7 +13,7 @@ angular.module('goals').factory('Goals', ['$resource',
         url: 'goals/teacher/:goalId'
       },
       getApproved: {
-        method: 'get',
+        method: 'GET',
         isArray: true,
         url: 'goals/approved'
       },

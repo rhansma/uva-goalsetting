@@ -13,6 +13,11 @@ angular.module('goals').config(['$stateProvider', 'AUTH_LEVEL',
 	function($stateProvider, AUTH_LEVEL) {
 		// Goals state routing
 		$stateProvider.
+		state('publicGoalsFeed', {
+			url: '/goals/public',
+			templateUrl: 'modules/goals/views/public-goal-feed.client.view.html',
+      accessLevel: AUTH_LEVEL.teacher
+		}).
 		state('statisticsUserGoals', {
 			url: '/user/goals/statistics',
 			templateUrl: 'modules/goals/views/statistics-user-goals.client.view.html',

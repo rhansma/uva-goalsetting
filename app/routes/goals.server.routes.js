@@ -14,11 +14,11 @@ var users = require('../../app/controllers/users.server.controller'),
 module.exports = function(app) {
   // Goals Routes
   app.route('/goals')
-      .get(goals.list)
+      .get(users.requiresLogin, users.isTeacher, goals.list)
       .post(users.requiresLogin, goals.create);
 
   app.route('/goals/approved')
-    .get(users.requiresLogin, goals.approved);
+      .get(users.requiresLogin, goals.approved);
 
   app.route('/goals/:goalId')
       .get(goals.read)
