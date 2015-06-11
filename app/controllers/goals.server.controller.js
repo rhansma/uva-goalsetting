@@ -24,6 +24,7 @@ exports.create = function(req, res) {
   var goal = new Goal(req.body);
   goal.creator = req.user;
   goal.finished = false;
+  goal.committed = 1;
 
   goal.save(function(err) {
     if (err) {
@@ -33,7 +34,23 @@ exports.create = function(req, res) {
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + goal._id;
       tincan.createdGoal(req.user.email, goal._id, requestUrl);
-      res.json(goal);
+
+      var userGoals = new UserGoals();
+      userGoals.status = 'committed';
+      userGoals.user = req.user;
+      userGoals.goal = goal._id;
+
+      userGoals.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          tincan.committedToGoal(req.user.email, req.user.displayName);
+
+          res.json(goal);
+        }
+      });
     }
   });
 };

@@ -4,9 +4,9 @@
 angular.module('goals').run(['Menus',
   function(Menus) {
     //Set topbar menu
-    Menus.addMenuItem('topbar', 'Goals', 'goals', 'item', '/goals');
-    Menus.addMenuItem('topbar', 'Create Goal', 'goals/create', 'item', '/goals/create');
-    Menus.addMenuItem('topbar', 'Show committed goals', 'goals/committed', 'item', '/goals/committed');
+    Menus.addMenuItem('topbar', 'Public goal feed', 'goals/public', 'item', '/goals/public');
+    Menus.addMenuItem('topbar', 'Goal overview', 'goals', 'item', '/goals');
+    Menus.addMenuItem('topbar', 'Show statistics', 'user/goals/statistics', 'item', 'user/goals/statistics');
   }
 ]);
 

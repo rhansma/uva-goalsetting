@@ -34,7 +34,7 @@ angular.module('goals').config(['$stateProvider', 'AUTH_LEVEL',
       accessLevel: AUTH_LEVEL.student
 		}).
 		state('committedGoals', {
-			url: '/goals/committed',
+			url: '/goals',
 			templateUrl: 'modules/goals/views/list-committed-goals.client.view.html',
       accessLevel: AUTH_LEVEL.student
 		}).
