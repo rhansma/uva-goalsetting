@@ -32,7 +32,7 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + goal._id;
+      var requestUrl = req.protocol + '://' + req.get('host') + req.url;
       tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_CREATED, requestUrl, 'Goal');
 
       var userGoals = new UserGoals();
@@ -74,7 +74,8 @@ function _update(req, res, goal) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + goal._id;
+      var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+
       tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_UPDATED, requestUrl, 'Goal');
       res.json(goal);
     }
@@ -101,6 +102,12 @@ exports.updateByTeacher = function(req, res) {
   var goal = req.goal;
 
   goal = _.extend(goal, req.body);
+
+  /* Teacher rates goal, send statement to LRS */
+  if(goal.rating !== null) {
+    var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+    tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_RATED, requestUrl, 'Goal', goal.rating);
+  }
   _update(req, res, goal);
 };
 
@@ -187,6 +194,9 @@ exports.publish = function(req, res) {
       _.each(goals, function(goal, index, list) {
         goal.published = true;
         goal.save();
+
+        var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+        tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_APPROVED, requestUrl, 'Goal');
 
         /* If this was the last goal, send mail and respond with 200 */
         if(index === (_.size(list) - 1)) {

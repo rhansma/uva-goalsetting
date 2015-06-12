@@ -34,7 +34,7 @@ exports.create = function(req, res) {
         } else {
           /* Send statement to LRS if committed to goal */
           if(userGoals.status === 'committed') {
-            var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + goal._id;
+            var requestUrl = req.protocol + '://' + req.get('host') + req.url;
             tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_COMMITTED, requestUrl, 'Goal');
           }
 
@@ -69,7 +69,7 @@ exports.update = function(req, res) {
 
       /* Send tincan statement to LRS */
       if(userGoal.finished) {
-        var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + userGoal.goal;
+        var requestUrl = req.protocol + '://' + req.get('host') + req.url;
         tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Goal');
       }
     }
@@ -78,7 +78,7 @@ exports.update = function(req, res) {
     _.each(userGoal.subgoals, function(subgoal) {
       _.each(oldGoal.subgoals, function(oldSubgoal) {
         if(subgoal.finished && oldSubgoal.finished === false) {
-          var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + userGoal.goal;
+          var requestUrl = req.protocol + '://' + req.get('host') + req.url;
           tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Subgoal');
         }
       });
@@ -117,7 +117,7 @@ exports.abort = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + userGoal.goal;
+      var requestUrl = req.protocol + '://' + req.get('host') + req.url;
       tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_ABORTED, requestUrl, 'Goal');
       UserGoals.find({$and: [
           {'group': userGoalGroup},
