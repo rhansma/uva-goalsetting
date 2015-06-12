@@ -144,6 +144,15 @@ module.exports = function(grunt) {
         TINCAN_UPDATED: 'http://activitystrea.ms/schema/1.0/update',
         TINCAN_LOGIN: 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
         TINCAN_VIEW: 'http://id.tincanapi.com/verb/viewed'
+      },
+      secretVars: {
+        LRS_ENDPOINT: 'https://cloud.scorm.com/tc/XL7FI9R9KB/',
+        LRS_USERNAME: '8P6dVx5tr-EdPBxMNDk',
+        LRS_PASSWORD: 'KDbm4DqW1Z9eZtgKhfA',
+        MAIL_HOST: 'smtp.mandrillapp.com',
+        MAIL_PORT: 587,
+        MAIL_USERNAME: 'robin@ihatestatistics.com',
+        MAIL_PASSWORD: 'vMs4KpRlVDPqxSHkBriJog'
       }
     },
     mochaTest: {
