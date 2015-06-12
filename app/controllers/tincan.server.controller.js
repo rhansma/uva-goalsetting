@@ -24,7 +24,7 @@ var tincan = new TinCan(
   }
 );
 
-function _sendStatement(verb, userEmail, userRole, userName, objectType, requestUrl, objectTitle, origin) {
+function _sendStatement(verb, userEmail, userRole, userName, objectType, requestUrl, objectTitle, origin, rating) {
   var statement = {
     'actor': {
       'mbox': 'mailto:' + userEmail,
@@ -63,7 +63,6 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
 
   /* Add rating if set */
   if(typeof rating !== 'undefined') {
-    statement.target.definition.extensions
     statement.target.definition.extensions['http://goalsetting.uva.nl/goal/rating'] = rating;
   }
 
