@@ -1,42 +1,41 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="findOne()">
   <div class="row">
     <div class="large-12 columns">
-      <a class="alert button tiny right" data-ng-click="abort();" data-ng-class="{disabled: spinner}">Abort goal</a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns">
-      <h3 data-ng-show="userGoal.status === 'aborted'" class="alert">This goal is aborted</h3><h3 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h3>
-      <h3 data-ng-bind="userGoal.goal.title" data-ng-class="{ alert: userGoal.status === 'aborted' }"></h3>
-      <small data-ng-bind="userGoal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
-      <p>
-        <input type="checkbox" data-ng-model="userGoal.finished" /><span data-ng-bind="userGoal.goal.content"></span>
-        <tags-input data-ng-model="userGoal.tags"></tags-input>
-      </p>
-      <!-- Subgoals -->
-      <div class="row">
-        <div class="large-12 columns">
-          <h3 class="subheader">Subgoals</h3>
-          <a class="button tiny" ng-click="addSubgoal();">Add subgoal</a>
-        </div>
-        <div class="large-12 columns" ng-repeat="subgoal in userGoal.subgoals">
-          <div class="row">
-            <div class="large-3 columns">
-              <input type="checkbox" data-ng-model="subgoal.finished" />
-            </div>
-            <div class="large-6 columns">
-              <input name="subgoalContent" type="text" data-ng-model="subgoal.content" placeholder="Content" required />
-            </div>
-            <div class="large-3 columns">
-              <input name="subgoalExpires" type="date" data-ng-model="subgoal.expires" date-in-future data-ng-options="{allowInvalid: true}" required />
+      <div class="goal panel">
+        <a class="alert button tiny right" data-ng-click="abort();" data-ng-class="{disabled: spinner}">Abort goal</a>
+
+        <h3 data-ng-show="userGoal.status === 'aborted'" class="alert">This goal is aborted</h3><h3 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h3>
+        <h3 data-ng-bind="userGoal.goal.title" data-ng-class="{ alert: userGoal.status === 'aborted' }"></h3>
+        <small data-ng-bind="userGoal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
+        <p>
+          <input type="checkbox" data-ng-model="userGoal.finished" /><span data-ng-bind="userGoal.goal.content"></span>
+          <tags-input data-ng-model="userGoal.tags"></tags-input>
+        </p>
+        <!-- Subgoals -->
+        <div class="row">
+          <div class="large-12 columns">
+            <h3 class="subheader">Subgoals</h3>
+            <a class="button tiny" ng-click="addSubgoal();">Add subgoal</a>
+          </div>
+          <div class="large-12 columns" ng-repeat="subgoal in userGoal.subgoals">
+            <div class="row">
+              <div class="large-3 columns">
+                <input type="checkbox" data-ng-model="subgoal.finished" />
+              </div>
+              <div class="large-6 columns">
+                <input name="subgoalContent" type="text" data-ng-model="subgoal.content" placeholder="Content" required />
+              </div>
+              <div class="large-3 columns">
+                <input name="subgoalExpires" type="date" data-ng-model="subgoal.expires" date-in-future data-ng-options="{allowInvalid: true}" required />
+              </div>
             </div>
           </div>
         </div>
+        <p>
+          <p class="text-center"><i class="fa fa-spinner fa-spin" ng-show="spinner"></i></p>
+          <a class="button" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted', disabled: checkExpired(userGoal.goal.expires) }" >Save</a>
+        </p>
       </div>
-      <p>
-        <p class="text-center"><i class="fa fa-spinner fa-spin" ng-show="spinner"></i></p>
-        <a class="button" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted', disabled: checkExpired(userGoal.goal.expires) }" >Save</a>
-      </p>
     </div>
   </div>
 </section>

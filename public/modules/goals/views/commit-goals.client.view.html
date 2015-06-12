@@ -1,9 +1,9 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="findApproved()">
   <div class="row">
     <div class="large-12 columns">
-      <p data-ng-hide="!goals.length">Swipe to commit or drop goal</p>
-      <!-- Message if no goals have a rating above a 5 yet -->
-      <h4 data-ng-show="!goals.length">There are no approved goals yet.</h4>
+       <!-- Message if no goals have a rating above a 5 yet -->
+      <h5 class="standout" data-ng-show="!goals.length">There are no approved goals yet.</h5>
+      <h5 class="standout" data-ng-hide="!goals.length">Swipe to commit or drop goal</h5>
     </div>
   </div>
   <div class="row">
@@ -21,15 +21,14 @@
           </small>
           <hr />
           <p data-ng-bind="goal.content"></p>
-          <p>
-            <a class="left" data-ng-click="reject(goal);"><i class="fa fa-arrow-left"></i> Ignore</a>
-            <a class="right" data-ng-click="commit(goal);">Commit <i class="fa fa-arrow-right"></i></a>
-          </p>
-
           <p data-ng-show="goal.committed">
             <span data-ng-bind="goal.committed"></span> others already committed to this goal
           </p>
-          <br />
+          <p>
+            <a class="left" data-ng-click="reject(goal);"><i class="fa fa-arrow-left"></i> Ignore</a>
+            <a class="right" data-ng-click="commit(goal);">Commit <i class="fa fa-arrow-right"></i></a>
+            <br />
+          </p>
         </div>
       </div>
 

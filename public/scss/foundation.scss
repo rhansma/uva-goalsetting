@@ -44,10 +44,11 @@
 @import 'foundation/components/offcanvas';
 @import 'foundation/components/visibility';
 
-body { background: url(/modules/core/img/background.jpeg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
+body { background: url(/modules/core/img/background.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
 
 .top-header { height: 95px; background-color: #ffffff; }
 .top-header img { margin-top: 35px; }
+.top-header span { margin-top: 35px; color: $primary-color; }
 
 .top-bar img { height: 52px; margin: 0; padding: 0 1em 0 1em; }
 
@@ -68,3 +69,9 @@ body { background: url(/modules/core/img/background.jpeg) no-repeat center cente
 .goals-edit a { position: relative; top: 15px; color: $primary-color; }
 
 .switch span { color: white; position: relative; top: -8px; }
+
+.date-datepicker-button { background: none; color: $primary-color; }
+.date-calendar-dialog { z-index: 1000; }
+
+.standout { color: white; }
+.create { padding: 20px; }

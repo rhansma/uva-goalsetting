@@ -1,45 +1,34 @@
 <section data-ng-controller="GoalsController" data-ng-init="findOne()">
+
   <div class="row">
-    <div class="columns large-12">
-      <h1 data-ng-bind="goal.title"></h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns collapse">
-      <div class="pull-right" data-ng-show="authentication.user._id == goal.creator._id">
-        <a class="button tiny" href="/#!/goals/{{goal._id}}/edit">
-          <i class="fa fa-pencil-square-o"> Edit</i>
-        </a>
-        <a class="button tiny" data-ng-click="remove();">
-          <i class="fa fa-trash-o"> Delete</i>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns collapse">
-      <small>
-        <em class="text-muted">
+    <div class="large-12 columns">
+      <div class="goal panel">
+        <h1 data-ng-bind="goal.title"></h1>
+        <small>
           Posted on
           <span data-ng-bind="goal.created | amDateFormat:'MMMM Do YYYY'"></span>
           by
           <span data-ng-bind="goal.creator.displayName"></span>
-        </em>
-      </small>
-      <p class="lead" data-ng-bind="goal.content"></p>
-    </div>
-
-    <!-- Subgoals -->
-    <div class="row" data-ng-hide="!goal.subgoals.length">
-      <div class="large-12 columns">
-        <h3>Subgoals:</h3>
+        </small>
+        <p data-ng-bind="goal.content"></p>
+        <div class="right" data-ng-show="authentication.user._id == goal.creator._id">
+          <a href="/#!/goals/{{goal._id}}/edit"><i class="fa fa-pencil-square-o"> Edit</i></a>
+          <a data-ng-click="remove();"><i class="fa fa-trash-o"> Delete</i></a>
+        </div>
       </div>
-    </div>
-    <div class="row" data-ng-repeat="subgoal in goal.subgoals" data-ng-hide="!goal.subgoals.length">
-      <div class="large-12 columns">
-        <span class="lead" data-ng-bind="subgoal.content"></span>
-        <small class="right" data-ng-bind="subgoal.expires | amDateFormat:'MMMM Do YYYY'"></small>
+      <!-- Subgoals -->
+      <div class="row" data-ng-hide="!goal.subgoals.length">
+        <div class="large-12 columns">
+          <h3>Subgoals:</h3>
+        </div>
+      </div>
+      <div class="row" data-ng-repeat="subgoal in goal.subgoals" data-ng-hide="!goal.subgoals.length">
+        <div class="large-12 columns">
+          <span class="lead" data-ng-bind="subgoal.content"></span>
+          <small class="right" data-ng-bind="subgoal.expires | amDateFormat:'MMMM Do YYYY'"></small>
+        </div>
       </div>
     </div>
   </div>
+
 </section>
