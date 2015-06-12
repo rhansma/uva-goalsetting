@@ -24,36 +24,7 @@ var tincan = new TinCan(
   }
 );
 
-function _sendStatement(email, name, actorType, verb, type, requestUrl, action) {
-  tincan.sendStatement(
-    {
-      actor: {
-        mbox: 'mailto:' + email,
-        name: name,
-        type: actorType
-      },
-      verb: {
-        id: verb
-      },
-      target: {
-        id: process.env.APP_URL,
-        objectType: type,
-        url: requestUrl,
-        displayName: action,
-        definition: {
-          name: {
-            'en-US': 'Goal'
-          },
-          description: {
-            'en-US': 'Set goals to improve learning results'
-          },
-          type: 'http://adlnet.gov/expapi/activities/objective'
-        }
-      }
-    }, function(results, statement) {}); // Can be used for logging, last parameter is the exact statement sent to LRS
-}
-
-function _sendStatementI(verb, userEmail, userRole, userName, objectType, requestUrl, objectTitle, origin) {
+function _sendStatement(verb, userEmail, userRole, userName, objectType, requestUrl, objectTitle, origin) {
   var statement = {
     'actor': {
       'mbox': 'mailto:' + userEmail,
@@ -68,9 +39,6 @@ function _sendStatementI(verb, userEmail, userRole, userName, objectType, reques
       'definition': {
         'name': {
           'en-US': objectType
-        },
-        'description': {
-          'en-US': objectTitle
         }
       }
     },
@@ -87,12 +55,26 @@ function _sendStatementI(verb, userEmail, userRole, userName, objectType, reques
     statement.target.definition.extensions['http://localhost:3000/goal/origin'] = origin;
   }
 
+  /* Add origin if set */
+  if(typeof objectTitle !== 'undefined') {
+    statement.target.definition.description = {};
+    statement.target.definition.description['en-US'] = objectTitle;
+  }
+
   tincan.sendStatement(statement, function(results, statement) {
     errorHandler.log(results, 'info');
     errorHandler.log(statement, 'info');
   });
 }
 
+/**
+ * Send statement on goal/subgoal actions
+ * @param email
+ * @param goal
+ * @param verb
+ * @param requestUrl
+ * @param type
+ */
 exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type) {
   User.find({'email': email}).exec(function(err, user) {
     if(err) {
@@ -103,27 +85,21 @@ exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type) {
           errorHandler.log(err);
         }
         else {
-          _sendStatementI(verb, user[0].email, user[0].roles[0], user[0].displayName, type, requestUrl, goal.title, goal.creator.displayName);
+          _sendStatement(verb, user[0].email, user[0].roles[0], user[0].displayName, type, requestUrl, goal.title, goal.creator.displayName);
         }
       });
     }
   });
-}
-
-/**
- * Send tincan statement for creation of goal
- * @param email
- * @param goal
- * @param requestUrl (url of the goal)
- * @param type (goal/subgoal)
- */
-exports.createdGoal = function(email, goal, requestUrl, type) {
-  _sendStatementOnGoal(email, goal, process.env.TINCAN_CREATED, requestUrl, type);
 };
 
-exports.committedToGoal = function(email, goal, requestUrl) {
-  var verb = 'http://adlnet.gov/expapi/verbs/registered';
-  _sendStatementOnGoal(email, goal, verb, requestUrl, 'Goal');
+exports.sendStatementOnUser = function(email, verb, requestUrl, objectType) {
+  User.find({'email': email}).exec(function(err, user) {
+    if(err) {
+      errorHandler.log(err);
+    } else {
+      _sendStatement(verb, email, user[0].roles[0], user[0].displayName, 'User', requestUrl, objectType);
+    }
+  });
 };
 
 exports.finishedGoal = function(email, name) {

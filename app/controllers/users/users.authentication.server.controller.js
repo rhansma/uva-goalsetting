@@ -7,7 +7,8 @@ var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+  tincan = require('../tincan.server.controller.js');
 
 /**
  * Signup
@@ -62,6 +63,8 @@ exports.signin = function(req, res, next) {
 				if (err) {
 					res.status(400).send(err);
 				} else {
+          var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+          tincan.sendStatementOnUser(user.email, process.env.TINCAN_LOGIN, requestUrl);
 					res.json(user);
 				}
 			});

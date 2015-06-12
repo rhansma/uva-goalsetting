@@ -33,7 +33,7 @@ exports.create = function(req, res) {
       });
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + goal._id;
-      tincan.createdGoal(req.user.email, goal._id, requestUrl);
+      tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_CREATED, requestUrl, 'Goal');
 
       var userGoals = new UserGoals();
       userGoals.status = 'committed';
@@ -46,7 +46,7 @@ exports.create = function(req, res) {
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_CREATED, requestUrl, 'Goal');
+          tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_COMMITTED, requestUrl, 'Goal');
           res.json(goal);
         }
       });
@@ -67,13 +67,15 @@ exports.read = function(req, res) {
  * @param res
  * @private
  */
-function _update(goal, res) {
+function _update(req, res, goal) {
   goal.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + goal._id;
+      tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_UPDATED, requestUrl, 'Goal');
       res.json(goal);
     }
   });
@@ -87,7 +89,7 @@ exports.update = function(req, res) {
 
   /* Omit rating property, may only be changed by teacher */
   goal = _.extend(goal, _.omit(req.body, ['rating', 'committed', 'finished']));
-  _update(goal, res);
+  _update(req, res, goal);
 };
 
 /**
@@ -99,7 +101,7 @@ exports.updateByTeacher = function(req, res) {
   var goal = req.goal;
 
   goal = _.extend(goal, req.body);
-  _update(goal, res);
+  _update(req, res, goal);
 };
 
 /**
@@ -154,6 +156,8 @@ exports.approved = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
+        var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+        tincan.sendStatementOnUser(req.user.email, process.env.TINCAN_VIEW, requestUrl, 'inspirational goal list');
         res.json(goals);
       }
     });
