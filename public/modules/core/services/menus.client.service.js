@@ -11,12 +11,12 @@ angular.module('core').service('Menus', [
 		this.menus = {};
 
 		// A private function for rendering decision 
-		var shouldRender = function(user) {
-			if (user) {
+		var shouldRender = function() {
+			if (window.user) {
 				if (!!~this.roles.indexOf('*')) {
 					return true;
 				} else {
-					for (var userRoleIndex in user.roles) {
+					for (var userRoleIndex in window.user.roles) {
 						for (var roleIndex in this.roles) {
 							if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
 								return true;
