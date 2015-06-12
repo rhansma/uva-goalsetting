@@ -31,11 +31,14 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
     };
 
     $scope.update = function() {
+      $scope.spinner = true;
       var goal = $scope.goal;
 
       goal.$update(function() {
+        $scope.spinner = false;
         $location.path('goals/' + goal._id);
       }, function(errorResponse) {
+        $scope.spinner = false;
         $scope.error = errorResponse.data.message;
       });
     };
@@ -75,6 +78,7 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
 
     /* Save teacher edits */
     $scope.save = function() {
+      $scope.spinner = true;
       var successes = 0;
       /* Loop through all goals and update them */
       angular.forEach($scope.goals, function(goal) {
@@ -84,8 +88,10 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
           /* Show message if all changes are saved */
           if(successes === $scope.goals.length) {
             notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+            $scope.spinner = false;
           }
         }, function(errorResponse) {
+          $scope.spinner = false;
           $scope.error = errorResponse.data.message;
         });
       });
@@ -93,9 +99,12 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
 
     /* Publish all rated goals */
     $scope.publish = function() {
+      $scope.spinner = true;
       Goals.publish(function() {
+        $scope.spinner = false;
         notify({message: 'All rated goals are published, students can now commit or reject to them.', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
       }, function(errorResponse) {
+        $scope.spinner = false;
         $scope.error = errorResponse.data.message;
       });
     };

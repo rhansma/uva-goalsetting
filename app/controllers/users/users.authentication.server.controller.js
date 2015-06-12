@@ -63,7 +63,7 @@ exports.signin = function(req, res, next) {
 				if (err) {
 					res.status(400).send(err);
 				} else {
-          var requestUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+          var requestUrl = req.protocol + '://' + req.get('host') + req.url;
           tincan.sendStatementOnUser(user.email, process.env.TINCAN_LOGIN, requestUrl);
 					res.json(user);
 				}

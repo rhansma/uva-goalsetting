@@ -44,7 +44,7 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
     },
     'context': {
       'extensions': {
-        'http://localhost:3000/user/role': userRole
+        'http://goalsetting.uva.nl/user/role': userRole
       }
     }
   };
@@ -52,13 +52,19 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
   /* Add origin if set */
   if(typeof origin !== 'undefined') {
     statement.target.definition.extensions = {};
-    statement.target.definition.extensions['http://localhost:3000/goal/origin'] = origin;
+    statement.target.definition.extensions['http://goalsetting.uva.nl/goal/origin'] = origin;
   }
 
   /* Add origin if set */
   if(typeof objectTitle !== 'undefined') {
     statement.target.definition.description = {};
     statement.target.definition.description['en-US'] = objectTitle;
+  }
+
+  /* Add rating if set */
+  if(typeof rating !== 'undefined') {
+    statement.target.definition.extensions
+    statement.target.definition.extensions['http://goalsetting.uva.nl/goal/rating'] = rating;
   }
 
   tincan.sendStatement(statement, function(results, statement) {
@@ -75,7 +81,7 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
  * @param requestUrl
  * @param type
  */
-exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type) {
+exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type, rating) {
   User.find({'email': email}).exec(function(err, user) {
     if(err) {
       errorHandler.log(err);
@@ -85,7 +91,7 @@ exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type) {
           errorHandler.log(err);
         }
         else {
-          _sendStatement(verb, user[0].email, user[0].roles[0], user[0].displayName, type, requestUrl, goal.title, goal.creator.displayName);
+          _sendStatement(verb, user[0].email, user[0].roles[0], user[0].displayName, type, requestUrl, goal.title, goal.creator.displayName, rating);
         }
       });
     }
@@ -97,37 +103,7 @@ exports.sendStatementOnUser = function(email, verb, requestUrl, objectType) {
     if(err) {
       errorHandler.log(err);
     } else {
-      _sendStatement(verb, email, user[0].roles[0], user[0].displayName, 'User', requestUrl, objectType);
+      _sendStatement(verb, email, user[0].roles[0], user[0].displayName, objectType, requestUrl);
     }
   });
-};
-
-exports.finishedGoal = function(email, name) {
-  var verb = 'http://adlnet.gov/expapi/verbs/completed';
-
-  _sendStatement(email, name, verb);
-};
-
-exports.rejectedGoal = function(email, name) {
-  var verb = 'http://adlnet.gov/expapi/verbs/voided';
-
-  _sendStatement(email, name, verb);
-};
-
-exports.progressedGoal = function(email, name) {
-  var verb = 'http://adlnet.gov/expapi/verbs/progressed';
-
-  _sendStatement(email, name, verb);
-};
-
-exports.abortedGoal = function(email, name) {
-  var verb = 'http://adlnet.gov/expapi/verbs/suspended';
-
-  _sendStatement(email, name, verb);
-};
-
-exports.failedGoal = function(email, name) {
-  var verb = 'http://adlnet.gov/expapi/verbs/failed';
-
-  _sendStatement(email, name, verb);
 };
