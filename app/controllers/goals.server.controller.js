@@ -46,7 +46,7 @@ exports.create = function(req, res) {
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          tincan.committedToGoal(req.user.email, goal._id, requestUrl);
+          tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_CREATED, requestUrl, 'Goal');
           res.json(goal);
         }
       });

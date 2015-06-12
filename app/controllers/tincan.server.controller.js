@@ -93,7 +93,7 @@ function _sendStatementI(verb, userEmail, userRole, userName, objectType, reques
   });
 }
 
-function _sendStatementOnGoal(email, goal, verb, requestUrl, type) {
+exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type) {
   User.find({'email': email}).exec(function(err, user) {
     if(err) {
       errorHandler.log(err);

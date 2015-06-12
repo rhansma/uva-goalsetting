@@ -10,6 +10,8 @@ var mongoose = require('mongoose'),
     Goal = mongoose.model('Goal'),
     tincan = require('./tincan.server.controller.js');
 
+console.log(process.env);
+
 /**
  * Create a User goal
  */
@@ -34,7 +36,7 @@ exports.create = function(req, res) {
         } else {
           /* Send statement to LRS if committed to goal */
           if(userGoals.status === 'committed') {
-            tincan.committedToGoal(req.user.email, req.user.displayName);
+            tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_COMMITTED, requestUrl, 'Goal');
           }
 
           res.json(userGoals);
