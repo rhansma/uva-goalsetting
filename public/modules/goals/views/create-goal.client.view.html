@@ -2,7 +2,7 @@
   <section data-ng-controller="GoalsController">
     <div class="small-12 medium-6 medium-centered large-4 columns panel">
       <a data-ng-href="#!/goals" class="right"><i class="fa fa-times"></i></a>
-      <form name="goalForm" data-ng-submit="create()" novalidate data-enable-shim="true">
+      <form name="goalForm" data-ng-submit="create()" novalidate>
 
         <div class="row">
           <div class="large-12 columns" ng-class="{ 'has-error': goalForm.title.$dirty && goalForm.title.$invalid }">

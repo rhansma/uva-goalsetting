@@ -2,6 +2,7 @@
 
 angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify',
 	function($scope, Goals, Authentication, $location, $stateParams, moment, notify) {
+    angular.element('input[type=date]').inputDate();
     $scope.authentication = Authentication._data;
     $scope.teacher = Authentication.isTeacher();
 

@@ -22,6 +22,7 @@
     "angular-cookies": "~1.3.15",
     "ng-tags-input": "~2.3.0",
     "angular-chart.js": "~0.7.1",
-    "html5formshim": "~2.3.1"
+    "date-polyfill": "*",
+    "jquery-ui": "~1.11.4"
   }
 }
