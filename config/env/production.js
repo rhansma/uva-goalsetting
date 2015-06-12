@@ -4,12 +4,12 @@ module.exports = {
 	db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/goalsetting',
 	assets: {
 		lib: {
-			css: [
+      css: [
         'public/lib/font-awesome/css/font-awesome.min.css',
         'public/lib/angular-notify/dist/angular-notify.css',
         'public/lib/ng-tags-input/ng-tags-input.css'
-			],
-			js: [
+      ],
+      js: [
         'public/lib/jquery/dist/jquery.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
@@ -32,7 +32,7 @@ module.exports = {
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/jquery-ui/jquery-ui.js',
         'public/lib/date-polyfill/date-polyfill.js'
-			]
+      ]
 		},
 		css: 'public/dist/application.min.css',
 		js: 'public/dist/application.min.js'
