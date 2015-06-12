@@ -10,6 +10,7 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.css'
 			],
 			js: [
+        'public/lib/jquery/dist/jquery.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-cookies/angular-cookies.js',
@@ -23,14 +24,14 @@ module.exports = {
         'public/lib/angular-moment/angular-moment.js',
         'public/lib/moment-timezone/build/moment-timezone-with-data.js',
         'public/lib/modernizr/modernizr.js',
-        'public/lib/jquery/dist/jquery.js',
         'public/lib/foundation/js/foundation.js',
         'public/lib/ngDraggable/ngDraggable.js',
         'public/lib/angular-notify/dist/angular-notify.js',
         'public/lib/ng-tags-input/ng-tags-input.js',
         'public/lib/Chart.js/Chart.js',
         'public/lib/angular-chart.js/dist/angular-chart.js',
-        'public/lib/html5formshim/build/jquery.html5form.js'
+        'public/lib/jquery-ui/jquery-ui.js',
+        'public/lib/date-polyfill/date-polyfill.js'
 			]
 		},
 		css: 'public/dist/application.min.css',
