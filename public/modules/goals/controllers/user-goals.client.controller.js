@@ -66,12 +66,20 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
     };
 
     $scope.abort = function() {
+      /* Don't send again if already busy */
+      if($scope.spinner) {
+        return false;
+      }
+
+      $scope.spinner = true;
       var userGoal = $scope.userGoal;
 
       userGoal.$abort(function() {
         notify({message: 'You\'ve aborted this goal', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+        $scope.spinner = false;
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
+        $scope.spinner = false;
       });
     };
 

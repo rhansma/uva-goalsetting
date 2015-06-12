@@ -1,7 +1,7 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="findOne()">
   <div class="row">
     <div class="large-12 columns">
-      <a class="alert button tiny right" data-ng-click="abort();">Abort goal</a>
+      <a class="alert button tiny right" data-ng-click="abort();" data-ng-class="{disabled: spinner}">Abort goal</a>
     </div>
   </div>
   <div class="row">
