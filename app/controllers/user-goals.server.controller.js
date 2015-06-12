@@ -68,7 +68,7 @@ exports.update = function(req, res) {
 
       /* Send tincan statement to LRS */
       if(userGoal.finished) {
-        tincan.finishedGoal(req.user.email, req.user.displayName);
+        //tincan.finishedGoal(req.user.email, req.user.displayName);
       }
     }
 
@@ -76,7 +76,7 @@ exports.update = function(req, res) {
     _.each(userGoal.subgoals, function(subgoal) {
       _.each(oldGoal.subgoals, function(oldSubgoal) {
         if(subgoal.finished && oldSubgoal.finished === false) {
-          tincan.progressedGoal(req.user.email, req.user.displayName);
+          //tincan.progressedGoal(req.user.email, req.user.displayName);
         }
       });
     });
