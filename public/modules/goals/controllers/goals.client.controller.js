@@ -22,7 +22,7 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
         $scope.content = '';
         $scope.expires = '';
         $scope.subgoals = [];
-        $scope.spinner = false
+        $scope.spinner = false;
       }, function(errorResponse) {
         $scope.spinner = false;
         $scope.error = errorResponse.data.message;

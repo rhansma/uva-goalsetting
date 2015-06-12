@@ -83,13 +83,30 @@ function _sendStatementI(verb, userEmail, userRole, userName, objectType, reques
 
   /* Add origin if set */
   if(typeof origin !== 'undefined') {
-    statement.target.definition['extensions'] = {};
+    statement.target.definition.extensions = {};
     statement.target.definition.extensions['http://localhost:3000/goal/origin'] = origin;
   }
 
   tincan.sendStatement(statement, function(results, statement) {
     errorHandler.log(results, 'info');
     errorHandler.log(statement, 'info');
+  });
+}
+
+function _sendStatementOnGoal(email, goal, verb, requestUrl, type) {
+  User.find({'email': email}).exec(function(err, user) {
+    if(err) {
+      errorHandler.log(err);
+    } else {
+      Goal.findById(goal).populate('creator').exec(function(err, goal) {
+        if(err) {
+          errorHandler.log(err);
+        }
+        else {
+          _sendStatementI(verb, user[0].email, user[0].roles[0], user[0].displayName, type, requestUrl, goal.title, goal.creator.displayName);
+        }
+      });
+    }
   });
 }
 
@@ -101,26 +118,12 @@ function _sendStatementI(verb, userEmail, userRole, userName, objectType, reques
  * @param type (goal/subgoal)
  */
 exports.createdGoal = function(email, goal, requestUrl, type) {
-  User.find({'email': email}).exec(function(err, user) {
-    if(err) {
-      errorHandler.log(err);
-    } else {
-      Goal.findById(goal).populate('creator').exec(function(err, goal) {
-        if(err) {
-          errorHandler.log(err);
-        }
-        else {
-         _sendStatementI(process.env.TINCAN_CREATED, user[0].email, user[0].roles[0], user[0].displayName, type, requestUrl, goal.title, goal.creator.displayName);
-        }
-      });
-    }
-  });
+  _sendStatementOnGoal(email, goal, process.env.TINCAN_CREATED, requestUrl, type);
 };
 
-exports.committedToGoal = function(email, name) {
+exports.committedToGoal = function(email, goal, requestUrl) {
   var verb = 'http://adlnet.gov/expapi/verbs/registered';
-
-  _sendStatement(email, name, verb);
+  _sendStatementOnGoal(email, goal, verb, requestUrl, 'Goal');
 };
 
 exports.finishedGoal = function(email, name) {
