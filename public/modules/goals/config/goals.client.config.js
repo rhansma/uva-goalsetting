@@ -14,3 +14,10 @@ angular.module('goals').run(['Menus',
 angular.module('goals').constant('angularMomentConfig', {
   timezone: 'Europe/Amsterdam'
 });
+
+angular.module('goals').run(['notify', function(notify) {
+    notify.config({
+      duration: 1500
+    });
+  }
+]);
