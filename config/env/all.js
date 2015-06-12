@@ -37,7 +37,8 @@ module.exports = {
         'public/lib/angular-notify/dist/angular-notify.js',
         'public/lib/ng-tags-input/ng-tags-input.js',
         'public/lib/Chart.js/Chart.js',
-        'public/lib/angular-chart.js/dist/angular-chart.js'
+        'public/lib/angular-chart.js/dist/angular-chart.js',
+        'public/lib/html5formshim/build/jquery.html5form.js'
 			]
 		},
 		css: [
