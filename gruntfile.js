@@ -134,6 +134,16 @@ module.exports = function(grunt) {
       },
       secure: {
         NODE_ENV: 'secure'
+      },
+      appSettings: {
+        REMINDER_TIME: '96', // in hours
+        TINCAN_CREATED: 'http://adlnet.gov/expapi/verbs/created',
+        TINCAN_COMMITTED: 'http://activitystrea.ms/schema/1.0/accept',
+        TINCAN_COMPLETED: 'http://activitystrea.ms/schema/1.0/complete',
+        TINCAN_ABORTED: 'http://activitystrea.ms/schema/1.0/cancel',
+        TINCAN_UPDATED: 'http://activitystrea.ms/schema/1.0/update',
+        TINCAN_LOGIN: 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
+        TINCAN_VIEW: 'http://id.tincanapi.com/verb/viewed'
       }
     },
     mochaTest: {
@@ -176,7 +186,7 @@ module.exports = function(grunt) {
   });
 
   // Default task(s).
-  grunt.registerTask('default', ['sass', 'lint', 'concurrent:default']);
+  grunt.registerTask('default', ['env:secretVars', 'env:appSettings', 'sass', 'lint', 'concurrent:default']);
 
   // Debug task.
   grunt.registerTask('debug', ['lint', 'concurrent:debug']);
