@@ -116,7 +116,15 @@ exports.delete = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(goal);
+      UserGoals.remove({'goal': goal._id}).exec(function(err) {
+        if(err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.json(goal);
+        }
+      });
     }
   });
 };

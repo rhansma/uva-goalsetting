@@ -25,8 +25,6 @@
           <small>
             Created on
             <span data-ng-bind="goal.created | amDateFormat:'MMMM Do YYYY'"></span>
-            by
-            <span data-ng-bind="goal.creator.displayName"></span>
           </small>
           <hr />
           <span data-ng-bind="goal.content"></span>
@@ -34,7 +32,7 @@
         <!-- Teacher options -->
         <div class="row goals-edit" data-ng-show="teacher && edit">
           <div class="small-4 small-offset-5 columns">
-            <input type="number" min="1" max="10" data-ng-model="goal.rating" />
+            Rating: <input type="number" min="1" max="10" data-ng-model="goal.rating" name="rating"/>
           </div>
           <div class="small-3 columns" data-ng-show="teacher && edit">
             <a class="right" data-ng-click="remove(goal);"><i class="fa fa-trash-o"></i> Delete</a>
