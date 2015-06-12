@@ -11,6 +11,7 @@
           <h4 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h4>
           <h3 class="subheader" data-ng-bind="userGoal.goal.title"></h3>
           <h5>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</h5>
+          <small data-ng-show="userGoal.subgoals.length">Number of subgoals: {{ userGoal.subgoals.length }}</small>
           <a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><small class="inline" data-ng-bind="userGoal.grouped | addPlus"></small></a>
           <p data-ng-bind="userGoal.goal.content"></p>
           <p><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group"><i class="fa fa-folder-open"></i></a></p>
