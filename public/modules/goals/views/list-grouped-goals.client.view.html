@@ -1,7 +1,7 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="findGrouped()">
   <div class="row">
     <div class="large-12 columns">
-      <h1>Goals in this group</h1>
+      <h3 class="standout">Goals in this group</h3>
       <div class="panel" data-ng-repeat="goal in userGoals">
         <h4 data-ng-show="checkExpired(goal.goal.expires)" class="alert">Expired</h4>
         <a data-ng-href="#!/goal/committed/{{goal._id}}">

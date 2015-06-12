@@ -1,12 +1,24 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="getStatistics()">
 	<div class="row">
-    <div class="large-12 columns">
-      Total: {{ statistics.total}}
-      Completed: {{ statistics.completed }}
-      Aborted: {{ statistics.aborted }}
-      <canvas id="line" class="chart chart-line" data="data" labels="labels" options="options"
-              legend="true" series="series"></canvas>
-
-    </div>
-  </div>
+		<div class="large-4 columns">
+			<div class="goal panel">
+				Total: {{ statistics.total}}
+			</div>
+		</div>
+		<div class="large-4 columns">
+			<div class="goal panel">
+				Completed: {{ statistics.completed }}
+			</div>
+		</div>
+		<div class="large-4 columns">
+			<div class="goal panel">
+				Aborted: {{ statistics.aborted }}
+			</div>
+		</div>
+		<div class="large-12 columns">
+			<div class="goal panel">
+				<canvas id="line" class="chart chart-line" data="data" labels="labels" options="options" legend="true" series="series"></canvas>
+			</div>
+		</div>
+	</div>
 </section>

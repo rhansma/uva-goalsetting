@@ -68,3 +68,9 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 .goals-edit a { position: relative; top: 15px; color: $primary-color; }
 
 .switch span { color: white; position: relative; top: -8px; }
+
+.date-datepicker-button { background: none; color: $primary-color; }
+.date-calendar-dialog { z-index: 1000; }
+
+.standout { color: white; }
+.create { padding: 20px; }
