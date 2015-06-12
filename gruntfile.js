@@ -143,7 +143,9 @@ module.exports = function(grunt) {
         TINCAN_ABORTED: 'http://activitystrea.ms/schema/1.0/cancel',
         TINCAN_UPDATED: 'http://activitystrea.ms/schema/1.0/update',
         TINCAN_LOGIN: 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
-        TINCAN_VIEW: 'http://id.tincanapi.com/verb/viewed'
+        TINCAN_VIEW: 'http://id.tincanapi.com/verb/viewed',
+        TINCAN_APPROVED: 'http://activitystrea.ms/schema/1.0/approve',
+        TINCAN_RATING: 'http://id.tincanapi.com/verb/rated'
       }
     },
     mochaTest: {
