@@ -10,8 +10,6 @@ var mongoose = require('mongoose'),
     Goal = mongoose.model('Goal'),
     tincan = require('./tincan.server.controller.js');
 
-console.log(process.env);
-
 /**
  * Create a User goal
  */
