@@ -6,7 +6,8 @@ angular.module('goals').run(['Menus',
     //Set topbar menu
     Menus.addMenuItem('topbar', 'Public goal feed', 'goals/public', 'item', '/goals/public');
     Menus.addMenuItem('topbar', 'Goal overview', 'goals', 'item', '/goals');
-    Menus.addMenuItem('topbar', 'Show statistics', 'user/goals/statistics', 'item', 'user/goals/statistics');
+    Menus.addMenuItem('topbar', 'Inspiration', 'goals/commit', 'item', '/goals/commit');
+    Menus.addMenuItem('topbar', 'Show statistics', 'user/goals/statistics', 'item', '/user/goals/statistics');
   }
 ]);
 
