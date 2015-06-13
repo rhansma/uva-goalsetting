@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="row goals">
-    <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="goal in goals">
+    <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="goal in goals | orderBy: goal.created">
       <div class="goal panel">
         <a data-ng-href="#!/goals/{{goal._id}}">
           <h6>Goal</h6>

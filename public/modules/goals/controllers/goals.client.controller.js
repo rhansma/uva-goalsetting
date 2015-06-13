@@ -1,7 +1,14 @@
 'use strict';
 
-angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify',
-	function($scope, Goals, Authentication, $location, $stateParams, moment, notify) {
+angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify', '$state', 'socket', '$filter',
+	function($scope, Goals, Authentication, $location, $stateParams, moment, notify, $state, socket, $filter) {
+    /* If goal is created update with public goal feed */
+    socket.on('create', function(data) {
+      if($state.is('publicGoalsFeed')) {
+        $scope.goals.unshift(data);
+      }
+    });
+
     angular.element('input[type=date]').inputDate();
     $scope.authentication = Authentication._data;
     $scope.teacher = Authentication.isTeacher();
@@ -24,6 +31,7 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
         $scope.expires = '';
         $scope.subgoals = [];
         $scope.spinner = false;
+        socket.emit('create', goal);
       }, function(errorResponse) {
         $scope.spinner = false;
         $scope.error = errorResponse.data.message;

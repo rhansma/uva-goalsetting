@@ -40,7 +40,8 @@ module.exports = {
         'public/lib/Chart.js/Chart.js',
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/jquery-ui/jquery-ui.js',
-        'public/lib/date-polyfill/date-polyfill.js'
+        'public/lib/date-polyfill/date-polyfill.js',
+        'public/lib/angular-socket-io/socket.js'
 			]
 		},
 		css: [

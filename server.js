@@ -27,7 +27,17 @@ var app = require('./config/express')(db);
 require('./config/passport')();
 
 // Start the app by listening on <port>
-app.listen(config.port);
+var server = app.listen(config.port);
+var io = require('socket.io')(server);
+
+/* Broadcast message to all clients */
+io.on('connection', function(socket) {
+  socket.on('create', function(data) {
+    socket.broadcast.emit('create', data);
+  });
+
+});
+
 
 // Expose app
 exports = module.exports = app;
