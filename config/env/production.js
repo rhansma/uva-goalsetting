@@ -25,13 +25,15 @@ module.exports = {
         'public/lib/moment-timezone/build/moment-timezone-with-data.js',
         'public/lib/modernizr/modernizr.js',
         'public/lib/foundation/js/foundation.js',
+        'public/lib/foundation/js/foundation/foundation.topbar.js',
         'public/lib/ngDraggable/ngDraggable.js',
         'public/lib/angular-notify/dist/angular-notify.js',
         'public/lib/ng-tags-input/ng-tags-input.js',
         'public/lib/Chart.js/Chart.js',
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/jquery-ui/jquery-ui.js',
-        'public/lib/date-polyfill/date-polyfill.js'
+        'public/lib/date-polyfill/date-polyfill.js',
+        'public/lib/angular-socket-io/socket.js'
       ]
 		},
 		css: 'public/dist/application.min.css',
