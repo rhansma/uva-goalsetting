@@ -51,12 +51,12 @@
 
         <!-- Left Nav Section -->
         <ul class="left">
-          <li data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.menuItemType" data-ng-if="item.shouldRender(authenticated);" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
+          <li data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.menuItemType" data-ng-if="item.shouldRender(user);" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
             <a ng-switch-when="dropdown" class="has-dropdown">
               <span data-ng-bind="item.title"></span>
             </a>
             <ul ng-switch-when="dropdown" class="dropdown">
-              <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authenticated);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
+              <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
                 <a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
               </li>
             </ul>
