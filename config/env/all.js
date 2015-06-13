@@ -33,6 +33,7 @@ module.exports = {
         'public/lib/moment-timezone/build/moment-timezone-with-data.js',
         'public/lib/modernizr/modernizr.js',
         'public/lib/foundation/js/foundation.js',
+        'public/lib/foundation/js/foundation/foundation.topbar.js',
         'public/lib/ngDraggable/ngDraggable.js',
         'public/lib/angular-notify/dist/angular-notify.js',
         'public/lib/ng-tags-input/ng-tags-input.js',

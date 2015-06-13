@@ -11,13 +11,15 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
     };
 
     $scope.user = Authentication._data.user;
-
-		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
 
-		$scope.toggleCollapsibleMenu = function() {
-			$scope.isCollapsed = !$scope.isCollapsed;
-		};
+    /* Close menu after a click */
+    angular.element(document).on("click", ".top-bar li", function () {
+      var li = angular.element(this);
+      if(!li.hasClass('toggle-topbar') && !li.hasClass('has-dropdown') && !li.hasClass('back')) {
+        Foundation.libs.topbar.toggle(angular.element('.top-bar'));
+      }
+    });
 
 		// Collapsing the menu after navigation
 		$scope.$on('$stateChangeSuccess', function() {
