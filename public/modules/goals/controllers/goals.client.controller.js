@@ -9,11 +9,6 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       }
     });
 
-    /* Show date picker if date field is not supported by browser */
-    if (!Modernizr.inputtypes.date) {
-      angular.element('#expires').datepicker();
-    }
-
     $scope.authentication = Authentication._data;
     $scope.teacher = Authentication.isTeacher();
 
@@ -149,3 +144,32 @@ angular.module('goals')
       }
     };
   });
+
+angular.module('goals').directive('dateField', function() {
+  return {
+    restrict: 'A',
+    require : 'ngModel',
+    compile: function(tElem, attr) {
+      /* Check if input date is supported, if not change to type text for datepicker */
+      if(!Modernizr.inputtypes.date) {
+        attr.$set('type', 'text');
+
+        return function(scope, element, attrs, ngModelCtrl) {
+          /* Add datepicker if date input is not supported and bind ngmodel */
+          if(!Modernizr.inputtypes.date) {
+            angular.element(function(){
+              element.datepicker({
+                dateFormat:'mm/dd/yy',
+                onSelect:function (date) {
+                  scope.$apply(function () {
+                    ngModelCtrl.$setViewValue(date);
+                  });
+                }
+              });
+            });
+          }
+        }
+      }
+    }
+  }
+});
