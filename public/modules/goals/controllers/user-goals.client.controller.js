@@ -99,6 +99,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 
         userGoalGroup.$save(function() {
           $state.reload();
+          notify({message: 'Goals are grouped, click on the plus sign to show all goals in the group.', classes: 'success', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
@@ -114,6 +115,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 
           userGoalGroup.$update(function() {
             $state.reload();
+            notify({message: 'Goal is added to the group, click on the plus sign to show all goals in the group.', classes: 'success', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
           }, function(errorResponse) {
             $scope.error = errorResponse.data.message;
           });

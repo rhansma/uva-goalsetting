@@ -37,7 +37,7 @@ var GoalSchema = new Schema({
   },
   expires: {
     type: Date,
-    required: 'Make your goals SMART'
+    required: 'Set an expiry date for this goal, the date must be in the future.'
   },
   rating: {
     type: Number,
