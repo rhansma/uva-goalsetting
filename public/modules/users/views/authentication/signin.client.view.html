@@ -4,37 +4,39 @@
     
         <form data-ng-submit="signin()" class="signin" autocomplete="off">
 
-            <div class="row collapse">
-              <div class="text-center large-12 columns">
+            <div class="row">
+              <div class="large-12 columns">
+                <h3>Sign in</h3>
+                <br />
                 <!--<br />
                 <a class="expand button" href="/login" style="background-color:#000000;">UvA login</a>
                 <br />
                 <br />-->
               </div>
             </div>
-            <div class="row collapse">
+            <div class="row">
               <div class="large-12 columns">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" data-ng-model="credentials.email" placeholder="E-mail">
               </div>
             </div>
-            <div class="row collapse">
+            <div class="row">
               <div class="large-12 columns">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" data-ng-model="credentials.password" placeholder="Password">
               </div>
             </div>
-            <div class="row collapse">
-              <div class="large-12 columns text-center">
-                <button type="submit" class="expand button">Sign in</button>
-              </div>
-            </div>
-            <div class="row collapse">
+            <div class="row">
               <div class="forgot-password large-12 text-center columns">
                 <p><small><a href="/#!/password/forgot">Forgot your password?</a></small></p>
               </div>
             </div>
-            <div class="row collapse">
+            <div class="row">
+              <div class="large-12 columns text-center">
+                <button type="submit" class="expand button">Sign in</button>
+              </div>
+            </div>
+            <div class="row">
               <div class="large-12 columns">
                 <div data-ng-show="error" class="alert-box alert large-12 columns">
                   <strong data-ng-bind="error"></strong>
