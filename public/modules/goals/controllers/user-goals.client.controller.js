@@ -1,11 +1,7 @@
 'use strict';
 
-angular.module('goals').factory('socket', function(socketFactory) {
-  return socketFactory();
-});
-
-angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'socket',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, socket) {
+angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment) {
     /* Find committed goals */
     $scope.find = function() {
       $scope.userGoals = UserGoals.query();

@@ -1,5 +1,6 @@
 'use strict';
 /* global Modernizr */
+
 angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify', '$state', 'socket',
 	function($scope, Goals, Authentication, $location, $stateParams, moment, notify, $state, socket) {
     /* If goal is created update with public goal feed */
