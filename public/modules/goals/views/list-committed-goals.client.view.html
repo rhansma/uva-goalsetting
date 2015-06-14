@@ -24,8 +24,8 @@
         <small data-ng-show="userGoal.subgoals.length">Number of subgoals: {{ userGoal.subgoals.length }}</small>
         <p data-ng-bind="userGoal.goal.content"></p>
         <hr />
-        <small><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group">View details <i class="fa fa-folder-open"></i></a></small>
-        <small><a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><span data-ng-bind="userGoal.grouped | addPlus"></span></a></small>
+        <small><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group">View details </a></small>
+        <small><a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><span data-ng-bind="userGoal.grouped | addPlus"></span> <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
 
       </div>
     </div>
