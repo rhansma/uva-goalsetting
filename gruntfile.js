@@ -145,7 +145,8 @@ module.exports = function(grunt) {
         TINCAN_LOGIN: 'https://brindlewaye.com/xAPITerms/verbs/loggedin/',
         TINCAN_VIEW: 'http://id.tincanapi.com/verb/viewed',
         TINCAN_APPROVED: 'http://activitystrea.ms/schema/1.0/approve',
-        TINCAN_RATING: 'http://id.tincanapi.com/verb/rated'
+        TINCAN_RATING: 'http://id.tincanapi.com/verb/rated',
+        MAIL_FROM: 'uva@ihatestatistics.com'
       },
       secretVars: {
         LRS_ENDPOINT: 'https://cloud.scorm.com/tc/XL7FI9R9KB/',

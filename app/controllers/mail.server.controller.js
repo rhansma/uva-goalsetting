@@ -30,7 +30,7 @@ var transport = nodemailer.createTransport(smtpTransport({
  */
 function _mail(to, subject, body) {
   transport.sendMail({
-    from: 'uva@ihatestatistics.com',
+    from: process.env.MAIL_FROM,
     to: to,
     subject: subject,
     html: body
