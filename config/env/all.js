@@ -15,7 +15,8 @@ module.exports = {
 			css: [
         'public/lib/font-awesome/css/font-awesome.min.css',
         'public/lib/angular-notify/dist/angular-notify.css',
-        'public/lib/ng-tags-input/ng-tags-input.css'
+        'public/lib/ng-tags-input/ng-tags-input.css',
+        'public/lib/jquery-ui/themes/base/jquery-ui.css'
 			],
 			js: [
         'public/lib/jquery/dist/jquery.js',
@@ -40,7 +41,6 @@ module.exports = {
         'public/lib/Chart.js/Chart.js',
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/jquery-ui/jquery-ui.js',
-        'public/lib/date-polyfill/date-polyfill.js',
         'public/lib/angular-socket-io/socket.js'
 			]
 		},

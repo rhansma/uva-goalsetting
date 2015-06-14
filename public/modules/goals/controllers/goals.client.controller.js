@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify', '$state', 'socket', '$filter',
-	function($scope, Goals, Authentication, $location, $stateParams, moment, notify, $state, socket, $filter) {
+angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify', '$state', 'socket',
+	function($scope, Goals, Authentication, $location, $stateParams, moment, notify, $state, socket) {
     /* If goal is created update with public goal feed */
     socket.on('create', function(data) {
       if($state.is('publicGoalsFeed')) {
@@ -9,7 +9,11 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       }
     });
 
-    angular.element('input[type=date]').inputDate();
+    /* Show date picker if date field is not supported by browser */
+    if (!Modernizr.inputtypes.date) {
+      angular.element('#expires').datepicker();
+    }
+
     $scope.authentication = Authentication._data;
     $scope.teacher = Authentication.isTeacher();
 
