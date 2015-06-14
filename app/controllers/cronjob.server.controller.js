@@ -40,7 +40,7 @@ new CronJob('0 0 * * * *', function() {
           _.each(userGoals, function(userGoal, index, list) {
             /* Send mails once */
             if(users.indexOf(userGoal.user.email) === -1) {
-              user.push(userGoal.user.email);
+              users.push(userGoal.user.email);
               Mail.mail(userGoal.user.email, 'Your goal is about to expire!', body);
 
               /* If this is the last goal, update all of them */
