@@ -24,9 +24,10 @@
           <p data-ng-show="goal.committed">
             <span data-ng-bind="goal.committed"></span> others already committed to this goal
           </p>
+          <hr />
           <p>
-            <a class="left" data-ng-click="reject(goal);"><i class="fa fa-times"></i> Ignore</a>
-            <a class="right" data-ng-click="commit(goal);">Commit <i class="fa fa-heart"></i></a>
+            <a class="left" data-ng-click="reject(goal);"><i class="fa fa-times fa-2x"></i> <small> Ignore</small></a>
+            <a class="right" data-ng-click="commit(goal);"><small> Commit</small> <i class="fa fa-heart fa-2x" style="color:#4CBB17;"></i></a>
             <br />
           </p>
         </div>
