@@ -35,17 +35,22 @@ new CronJob('0 0 * * * *', function() {
             'please check out your goal before it is too late. Follow this <a href="' + process.env.APP_URL +
             '">link</a> (' + process.env.APP_URL + ') to view your goals.</p></body></html>';
 
+          var users = [];
           /* Send mail and update reminded date */
           _.each(userGoals, function(userGoal, index, list) {
-            Mail.mail(userGoal.user.email, 'Your goal is about to expire!', body);
+            /* Send mails once */
+            if(users.indexOf(userGoal.user.email) === -1) {
+              user.push(userGoal.user.email);
+              Mail.mail(userGoal.user.email, 'Your goal is about to expire!', body);
 
-            /* If this is the last goal, update all of them */
-            if(index === (_.size(list) - 1)) {
-              UserGoals.update({'goal': {$in: goals}}, {$set: {reminded: new Date()}}, {multi: true}).exec(function(err) {
-                if(err) {
-                  errorHandler.log(err);
-                }
-              });
+              /* If this is the last goal, update all of them */
+              if(index === (_.size(list) - 1)) {
+                UserGoals.update({'goal': {$in: goals}}, {$set: {reminded: new Date()}}, {multi: true}).exec(function(err) {
+                  if(err) {
+                    errorHandler.log(err);
+                  }
+                });
+              }
             }
           });
         }
