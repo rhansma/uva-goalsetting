@@ -13,12 +13,12 @@ angular.module('users').config(['$stateProvider', 'AUTH_LEVEL',
 		state('profile', {
 			url: '/settings/profile',
 			templateUrl: 'modules/users/views/settings/edit-profile.client.view.html',
-        accessLevel: AUTH_LEVEL.student
+      accessLevel: AUTH_LEVEL.student
 		}).
 		state('password', {
 			url: '/settings/password',
 			templateUrl: 'modules/users/views/settings/change-password.client.view.html',
-        accessLevel: AUTH_LEVEL.student
+      accessLevel: AUTH_LEVEL.student
 		}).
 		state('signup', {
 			url: '/signup',

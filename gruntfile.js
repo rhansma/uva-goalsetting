@@ -136,6 +136,7 @@ module.exports = function(grunt) {
         NODE_ENV: 'secure'
       },
       appSettings: {
+        APP_URL: 'http://localhost:3000',
         REMINDER_TIME: '96', // in hours
         TINCAN_CREATED: 'http://adlnet.gov/expapi/verbs/created',
         TINCAN_COMMITTED: 'http://activitystrea.ms/schema/1.0/accept',

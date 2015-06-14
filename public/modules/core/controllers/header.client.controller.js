@@ -1,4 +1,5 @@
 'use strict';
+/* global Foundation */
 
 angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$rootScope',
 	function($scope, Authentication, Menus, $rootScope) {
@@ -14,7 +15,7 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.menu = Menus.getMenu('topbar');
 
     /* Close menu after a click */
-    angular.element(document).on("click", ".top-bar li", function () {
+    angular.element(document).on('click', '.top-bar li', function () {
       var li = angular.element(this);
       if(!li.hasClass('toggle-topbar') && !li.hasClass('has-dropdown') && !li.hasClass('back')) {
         Foundation.libs.topbar.toggle(angular.element('.top-bar'));

@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://localhost/goalsetting-dev',
 	app: {
-		title: 'GoalSetting - Development Environment'
+		title: 'GoalSetting'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
