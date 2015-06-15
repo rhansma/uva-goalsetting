@@ -2,19 +2,24 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="goal panel">
-        <a class="alert button tiny right" data-ng-click="abort();" data-ng-class="{disabled: spinner}">Abort goal</a>
+        <a class="right" data-ng-click="abort();" data-ng-class="{disabled: spinner}"><i class="fa fa-times fa-2x"></i> <small>Abort goal</small></a>
 
-        <h3 data-ng-show="userGoal.status === 'aborted'" class="alert">This goal is aborted</h3><h3 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h3>
-        <h3 data-ng-bind="userGoal.goal.title" data-ng-class="{ alert: userGoal.status === 'aborted' }"></h3>
+        <h4 data-ng-show="userGoal.status === 'aborted'" class="alert">This goal is aborted</h4>
+        <h4 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h4>
+        <h4 data-ng-bind="userGoal.goal.title" data-ng-class="{ alert: userGoal.status === 'aborted' }"></h4>
         <small data-ng-bind="userGoal.goal.expires | amDateFormat:'MMMM Do YYYY'"></small>
+        <hr />
         <p>
-          <input type="checkbox" data-ng-model="userGoal.finished" /><span data-ng-bind="userGoal.goal.content"></span>
+          <span data-ng-bind="userGoal.goal.content"></span>
           <tags-input data-ng-model="userGoal.tags"></tags-input>
         </p>
+        <hr />
+        <input type="checkbox" data-ng-model="userGoal.finished" /> Finished
+        <br /><br />
         <!-- Subgoals -->
         <div class="row">
           <div class="large-12 columns">
-            <h3 class="subheader">Subgoals</h3>
+            <h5 class="subheader">Subgoals</h5>
             <a class="button tiny" ng-click="addSubgoal();">Add subgoal</a>
           </div>
           <div class="large-12 columns" ng-repeat="subgoal in userGoal.subgoals">
