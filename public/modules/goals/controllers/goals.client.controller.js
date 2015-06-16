@@ -1,14 +1,14 @@
 'use strict';
 /* global Modernizr */
 
-angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify', '$state', /*'socket',*/
-	function($scope, Goals, Authentication, $location, $stateParams, moment, notify, $state/*, socket*/) {
+angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify', '$state', 'socket',
+	function($scope, Goals, Authentication, $location, $stateParams, moment, notify, $state, socket) {
     /* If goal is created update with public goal feed */
-    /*socket.on('create', function(data) {
+    socket.on('create', function(data) {
       if($state.is('publicGoalsFeed')) {
         $scope.goals.unshift(data);
       }
-    });*/
+    });
 
     $scope.authentication = Authentication._data;
     $scope.teacher = Authentication.isTeacher();
