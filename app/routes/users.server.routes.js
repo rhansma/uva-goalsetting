@@ -46,12 +46,10 @@ module.exports = function(app) {
 
   // Route for sending metadata for Surfconext
   app.route('/metadata').get(function(req, res) {
-    // Get samlStrategy from global scope, object is set for passport usage already
-    var cert = fs.readFileSync('./config/certs/certificate.crt', 'utf-8');
-    var samlStrategy = global.SAMLStrategy;
+    var saml = fs.readFileSync('./config/strategies/saml.xml', 'utf-8');
 
     res.type('application/xml');
-    res.status(200).send(samlStrategy.generateServiceProviderMetadata(cert));
+    res.status(200).send(saml);
   });
 
   // Route for adding teacher role to teacher for testing purposes
