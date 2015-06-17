@@ -159,8 +159,4 @@ UserSchema.methods.findByStudentNumber = function(studentNumber, callback) {
   });
 };
 
-UserSchema.statics.findAndModify = function (query, sort, doc, options, callback) {
-  return this.collection.findAndModify(query, sort, doc, options, callback);
-};
-
 mongoose.model('User', UserSchema);

@@ -21,25 +21,29 @@ global.SAMLStrategy = new SamlStrategy({
       acceptedClockSkewMs: -1
     },
     function(profile, done) {
-      User.findAndModify({
-        query: {email: profile.email},
-        update: {
-          $setOnInsert: {
-            firstName: profile['urn:mace:dir:attribute-def:givenName'],
-            lastName: profile['urn:mace:dir:attribute-def:sn'],
-            email: profile['urn:mace:dir:attribute-def:mail'],
-            provider: 'SurfConext',
-            roles: [profile['urn:mace:dir:attribute-def:eduPersonAffiliation']]
-          }
-        },
-        new: true,
-        upsert: true
-    }, function(err, user) {
+      User.find({email: profile.email}).exec(function (err, user) {
         if (err) {
           return done(err);
-        }
+        } else {
+          if (user) {
+            return done(null, user);
+          }
 
-        return done(null, user);
+          var newUser = new User();
+          newUser.firstName = profile['urn:mace:dir:attribute-def:givenName'];
+          newUser.lastName = profile['urn:mace:dir:attribute-def:sn'];
+          newUser.email = profile['urn:mace:dir:attribute-def:mail'];
+          newUser.provider = 'SurfConext';
+          newUser.roles = [];
+          newUser.roles.push(profile['urn:mace:dir:attribute-def:eduPersonAffiliation']);
+          newUser.save(function (err) {
+            if (err) {
+              return done(err);
+            }
+
+            return done(null, newUser);
+          });
+        }
       });
     }
 );
