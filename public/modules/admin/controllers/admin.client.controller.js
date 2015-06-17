@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('admin').controller('AdminController', ['$scope',
-	function($scope) {
+angular.module('admin').controller('AdminController', ['$scope', 'Admin',
+	function($scope, Admin) {
     $scope.activeTab = 'addTeachers';
 
     $scope.openTab = function(tab) {
@@ -9,11 +9,11 @@ angular.module('admin').controller('AdminController', ['$scope',
     };
 
     $scope.findTeachers = function() {
-
-    }
+      $scope.teachers = Admin.getTeachers();
+    };
 
     $scope.findUsers = function() {
-
-    }
+      $scope.users = Admin.getUsers();
+    };
 	}
 ]);

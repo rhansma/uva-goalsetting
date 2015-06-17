@@ -8,10 +8,10 @@
           <li class="tab-title" ng-class="{active: activeTab === 'addUsers'}"><a ng-click="openTab('addUsers');">Users</a></li>
         </ul>
         <div class="content" id="panel1" ng-if="activeTab === 'addTeachers'" data-ng-init="findTeachers()">
-          <p>This is the first panel of the basic tab example. You can place all sorts of content here including a grid.</p>
+          <p>{{ teachers }}</p>
         </div>
         <div class="content" id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers()">
-          <p>This is the second panel of the basic tab example. This is the second panel of the basic tab example.</p>
+          <p>{{ users }}</p>
         </div>
       </div>
     </div>
