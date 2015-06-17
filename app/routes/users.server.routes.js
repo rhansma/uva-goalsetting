@@ -34,8 +34,8 @@ module.exports = function(app) {
   // Setting the SAML routes, for Surfconext
   app.route('/login/callback').post(passport.authenticate('saml', { failureRedirect: '/login', failureFlash: true }),
       function(req, res) {
-        res.status(200);
-        //res.redirect('/');
+        //res.status(200);
+        res.redirect('#!/goals');
       });
 
   app.route('/login').get(passport.authenticate('saml', { failureRedirect: '/login', failureFlash: true }),
