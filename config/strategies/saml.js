@@ -21,7 +21,7 @@ global.SAMLStrategy = new SamlStrategy({
       acceptedClockSkewMs: -1
     },
     function(profile, done) {
-      User.find({email: profile.email}).exec(function (err, user) {
+      User.findOne({email: profile.email}).exec(function (err, user) {
         if (err) {
           return done(err);
         } else {
