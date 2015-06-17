@@ -26,6 +26,8 @@ global.SAMLStrategy = new SamlStrategy({
           return done(err);
         } else {
           if (user) {
+            console.log('found');
+            console.log(user);
             return done(null, user);
           }
 
@@ -40,7 +42,8 @@ global.SAMLStrategy = new SamlStrategy({
             if (err) {
               return done(err);
             }
-
+            console.log('new');
+            console.log(newUser);
             return done(null, newUser);
           });
         }
