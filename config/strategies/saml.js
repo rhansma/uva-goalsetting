@@ -21,22 +21,22 @@ global.SAMLStrategy = new SamlStrategy({
       acceptedClockSkewMs: -1
     },
     function(profile, done) {
-      console.log(profile);
-      User.findOne({
-        studentNumber: profile.studentNumber
-      }, function(err, user) {
+      User.findAndModify({
+        query: {email: profile.email},
+        update: {
+          $setOnInsert: {
+            firstName: profile['urn:mace:dir:attribute-def:givenName'],
+            lastName: profile['urn:mace:dir:attribute-def:sn'],
+            email: profile['urn:mace:dir:attribute-def:mail'],
+            provider: 'SurfConext',
+            roles: [profile['urn:mace:dir:attribute-def:eduPersonAffiliation']]
+          }
+        },
+        new: true,
+        upsert: true
+    }, function(err, user) {
         if (err) {
           return done(err);
-        }
-        if (!user) {
-          return done(null, false, {
-            message: 'Unknown user or invalid password'
-          });
-        }
-        if (!user.authenticate(profile.password)) {
-          return done(null, false, {
-            message: 'Unknown user or invalid password'
-          });
         }
 
         return done(null, user);
