@@ -21,6 +21,7 @@ global.SAMLStrategy = new SamlStrategy({
       acceptedClockSkewMs: -1
     },
     function(profile, done) {
+      console.log(profile);
       User.findOne({
         studentNumber: profile.studentNumber
       }, function(err, user) {
