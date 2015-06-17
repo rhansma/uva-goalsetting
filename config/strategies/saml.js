@@ -39,6 +39,7 @@ global.SAMLStrategy = new SamlStrategy({
             if (err) {
               return done(err);
             }
+            console.log(newUser);
             return done(null, newUser);
           });
         }
