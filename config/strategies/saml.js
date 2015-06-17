@@ -30,7 +30,7 @@ global.SAMLStrategy = new SamlStrategy({
           var newUser = new User();
           newUser.firstName = profile['urn:mace:dir:attribute-def:givenName'];
           newUser.lastName = profile['urn:mace:dir:attribute-def:sn'];
-          newUser.diplayName = newUser.firstName + ' ' + newUser.lastName;
+          newUser.displayName = newUser.firstName + ' ' + newUser.lastName;
           newUser.email = profile['urn:mace:dir:attribute-def:mail'];
           newUser.provider = 'SurfConext';
           newUser.roles = [];
@@ -39,7 +39,6 @@ global.SAMLStrategy = new SamlStrategy({
             if (err) {
               return done(err);
             }
-            console.log(newUser);
             return done(null, newUser);
           });
         }
