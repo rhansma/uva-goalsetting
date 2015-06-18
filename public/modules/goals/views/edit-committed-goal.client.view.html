@@ -1,9 +1,15 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="findOne()">
+  <div class="top-breadcrumbs">
+    <div class="row">
+      <div class="large-12 columns">
+        <i class="fa fa-info-circle"></i> Edit '<span data-ng-bind="userGoal.goal.title"></span>'
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="large-12 columns">
       <div class="goal panel">
-        <a class="right" data-ng-click="abort();" data-ng-class="{disabled: spinner}"><i class="fa fa-times fa-2x"></i> <small>Abort goal</small></a>
-
+        <h6>Goal</h6>
         <h4 data-ng-show="userGoal.status === 'aborted'" class="alert">This goal is aborted</h4>
         <h4 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h4>
         <h4 data-ng-bind="userGoal.goal.title" data-ng-class="{ alert: userGoal.status === 'aborted' }"></h4>
@@ -11,34 +17,39 @@
         <hr />
         <p>
           <span data-ng-bind="userGoal.goal.content"></span>
+          <br /><br />
           <tags-input data-ng-model="userGoal.tags"></tags-input>
         </p>
         <hr />
-        <input type="checkbox" data-ng-model="userGoal.finished" /> Finished
+        <a class="left" data-ng-click="abort();" data-ng-class="{disabled: spinner}"><i class="fa fa-times fa-2x"></i> <small>Abort goal</small></a>
+        <a class="right"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i> <small>Finished goal</small></a>
+        <input class="right" type="checkbox" data-ng-model="userGoal.finished" />
         <br /><br />
+      </div>
+      <div class="goal panel">
         <!-- Subgoals -->
         <div class="row">
           <div class="large-12 columns">
             <h5 class="subheader">Subgoals</h5>
-            <a class="button tiny" ng-click="addSubgoal();">Add subgoal</a>
+            <a class="tiny secondary button" ng-click="addSubgoal();">Add subgoal</a>
           </div>
           <div class="large-12 columns" ng-repeat="subgoal in userGoal.subgoals">
             <div class="row">
               <div class="large-3 columns">
-                <input type="checkbox" data-ng-model="subgoal.finished" />
+                <input type="checkbox" data-ng-model="subgoal.finished" /> <i class="fa fa-check fa-2x" style="color:#4CBB17;"></i>
               </div>
               <div class="large-6 columns">
                 <input name="subgoalContent" type="text" data-ng-model="subgoal.content" placeholder="Content" required />
               </div>
               <div class="large-3 columns">
-                <input name="subgoalExpires" type="date" data-ng-model="subgoal.expires" date-in-future data-ng-options="{allowInvalid: true}" required />
+                <input name="subgoalExpires" type="date" data-ng-model="subgoal.expires" placeholder="Date" date-in-future data-ng-options="{allowInvalid: true}" required />
               </div>
             </div>
           </div>
         </div>
         <p>
-          <p class="text-center"><i class="fa fa-spinner fa-spin" ng-show="spinner"></i></p>
-          <a class="button" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted', disabled: checkExpired(userGoal.goal.expires) }" >Save</a>
+
+          <div class="button right" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted', disabled: checkExpired(userGoal.goal.expires) }" >Save <i class="fa fa-spinner fa-spin" ng-show="spinner"></i></div>
         </p>
       </div>
     </div>

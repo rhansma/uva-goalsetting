@@ -1,74 +1,73 @@
-<div class="row">
-  <div class="large-12 columns">
-    <section data-ng-controller="GoalsController" data-ng-init="findOne()">
-      <div class="row">
-        <div class="large-12 columns text-center">
-          <h1>Edit Goal</h1>
-        </div>
+<section data-ng-controller="GoalsController" data-ng-init="findOne()">
+  <div class="top-breadcrumbs">
+    <div class="row">
+      <div class="large-12 columns">
+        <i class="fa fa-info-circle"></i> Edit goal
       </div>
-      <div class="row">
-        <div class="large-12 columns large-centered">
-          <form name="goalForm" data-ng-submit="update(goalForm.$valid)" novalidate>
-            <fieldset>
-              <div class="row" ng-class="{ 'has-error' : submitted && goalForm.title.$invalid}">
-                <div class="large-12 columns">
-                  <label for="title">Title
-                    <input name="title" type="text" data-ng-model="goal.title" id="title" placeholder="Title" required>
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <div ng-show="submitted && goalForm.title.$invalid" class="help-block">
-                    <p ng-show="goalForm.title.$error.required" class="alert-box alert">Title is required</p>
-                  </div>
-                </div>
-              </div>
-              <div class="row" ng-class="{ 'has-error' : submitted && goalForm.expires.$invalid}">
-                <div class="large-12 columns">
-                  <label for="expires">Date
-                    <input name="expires" type="date" date-in-future data-ng-model="goal.expires" id="expires" required>
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <div ng-show="submitted && goalForm.expires.$invalid" class="help-block">
-                    <p ng-show="goalForm.expires.$error.required" class="alert-box alert">Date is required</p>
-                  </div>
-                </div>
-              </div>
-              <div class="row" ng-class="{ 'has-error' : submitted && goalForm.content.$invalid}">
-                <div class="large-12 columns">
-                  <label for="content">Content
-                    <textarea name="content" data-ng-model="goal.content" id="content" cols="30" rows="10" placeholder="Content" required></textarea>
-                  </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <div ng-show="submitted && goalForm.content.$invalid" class="help-block">
-                    <p ng-show="goalForm.content.$error.required" class="alert-box alert">Content is required</p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <p class="text-center"><i class="fa fa-spinner fa-spin" ng-show="spinner"></i></p>
-                  <input type="submit" value="Update" class="button" data-ng-disabled="spinner">
-                </div>
-              </div>
-              <div class="row">
-                <div class="large-12 columns">
-                  <div data-ng-show="error" class="alert-box alert">
-                    <strong data-ng-bind="error"></strong>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-    </section>
+    </div>
   </div>
-</div>
+  <div class="row">
+    <div class="small-12 medium-6 medium-centered columns panel">
+      <a data-ng-href="#!/goals" class="right"><i class="fa fa-times fa-lg"></i></a>
+      <form name="goalForm" data-ng-submit="update(goalForm.$valid)" novalidate>
+
+          <div class="row" ng-class="{ 'has-error' : submitted && goalForm.title.$invalid}">
+            <div class="large-12 columns">
+              <label for="title">Title
+                <input name="title" type="text" data-ng-model="goal.title" id="title" placeholder="Title" required>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div ng-show="submitted && goalForm.title.$invalid" class="help-block">
+                <p ng-show="goalForm.title.$error.required" class="alert-box alert">Title is required</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" ng-class="{ 'has-error' : submitted && goalForm.expires.$invalid}">
+            <div class="large-12 columns">
+              <label for="expires">Date
+                <input name="expires" type="date" date-in-future data-ng-model="goal.expires" id="expires" required>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div ng-show="submitted && goalForm.expires.$invalid" class="help-block">
+                <p ng-show="goalForm.expires.$error.required" class="alert-box alert">Date is required</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" ng-class="{ 'has-error' : submitted && goalForm.content.$invalid}">
+            <div class="large-12 columns">
+              <label for="content">Content
+                <textarea name="content" data-ng-model="goal.content" id="content" cols="30" rows="10" placeholder="Content" required></textarea>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div ng-show="submitted && goalForm.content.$invalid" class="help-block">
+                <p ng-show="goalForm.content.$error.required" class="alert-box alert">Content is required</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <p class="text-center"><i class="fa fa-spinner fa-spin" ng-show="spinner"></i></p>
+              <input type="submit" value="Save Changes" class="button expand" data-ng-disabled="spinner">
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div data-ng-show="error" class="alert-box alert">
+                <strong data-ng-bind="error"></strong>
+              </div>
+            </div>
+          </div>
+
+      </form>
+    </div>
+  </div>
+</section>
