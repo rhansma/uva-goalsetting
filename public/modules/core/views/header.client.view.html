@@ -1,69 +1,71 @@
 <div data-ng-controller="HeaderController">
-  <div class="top-header hide-for-small">
-    <div class="row">
-      <div class="large-12 columns">
-        <a href="http://www.uva.nl" target="_blank"><img src="/modules/core/img/uva-logo_en.jpg"></a> 
-        <span data-ng-bind="user.roles[0]" class="right show-for-medium-up" data-ng-if="authenticated"></span>
+  <div class="top-fixed">
+    <div class="top-header hide-for-small">
+      <div class="row">
+        <div class="large-12 columns">
+          <a href="http://www.uva.nl" target="_blank"><img src="/modules/core/img/uva-logo_en.jpg"></a> 
+          <span data-ng-bind="user.roles[0]" class="right show-for-medium-up" data-ng-if="authenticated"></span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="contain-to-grid">
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
+    <div class="contain-to-grid">
+      <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+          <li class="name">
 
-        </li>
-        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-        <li class="toggle-topbar menu-icon"><a><span>Menu</span></a></li>
-      </ul>
-
-      <section class="top-bar-section">
-        <!-- If not authenticated show signin and signup -->
-        <ul class="right" data-ng-hide="authenticated">
-          <li ui-route="/signup" ng-class="{active: $uiRoute}">
-            <a href="/#!/signup">Sign Up</a>
           </li>
-          <li ui-route="/signin" ng-class="{active: $uiRoute}">
-            <a href="/#!/signin">Sign In</a>
-          </li>
+          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+          <li class="toggle-topbar menu-icon"><a><span>Menu</span></a></li>
         </ul>
 
-        <!-- If authenticated show profile etc -->
-        <ul class="right" data-ng-show="authenticated">
-          <li class="has-dropdown">
-            <a href="#" onclick="event.preventDefault();">
-              <span data-ng-bind="user.displayName"></span></b>
-            </a>
-            <ul class="dropdown">
-              <li>
-                <a href="/#!/settings/profile">Edit Profile</a>
-              </li>
-              <li data-ng-show="authenticated.provider === 'local'">
-                <a href="/#!/settings/password">Change Password</a>
-              </li>
-              <li>
-                <a href="/auth/signout">Signout</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
+        <section class="top-bar-section">
+          <!-- If not authenticated show signin and signup -->
+          <ul class="right" data-ng-hide="authenticated">
+            <li ui-route="/signup" ng-class="{active: $uiRoute}">
+              <a href="/#!/signup">Sign Up</a>
+            </li>
+            <li ui-route="/signin" ng-class="{active: $uiRoute}">
+              <a href="/#!/signin">Sign In</a>
+            </li>
+          </ul>
 
-        <!-- Left Nav Section -->
-        <ul class="left">
-          <li data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.menuItemType" data-ng-if="item.shouldRender(user);" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
-            <a ng-switch-when="dropdown" class="has-dropdown">
-              <span data-ng-bind="item.title"></span>
-            </a>
-            <ul ng-switch-when="dropdown" class="dropdown">
-              <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
-                <a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
-              </li>
-            </ul>
-            <a href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
-          </li>
-        </ul>
-      </section>
-    </nav>
+          <!-- If authenticated show profile etc -->
+          <ul class="right" data-ng-show="authenticated">
+            <li class="has-dropdown">
+              <a href="#" onclick="event.preventDefault();">
+                <span data-ng-bind="user.displayName"></span></b>
+              </a>
+              <ul class="dropdown">
+                <li>
+                  <a href="/#!/settings/profile">Edit Profile</a>
+                </li>
+                <li data-ng-show="authenticated.provider === 'local'">
+                  <a href="/#!/settings/password">Change Password</a>
+                </li>
+                <li>
+                  <a href="/auth/signout">Signout</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Left Nav Section -->
+          <ul class="left">
+            <li data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.menuItemType" data-ng-if="item.shouldRender(user);" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
+              <a ng-switch-when="dropdown" class="has-dropdown">
+                <span data-ng-bind="item.title"></span>
+              </a>
+              <ul ng-switch-when="dropdown" class="dropdown">
+                <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
+                  <a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
+                </li>
+              </ul>
+              <a href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </div>
   </div>
 </div>

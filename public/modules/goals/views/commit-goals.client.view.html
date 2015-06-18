@@ -1,11 +1,13 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="findApproved()">
-  <div class="row">
-    <div class="large-12 columns">
-       <!-- Message if no goals have a rating above a 5 yet -->
-      <h5 class="standout" data-ng-show="!goals.length">There are no approved goals yet.</h5>
-      <h5 class="standout" data-ng-hide="!goals.length">Swipe to commit or drop goal</h5>
+  <div class="top-breadcrumbs">
+    <div class="row">
+      <div class="large-12 columns">
+        <span data-ng-show="!goals.length"><i class="fa fa-info-circle"></i> There are no approved goals yet</span>
+        <span data-ng-hide="!goals.length"><i class="fa fa-info-circle"></i> Swipe to commit or drop goal</span>
+      </div>
     </div>
   </div>
+
   <div class="row">
     <div class="small-12 medium-6 medium-centered columns">
 
