@@ -1,32 +1,41 @@
 <section data-ng-controller="UserGoalsController" data-ng-init="find()">
-  <div class="row">
-    <div class="small-12 columns">
-      <a href="#!/goals/create"><i class="fa fa-plus-circle fa-3x right create"></i></a>
-      <h5 class="standout" data-ng-show="userGoals.length">Drag and drop goals on each other to group them.</h5>
-      <div class="goal panel" data-ng-hide="userGoals.length">
-          <h3>Welcome to the UvA GoalSetting App!</h3>
-          <hr />
-          <p>Scientific literature indicates that setting goals is a major source of success (Locke e.a). For you this means that you can pass this exam faster and more effectively, up to 50%.</p>
-          <p>The key is to make your goals <b>SMART</b>: <b>S</b>pecific, <b>M</b>easurable, <b>A</b>ttainable, <b>R</b>ealistic and <b>T</b>ime-bound.</p>
-          <p>
-          Start by creating your first goal now! Click the plus button in the top right corner.</p>
+
+  <div class="top-breadcrumbs" data-ng-show="userGoals.length">
+    <div class="row">
+      <div class="large-12 columns">
+        <i class="fa fa-info-circle"></i> Drag and drop goals on each other to group them
       </div>
     </div>
   </div>
-  <div class="row goals">
-    <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="userGoal in userGoals | orderBy: userGoal.goal.expires">  
-      <div class="noselect goal panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
-        <h6>Goal</h6>
-        <h4 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h4>
-        <h4 class="subheader" data-ng-bind="userGoal.goal.title"></h4>
-        <small>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
-        <hr />
-        <small data-ng-show="userGoal.subgoals.length">Number of subgoals: {{ userGoal.subgoals.length }}</small>
-        <p data-ng-bind="userGoal.goal.content"></p>
-        <hr />
-        <small><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group">View details </a></small>
-        <small data-ng-show="userGoal.grouped > 0"><a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><span data-ng-bind="userGoal.grouped | addPlus"></span> <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
 
+  <a href="#!/goals/create" class="add-goal-button">+</a>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="goal panel" data-ng-hide="userGoals.length">
+        <h3>Welcome to the UvA GoalSetting App!</h3>
+        <hr />
+        <p>Scientific literature indicates that setting goals is a major source of success (Locke e.a). For you this means that you can pass this exam faster and more effectively, up to 50%.</p>
+        <p>The key is to make your goals <b>SMART</b>: <b>S</b>pecific, <b>M</b>easurable, <b>A</b>ttainable, <b>R</b>ealistic and <b>T</b>ime-bound.</p>
+        <p>
+          Start by creating your first goal now! Click the plus button in the top right corner.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row goals">
+      <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="userGoal in userGoals | orderBy: userGoal.goal.expires">  
+        <div class="noselect goal panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
+          <h6>Goal</h6>
+          <h4 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h4>
+          <h4 class="subheader" data-ng-bind="userGoal.goal.title"></h4>
+          <small>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
+          <hr />
+          <small data-ng-show="userGoal.subgoals.length">Number of subgoals: {{ userGoal.subgoals.length }}</small>
+          <p data-ng-bind="userGoal.goal.content"></p>
+          <hr />
+          <small><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group">View details </a></small>
+          <small data-ng-show="userGoal.grouped > 0"><a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><span data-ng-bind="userGoal.grouped | addPlus"></span> <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
+        </div>
       </div>
     </div>
   </div>
