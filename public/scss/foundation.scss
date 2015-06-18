@@ -55,7 +55,7 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 
 .goals { max-width: 93.75rem; }
 
-.add-goal-button { position: fixed; bottom: 10%; right: 20%; width: 50px; height: 50px; background-color: $primary-color; border-radius: 1000px; color: $white; font-size: 35px; padding-left: 15px; z-index: 1000; -webkit-box-shadow: 2px 2px 15px 3px rgba(0,0,0,0.5); -moz-box-shadow: 2px 2px 15px 3px rgba(0,0,0,0.5); box-shadow: 2px 2px 15px 3px rgba(0,0,0,0.5); }
+.add-goal-button { position: fixed; bottom: 10%; right: 25%; width: 50px; height: 50px; background-color: $primary-color; border-radius: 1000px; color: $white; font-size: 35px; padding-left: 15px; z-index: 1000; -webkit-box-shadow: 2px 2px 15px 3px rgba(0,0,0,0.5); -moz-box-shadow: 2px 2px 15px 3px rgba(0,0,0,0.5); box-shadow: 2px 2px 15px 3px rgba(0,0,0,0.5); }
 .add-goal-button:hover { -ms-transform: scale(1.25,1.25); -webkit-transform: scale(1.25,1.25); transform: scale(1.25,1.25); }
 .button i { color: $white; }
 

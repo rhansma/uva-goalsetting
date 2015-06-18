@@ -1,13 +1,15 @@
-<div class="row">
-  <section data-ng-controller="SettingsController">
+
+<section data-ng-controller="SettingsController">
+  <div class="top-breadcrumbs">
+    <div class="row">
+      <div class="large-12 columns">
+        Edit profile | Student number: {{ user.studentNumber }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="small-12 medium-6 medium-centered large-4 columns panel">
       <form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" autocomplete="off">
-
-        <div class="row">
-          <div class="large-12 columns">
-            Student number: {{ user.studentNumber }}
-          </div>
-        </div>
         <div class="row">
           <div class="large-12 columns">
             <label for="firstName">First Name
@@ -48,8 +50,7 @@
             </div>
           </div>
         </div>
-
       </form>
     </div>
-  </section>
-</div>
+  </div>
+</section>
