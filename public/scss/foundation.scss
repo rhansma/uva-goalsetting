@@ -51,8 +51,7 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 .top-header img { margin-top: 35px; }
 .top-header span { margin-top: 35px; color: $primary-color; }
 .top-bar img { height: 52px; margin: 0; padding: 0 1em 0 1em; }
-.top-breadcrumbs { position: fixed; top: 147px; left: 0; width: 100%; background-color: rgba(0,0,0,0.5); height: 40px; padding-top: 8px; font-size: 16px; color: $white; z-index: 1000; }
-.dropdown { z-index: 10000; }
+.top-breadcrumbs { position: fixed; top: 147px; left: 0; width: 100%; background-color: rgba(0,0,0,0.5); height: 40px; padding-top: 8px; font-size: 16px; color: $white; z-index: 100; }
 
 .goals { max-width: 93.75rem; }
 
