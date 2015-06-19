@@ -50,8 +50,12 @@ var UserGoalsSchema = new Schema({
     type: Boolean,
     default: false
   },
-  finishedDate: {
+  statusChangeDate: {
     type: Date
+  },
+  committedDate: {
+    type: Date,
+    default: Date.now
   },
   subgoals: [SubgoalSchema]
 });

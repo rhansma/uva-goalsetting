@@ -177,8 +177,8 @@ angular.module('goals').controller('UserGoalsController',
     /* Retrieve statistics for chart */
     $scope.getStatistics = function() {
       $scope.labels = [];
-      $scope.data = [[]];
-      $scope.series = ['Completed goals'];
+      $scope.data = [[],[],[]];
+      $scope.series = ['Completed goals', 'Committed goals', 'Aborted goals'];
       $scope.options = {
         scaleBeginAtZero: true
       };
@@ -186,13 +186,68 @@ angular.module('goals').controller('UserGoalsController',
       /* Get statistics on goals */
       $scope.statistics = UserGoals.getStatistics(function(){
         $scope.statistics.completed = 0;
+        var aborted = 0;
+        var finished = 0;
+        var committed = 0;
 
+        /* Loop through all committed goals */
+        angular.forEach($scope.statistics.committed, function(elem) {
+          var object = elem._id;
+          var date = moment(new Date(object.year, object.month - 1, object.day)).format('MMM Do');
+
+          /* Push to array if not yet present */
+          if($scope.labels.indexOf(date) === -1) {
+            $scope.labels.push(date); // Subtract one month because months are from 0-11 instead of 1-12
+          }
+
+          committed += elem.total;
+          $scope.data[1].push(committed);
+        });
+
+        /* Loop through other state changes */
         angular.forEach($scope.statistics.finished, function(elem) {
-          $scope.statistics.completed += elem.total;
+          var object = elem._id;
+          var date = moment(new Date(object.year, object.month - 1, object.day)).format('MMM Do');
 
-          var date = elem._id;
-          $scope.labels.push(moment(new Date(date.year, date.month - 1, date.day)).format('MMM Do')); // Subtract one month because months are from 0-11 instead of 1-12
-          $scope.data[0].push($scope.statistics.completed);
+          /* Push to array if not yet present */
+          if($scope.labels.indexOf(date) === -1) {
+            $scope.labels.push(date); // Subtract one month because months are from 0-11 instead of 1-12
+          }
+
+          /* Count totals for right status */
+          switch(object.status) {
+            case 'aborted':
+              aborted += elem.total;
+              $scope.data[2].push(aborted);
+              break;
+            case 'finished':
+              finished += elem.total;
+              $scope.data[0].push(finished);
+              break;
+          }
+        });
+
+        $scope.finished = $scope.rejected = $scope.aborted = $scope.expired = $scope.committed = 0;
+        angular.forEach($scope.statistics.statistics, function(value) {
+          switch(value._id) {
+            case 'finished':
+              $scope.finished = value.total;
+              break;
+            case 'rejected':
+              $scope.rejected = value.total;
+              break;
+            case 'aborted':
+              $scope.aborted = value.total;
+              break;
+            case 'expired':
+              $scope.expired = value.total;
+              break;
+            case 'committed':
+              $scope.committed = value.total;
+              break;
+          }
+
+          $scope.total = $scope.finished + $scope.rejected + $scope.aborted + $scope.expired + $scope.committed;
         });
       });
     };

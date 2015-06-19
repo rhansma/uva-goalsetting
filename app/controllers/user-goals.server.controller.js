@@ -67,7 +67,7 @@ exports.update = function(req, res) {
       /* Send tincan statement to LRS */
       if(userGoal.finished) {
         var date = new Date();
-        userGoal.finishedDate = date;
+        userGoal.statusChangeDate = date;
         userGoal.status = 'finished';
 
         var requestUrl = req.protocol + '://' + req.get('host') + req.url;
@@ -106,6 +106,7 @@ exports.abort = function(req, res) {
   var userGoal = req.userGoal;
   var userGoalGroup = userGoal.group;
   userGoal.status = 'aborted';
+  userGoal.statusChangeDate = new Date();
 
   /* Remove group if was grouped */
   if(userGoal.grouped === 1) {
@@ -241,59 +242,91 @@ exports.listByGroup = function(req, res) {
 
 exports.getGoalStatistics = function(req, res) {
   var result = {};
-  /* Count completed goals */
+  /* Count completed and aborted goals */
   UserGoals.aggregate(
     {
       $match: {
-        'finishedDate': {$exists: true},
+        'statusChangeDate': {$exists: true},
         'user': req.user._id
       }
     },
     {
       $sort: {
-        'finishedDate': -1
+        'statusChangeDate': -1
       }
     },
     {
-      $group:  {
-        _id : {
-          day: {$dayOfMonth: '$finishedDate'},
-          month: {$month: '$finishedDate'},
-          year: {$year: '$finishedDate'}
+      $group: {
+        _id: {
+          status: '$status',
+          day: {$dayOfMonth: '$statusChangeDate'},
+          month: {$month: '$statusChangeDate'},
+          year: {$year: '$statusChangeDate'}
         },
         total: {$sum: 1}
       }
     }).exec(function(err, finished) {
       if (err) {
+        errorHandler.log(270);
+        errorHandler.log(err);
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
         result.finished = finished;
 
-        /* Count total number of goals */
-        UserGoals.count({user: req.user._id}).exec(function(err, count) {
-          if (err) {
-            return res.status(400).send({
-              message: errorHandler.getErrorMessage(err)
-            });
-          } else {
-            result.total = count;
-
-            /* Get number of aborted goals */
-            UserGoals.count({user: req.user._id, status: 'aborted'}).exec(function(err, count) {
-              console.log(err);
-              if (err) {
-                return res.status(400).send({
-                  message: errorHandler.getErrorMessage(err)
-                });
-              } else {
-                result.aborted = count;
-                res.json(result);
-              }
-            });
+        /* Get commited goals per date */
+        UserGoals.aggregate(
+          {
+            $match: {
+              'committedDate': {$exists: true},
+              'user': req.user._id
+            }
+          },
+          {
+            $sort: {
+              'committedDate': -1
+            }
+          },
+          {
+          $group: {
+            _id: {
+              day: {$dayOfMonth: '$committedDate'},
+              month: {$month: '$committedDate'},
+              year: {$year: '$committedDate'}
+            },
+            total: {$sum: 1}
           }
-        });
+        }).exec(function(err, committed){
+            if (err) {
+              errorHandler.log(302);
+              errorHandler.log(err);
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              result.committed = committed;
+
+              /* Get totals */
+              UserGoals.aggregate({
+                $group: {
+                  _id: '$status',
+                  total: {$sum: 1}
+                }
+              }).exec(function(err, stats) {
+                if (err) {
+                  errorHandler.log(318);
+                  errorHandler.log(err);
+                  return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
+                } else {
+                  result.statistics = stats;
+                  res.json(result);
+                }
+              });
+            }
+          });
       }
   });
 };
