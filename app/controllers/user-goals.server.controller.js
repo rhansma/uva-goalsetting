@@ -64,11 +64,12 @@ exports.update = function(req, res) {
   UserGoals.findById(userGoal._id).exec(function(err, oldGoal) {
     /* Changed finished date if finished value is flipped */
     if(oldGoal.finished !== userGoal.finished) {
-      var date = new Date();
-      userGoal.finishedDate = date;
-
       /* Send tincan statement to LRS */
       if(userGoal.finished) {
+        var date = new Date();
+        userGoal.finishedDate = date;
+        userGoal.status = 'finished';
+
         var requestUrl = req.protocol + '://' + req.get('host') + req.url;
         tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Goal');
       }

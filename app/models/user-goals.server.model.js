@@ -27,7 +27,7 @@ var UserGoalsSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['committed', 'rejected', 'aborted'],
+    enum: ['committed', 'rejected', 'aborted', 'finished', 'expired'],
     required: 'Status is required'
   },
   grouped: {
