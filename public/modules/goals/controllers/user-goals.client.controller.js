@@ -227,7 +227,7 @@ angular.module('goals').controller('UserGoalsController',
           }
         });
 
-        $scope.finished = $scope.rejected = $scope.aborted = $scope.expired = $scope.committed = 0;
+        $scope.total = $scope.finished = $scope.rejected = $scope.aborted = $scope.expired = $scope.committed = 0;
         angular.forEach($scope.statistics.statistics, function(value) {
           switch(value._id) {
             case 'finished':
