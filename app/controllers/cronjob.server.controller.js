@@ -58,3 +58,27 @@ new CronJob('0 0 * * * *', function() {
     }
   });
 }, null, true, 'Europe/Amsterdam');
+
+/* Cronjob for setting goals expired */
+new CronJob('0 0 * * * *', function() {
+  var date = new Date();
+
+  errorHandler.log('Checking for expired goals', 'info');
+  Goal.find({'expires': {$lte: date}}, '_id').exec(function(err, goals) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      UserGoals.update({'goal': {$in: goals},'status': {$nin: ['finished', 'aborted', 'expired']}}, {$set: {status: 'expired'}}, {multi: true}).exec(function (err, num) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          errorHandler.log(num + " goals are expired", 'info');
+        }
+      });
+    }
+  });
+}, null, true, 'Europe/Amsterdam');

@@ -24,7 +24,6 @@
         <h3 data-ng-bind="key"></h3>
         <div class="noselect goal panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-repeat="userGoal in value | orderBy: 'goal.expires'">
           <h6>Goal</h6>
-          <h4 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h4>
           <h4 class="subheader" data-ng-bind="userGoal.goal.title"></h4>
           <small>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
           <hr />
