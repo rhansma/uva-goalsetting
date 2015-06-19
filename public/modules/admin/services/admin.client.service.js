@@ -28,6 +28,16 @@ angular.module('admin').factory('Admin', ['$resource',
       addUser: {
         method: 'POST',
         url: '/admin/user'
+      },
+      deleteUser: {
+        method: 'DELETE',
+        url: '/admin/user/:userId',
+        userId: '@id'
+      },
+      deleteTeacher: {
+        method: 'DELETE',
+        url: '/admin/teacher/:userId',
+        userId: '@id'
       }
     });
 	}

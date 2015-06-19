@@ -63,3 +63,41 @@ exports.addUser = function(req, res) {
     }
   });
 };
+
+exports.deleteUser = function(req, res) {
+  User.remove({'_id': req.params.userId}, function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.status(200).send();
+    }
+  })
+};
+
+/**
+ * Delete teacher role from user
+ * @param req
+ * @param res
+ */
+exports.deleteTeacher = function(req, res) {
+  User.findById(req.params.userId).exec(function(err, user) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      user.roles = ['student'];
+      user.save(function (err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.json(user);
+        }
+      });
+    }
+  });
+};

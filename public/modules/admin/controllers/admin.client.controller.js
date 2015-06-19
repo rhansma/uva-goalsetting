@@ -29,6 +29,7 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
         notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
         $scope.spinner = false;
         $scope.users = Admin.getUsers();
+
         delete $scope.error;
         $scope.email = null;
         angular.element('input[type=email]').val('');
@@ -51,10 +52,41 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
 
         $scope.teachers = Admin.getTeachers();
         $scope.notTeachers = Admin.getNotTeachers();
+
+        delete $scope.error;
       }, function(errorResponse) {
         $scope.spinner = false;
         $scope.error = errorResponse.data.message;
       });
     };
+
+    $scope.deleteUser = function(user) {
+      Admin.deleteUser({'userId': user._id}, function() {
+        notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+        $scope.spinner = false;
+        delete $scope.error;
+
+        $scope.users = Admin.getUsers();
+      }, function(errorResponse) {
+        $scope.spinner = false;
+        $scope.error = errorResponse.data.message;
+      });
+    };
+
+    $scope.deleteTeacher = function(teacher) {
+      $scope.spinner = true;
+
+      Admin.deleteTeacher({'userId': teacher._id}, function() {
+        notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+        $scope.spinner = false;
+        delete $scope.error;
+
+        $scope.teachers = Admin.getTeachers();
+        $scope.notTeachers = Admin.getNotTeachers();
+      }, function(errorResponse) {
+        $scope.spinner = false;
+        $scope.error = errorResponse.data.message;
+      });
+    }
 	}
 ]);

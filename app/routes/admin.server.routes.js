@@ -16,9 +16,15 @@ module.exports = function(app) {
   app.route('/admin/user')
       .post(users.requiresLogin, users.isTeacher, users.addUser);
 
+  app.route('/admin/teacher/:userId')
+      .delete(users.requiresLogin, users.isTeacher, users.deleteTeacher);
+
+  app.route('/admin/user/:userId')
+    .delete(users.requiresLogin, users.isTeacher, users.deleteUser);
+
   app.route('/admin/teachers')
       .get(users.requiresLogin, users.isTeacher, users.listTeachers);
 
   app.route('/admin/not/teachers')
-    .get(users.requiresLogin, users.isTeacher, users.listNotTeachers);
+      .get(users.requiresLogin, users.isTeacher, users.listNotTeachers);
 };
