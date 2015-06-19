@@ -31,7 +31,7 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
         $scope.expires = '';
         $scope.spinner = false;
         socket.emit('create', goal);
-        notify({message: 'Your goal has been created, After being rated by a teacher, the goal will be available for all other students.', classes: 'success', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html', duration: '3500'});
+        notify({message: 'Your goal has been created. If you chose to make your goal public it will be available for others after being rated by the teacher.', classes: 'success', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html', duration: '3500'});
       }, function(errorResponse) {
         $scope.spinner = false;
         $scope.error = errorResponse.data.message;
