@@ -13,7 +13,7 @@
           <li class="tab-title" ng-class="{active: activeTab === 'addTeachers'}"><a ng-click="openTab('addTeachers');">Teachers</a></li>
           <li class="tab-title" ng-class="{active: activeTab === 'addUsers'}"><a ng-click="openTab('addUsers');">Users</a></li>
         </ul>
-        <div class="content" id="panel1" ng-if="activeTab === 'addTeachers'" data-ng-init="findTeachers();findNotTeachers();">
+        <div id="panel1" ng-if="activeTab === 'addTeachers'" data-ng-init="findTeachers();findNotTeachers();">
           <data-angucomplete id="ex1" placeholder="Give user teacher rights" pause="100" selectedobject="newTeacher" localdata="notTeachers"
                              searchfields="email" titlefield="email" minlength="1"></data-angucomplete>
           <a data-ng-click="addTeacher(newTeacher.originalObject)" class="button" data-ng-show="newTeacher">Make <b>{{ newTeacher.title }}</b> teacher</a>
@@ -33,7 +33,7 @@
           </table>
         </div>
 
-        <div class="content" id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers();">
+        <div id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers();">
           <form data-ng-submit="addUser()">
             <input type="email" placeholder="E-mail" data-ng-model="email" />
           </form>
