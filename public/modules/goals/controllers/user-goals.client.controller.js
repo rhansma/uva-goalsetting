@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment) {
+angular.module('goals').controller('UserGoalsController',
+  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog) {
     /* Find committed goals */
     $scope.find = function() {
       $scope.userGoals = UserGoals.query();
@@ -71,15 +72,29 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
         return false;
       }
 
-      $scope.spinner = true;
-      var userGoal = $scope.userGoal;
+      /* Show dialog to confirm deletion */
+      var dialog = ngDialog.openConfirm({
+        template: '<p>Are you sure you want to delete this goal?</p>\
+                  <div class="ngdialog-buttons">\
+                      <button type="button" class="ngdialog-button ngdialog-button-secondary primary" ng-click="closeThisDialog(0)">No</button>\
+                      <button type="button" class="ngdialog-button ngdialog-button-primary alert" ng-click="confirm(true)">Yes</button>\
+                  </div>',
+        plain: true
+      });
+      dialog.then(function(data) {
+        if(data) {
+          $scope.spinner = true;
+          var userGoal = $scope.userGoal;
 
-      userGoal.$abort(function() {
-        notify({message: 'You\'ve aborted this goal', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
-        $scope.spinner = false;
-      }, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
-        $scope.spinner = false;
+          userGoal.$abort(function() {
+            notify({message: 'You\'ve aborted this goal', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+            $scope.spinner = false;
+            $state.go('committedGoals');
+          }, function(errorResponse) {
+            $scope.error = errorResponse.data.message;
+            $scope.spinner = false;
+          });
+        }
       });
     };
 
@@ -188,6 +203,7 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
 
     /* Check if a goal is expired */
     $scope.checkExpired = function(expiryDate) {
+      console.log(expiryDate);
       return moment(expiryDate).isBefore(new Date());
     };
   }
@@ -199,3 +215,11 @@ angular.module('goals').filter('addPlus', function() {
     return((input === undefined) | (input === 0))? '' : '+' + input;
   };
 });
+
+angular.module('goals').controller('ModalController', ['$scope', 'close',
+  function ($scope, close) {
+    $scope.close = function (result) {
+      close(result);
+    }
+  }
+]);

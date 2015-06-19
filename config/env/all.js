@@ -17,7 +17,8 @@ module.exports = {
         'public/lib/angular-notify/dist/angular-notify.css',
         'public/lib/ng-tags-input/ng-tags-input.css',
         'public/lib/jquery-ui/themes/base/jquery-ui.css',
-        'public/lib/angucomplete/angucomplete.css'
+        'public/lib/angucomplete/angucomplete.css',
+        'public/lib/ngDialog/css/ngDialog.css'
 			],
 			js: [
         'public/lib/jquery/dist/jquery.js',
@@ -44,7 +45,8 @@ module.exports = {
         'public/lib/jquery-ui/jquery-ui.js',
         'public/lib/angular-socket-io/socket.js',
         'public/lib/angucomplete/angucomplete.js',
-        'public/lib/angular-filter/dist/angular-filter.js'
+        'public/lib/angular-filter/dist/angular-filter.js',
+        'public/lib/ngDialog/js/ngDialog.js'
 			]
 		},
 		css: [

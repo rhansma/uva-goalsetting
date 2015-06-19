@@ -101,3 +101,17 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
   -ms-user-select: none;
   user-select: none;
 }
+
+.ngdialog-content {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  width: 80%;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.ngdialog-close {
+  display: none;
+}

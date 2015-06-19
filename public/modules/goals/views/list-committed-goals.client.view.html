@@ -28,8 +28,8 @@
           <small>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
           <hr />
           <small data-ng-show="userGoal.subgoals.length">Number of subgoals: {{ userGoal.subgoals.length }}</small>
-          <small><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group">View details <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
-          <small data-ng-show="userGoal.grouped > 0"><a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><span data-ng-bind="userGoal.grouped"></span> goals in group <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
+          <small><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group || userGoal.status === 'expired'">View details <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
+          <small data-ng-show="userGoal.grouped > 0 && userGoal.status !== 'expired'"><a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><span data-ng-bind="userGoal.grouped"></span> goals in group <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
         </div>
       </div>
     </div>
