@@ -1,0 +1,55 @@
+<section data-ng-controller="AdminController">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Admin dashboard</h1>
+      <div class="panel">
+        <ul class="tabs">
+          <li class="tab-title" ng-class="{active: activeTab === 'addTeachers'}"><a ng-click="openTab('addTeachers');">Teachers</a></li>
+          <li class="tab-title" ng-class="{active: activeTab === 'addUsers'}"><a ng-click="openTab('addUsers');">Users</a></li>
+        </ul>
+        <div class="content" id="panel1" ng-if="activeTab === 'addTeachers'" data-ng-init="findTeachers();findNotTeachers();">
+          <data-angucomplete id="ex1" placeholder="Give user teacher rights" pause="100" selectedobject="newTeacher" localdata="notTeachers"
+                             searchfields="email" titlefield="email" minlength="1"></data-angucomplete>
+          <a data-ng-click="addTeacher(newTeacher.originalObject)" class="button" data-ng-show="newTeacher">Make <b>{{ newTeacher.title }}</b> teacher</a>
+          <span class="error" data-ng-bind="error" data-ng-show="error"></span>
+          <table>
+            <tr class="thead">
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Email</th>
+            </tr>
+            <tr data-ng-repeat="teacher in teachers">
+              <td data-ng-bind="teacher.firstName" class="tbody"></td>
+              <td data-ng-bind="teacher.lastName" class="tbody"></td>
+              <td data-ng-bind="teacher.email" class="tbody"></td>
+              <td><a data-ng-click="deleteTeacher(teacher);"><i class="fa fa-trash-o"></i></a></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="content" id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers();">
+          <form data-ng-submit="addUser()">
+            <input type="email" placeholder="E-mail" data-ng-model="email" />
+          </form>
+          <a data-ng-click="addUser()" class="button" data-ng-show="email">Add user <i class="fa fa-plus-circle"></i></a>
+          <span class="error" data-ng-bind="error" data-ng-show="error"></span>
+          <table>
+            <tr class="thead">
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+            <tr data-ng-repeat="user in users">
+              <td data-ng-bind="user.firstName" class="tbody"></td>
+              <td data-ng-bind="user.lastName" class="tbody"></td>
+              <td data-ng-bind="user.email" class="tbody"></td>
+              <td data-ng-bind="user.roles[0]" class="tbody"></td>
+              <td><a data-ng-click="deleteUser(user);"><i class="fa fa-trash-o"></i></a></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
