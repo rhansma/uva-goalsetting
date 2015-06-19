@@ -54,6 +54,18 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       });
     };
 
+    /**
+     * Handle click on goal depending on state of public goal feed
+     * @param goal
+     */
+    $scope.goalClick = function(goal) {
+      if($scope.edit) {
+        $state.go('viewGoal', {'goalId': goal._id});
+      } else {
+        goal.highlight = !goal.highlight;
+      }
+    };
+
     $scope.remove = function(goal) {
       if (goal) {
         goal.$remove();

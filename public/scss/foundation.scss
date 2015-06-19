@@ -87,3 +87,5 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 .ng-valid.ng-dirty {
 	border-color: $success-color;
 }
+
+.goal.highlight { border: 2px solid $primary-color }
