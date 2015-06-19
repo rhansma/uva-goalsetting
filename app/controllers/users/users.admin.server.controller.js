@@ -12,6 +12,11 @@ var _ = require('lodash'),
     mongoose = require('mongoose'),
     User = mongoose.model('User');
 
+/**
+ * List all users
+ * @param req
+ * @param res
+ */
 exports.list = function(req, res) {
   User.find().exec(function(err, users) {
     if (err) {
@@ -24,6 +29,11 @@ exports.list = function(req, res) {
   });
 };
 
+/**
+ * List all teachers
+ * @param req
+ * @param res
+ */
 exports.listTeachers = function(req, res) {
   User.find({roles: {$elemMatch:{$in: ['teacher']}}}).exec(function(err, teachers) {
     if (err) {
@@ -36,6 +46,11 @@ exports.listTeachers = function(req, res) {
   });
 };
 
+/**
+ * List all users who dont have the role teacher
+ * @param req
+ * @param res
+ */
 exports.listNotTeachers = function(req, res) {
   User.find({roles: {$elemMatch:{$nin: ['teacher']}}}, 'email').exec(function(err, teachers) {
     if (err) {
@@ -48,6 +63,11 @@ exports.listNotTeachers = function(req, res) {
   });
 };
 
+/**
+ * Add a new user for login with surfconext
+ * @param req
+ * @param res
+ */
 exports.addUser = function(req, res) {
   var user = new User();
   user.email = req.body.email;
@@ -64,6 +84,11 @@ exports.addUser = function(req, res) {
   });
 };
 
+/**
+ * Delete the user
+ * @param req
+ * @param res
+ */
 exports.deleteUser = function(req, res) {
   User.remove({'_id': req.params.userId}, function(err) {
     if (err) {

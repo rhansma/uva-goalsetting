@@ -4,10 +4,17 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
 	function($scope, Admin, notify) {
     $scope.activeTab = 'addTeachers';
 
+    /**
+     * Switch from tabs (user/teacher)
+     * @param tab
+     */
     $scope.openTab = function(tab) {
       $scope.activeTab = tab;
     };
 
+    /**
+     * Find functions
+     */
     $scope.findTeachers = function() {
       $scope.teachers = Admin.getTeachers();
     };
@@ -20,6 +27,9 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
       $scope.users = Admin.getUsers();
     };
 
+    /**
+     * Add new user
+     */
     $scope.addUser = function() {
       var user = new Admin({
         email: this.email
@@ -60,6 +70,10 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
       });
     };
 
+    /**
+     * Delete a user
+     * @param user
+     */
     $scope.deleteUser = function(user) {
       Admin.deleteUser({'userId': user._id}, function() {
         notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
@@ -73,6 +87,10 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
       });
     };
 
+    /**
+     * Remove teacher role from user
+     * @param teacher
+     */
     $scope.deleteTeacher = function(teacher) {
       $scope.spinner = true;
 
