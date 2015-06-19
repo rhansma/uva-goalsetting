@@ -8,7 +8,12 @@
   </div>
   <div class="row">
     <div class="small-12 medium-6 medium-centered columns panel">
+      <a data-ng-click="information = !information"><i class="fa fa-info"></i></a>
       <a data-ng-href="#!/goals" class="right"><i class="fa fa-times fa-lg"></i></a>
+      <div data-ng-show="information">
+        <p>Scientific literature indicates that setting goals is a major source of success (Locke e.a). For you this means that you can pass this exam faster and more effectively, up to 50%.</p>
+        <p>The key is to make your goals <b>SMART</b>: <b>S</b>pecific, <b>M</b>easurable, <b>A</b>ttainable, <b>R</b>ealistic and <b>T</b>ime-bound.</p>
+      </div>
       <form name="goalForm" data-ng-submit="create()" novalidate>
         <div class="row">
           <div class="large-12 columns" ng-class="{ 'has-error': goalForm.title.$dirty && goalForm.title.$invalid }">
