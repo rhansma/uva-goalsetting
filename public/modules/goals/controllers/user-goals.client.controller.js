@@ -258,7 +258,6 @@ angular.module('goals').controller('UserGoalsController',
 
     /* Check if a goal is expired */
     $scope.checkExpired = function(expiryDate) {
-      console.log(expiryDate);
       return moment(expiryDate).isBefore(new Date());
     };
   }
