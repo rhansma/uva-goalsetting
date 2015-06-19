@@ -46,6 +46,10 @@ var GoalSchema = new Schema({
   published: {
     type: Boolean,
     default: false
+  },
+  private: {
+    type: Boolean,
+    default: false
   }
 });
 

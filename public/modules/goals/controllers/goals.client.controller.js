@@ -20,18 +20,15 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
 
       var goal = new Goals({
         title: this.title,
-        content: this.content,
         expires: this.expires,
-        subgoals: this.subgoals
+        private: this.private
       });
 
       goal.$save(function(response) {
         $location.path('goals/' + response._id);
 
         $scope.title = '';
-        $scope.content = '';
         $scope.expires = '';
-        $scope.subgoals = [];
         $scope.spinner = false;
         socket.emit('create', goal);
         notify({message: 'Your goal has been created, After being rated by a teacher, the goal will be available for all other students.', classes: 'success', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html', duration: '3500'});

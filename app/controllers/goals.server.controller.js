@@ -140,7 +140,7 @@ exports.delete = function(req, res) {
  * List of Goals
  */
 exports.list = function(req, res) {
-  Goal.find().sort('-created').populate('creator', 'displayName').exec(function(err, goals) {
+  Goal.find({'private': {$ne: true}}).sort('-created').populate('creator', 'displayName').exec(function(err, goals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
