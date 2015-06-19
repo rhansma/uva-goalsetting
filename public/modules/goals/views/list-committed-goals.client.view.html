@@ -20,9 +20,9 @@
       </div>
     </div>
     <div class="row goals">
-      <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="(key, value) in userGoals | groupBy: 'status'">
-        <h3 data-ng-bind="key"></h3>
-        <div class="noselect goal panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-repeat="userGoal in value | orderBy: 'goal.expires'">
+      <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="userGoal in filtered = (userGoals | orderBy:[orderFunction, 'goal.expires'])">
+        <h3 data-ng-bind="userGoal.status" data-ng-if="userGoal.status != filtered[$index - 1].status"></h3>
+        <div class="noselect goal panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
           <h6>Goal</h6>
           <h4 class="subheader" data-ng-bind="userGoal.goal.title"></h4>
           <small>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>

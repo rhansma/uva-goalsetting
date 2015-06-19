@@ -119,6 +119,27 @@ angular.module('goals').controller('UserGoalsController', ['$scope', 'UserGoals'
       }
     };
 
+    /* Order by status */
+    $scope.orderFunction = function(userGoal) {
+      switch (userGoal.status) {
+        case 'committed':
+          return 0;
+          break;
+        case 'finished':
+          return 1;
+          break;
+        case 'expired':
+          return 2;
+          break;
+        case 'aborted':
+          return 3;
+          break;
+        default:
+          return 4;
+          break;
+      }
+    };
+
     /* Save goal with new state */
     $scope.save = function() {
       $scope.spinner = true;
