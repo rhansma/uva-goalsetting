@@ -24,6 +24,7 @@
     "angular-chart.js": "~0.7.1",
     "jquery-ui": "~1.11.4",
     "angular-socket-io": "~0.7.0",
-    "angucomplete": "*"
+    "angucomplete": "*",
+    "angular-filter": "~0.5.4"
   }
 }

@@ -90,3 +90,14 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 
 .goal.highlight { border: 2px solid $primary-color }
 .switch span { color: $oil; }
+
+.goals h3 { text-transform: capitalize; }
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

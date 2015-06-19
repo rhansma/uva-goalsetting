@@ -43,7 +43,8 @@ module.exports = {
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/jquery-ui/jquery-ui.js',
         'public/lib/angular-socket-io/socket.js',
-        'public/lib/angucomplete/angucomplete.js'
+        'public/lib/angucomplete/angucomplete.js',
+        'public/lib/angular-filter/dist/angular-filter.js'
 			]
 		},
 		css: [

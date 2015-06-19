@@ -20,8 +20,9 @@
       </div>
     </div>
     <div class="row goals">
-      <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="userGoal in userGoals | orderBy: userGoal.goal.expires">  
-        <div class="noselect goal panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);">
+      <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="(key, value) in userGoals | groupBy: 'status'">
+        <h3 data-ng-bind="key"></h3>
+        <div class="noselect goal panel" ng-drag="true" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-repeat="userGoal in value | orderBy: 'goal.expires'">
           <h6>Goal</h6>
           <h4 data-ng-show="checkExpired(userGoal.goal.expires)" class="alert">Expired</h4>
           <h4 class="subheader" data-ng-bind="userGoal.goal.title"></h4>
@@ -35,13 +36,3 @@
     </div>
   </div>
 </section>
-<style type="text/css">
-.noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-</style>
