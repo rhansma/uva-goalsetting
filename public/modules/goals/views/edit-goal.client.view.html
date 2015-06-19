@@ -13,21 +13,21 @@
 
           <div class="row" ng-class="{ 'has-error' : submitted && goalForm.title.$invalid}">
             <div class="large-12 columns">
-              <label for="title">Title
-                <input name="title" type="text" data-ng-model="goal.title" id="title" placeholder="Title" required>
+              <label for="title">Goal
+                <input name="title" type="text" data-ng-model="goal.title" id="title" placeholder="Goal" required>
               </label>
             </div>
           </div>
           <div class="row">
             <div class="large-12 columns">
               <div ng-show="submitted && goalForm.title.$invalid" class="help-block">
-                <p ng-show="goalForm.title.$error.required" class="alert-box alert">Title is required</p>
+                <p ng-show="goalForm.title.$error.required" class="alert-box alert">Goal is required</p>
               </div>
             </div>
           </div>
           <div class="row" ng-class="{ 'has-error' : submitted && goalForm.expires.$invalid}">
             <div class="large-12 columns">
-              <label for="expires">Date
+              <label for="expires">Deadline
                 <input name="expires" type="date" date-in-future data-ng-model="goal.expires" id="expires" required>
               </label>
             </div>
@@ -35,21 +35,7 @@
           <div class="row">
             <div class="large-12 columns">
               <div ng-show="submitted && goalForm.expires.$invalid" class="help-block">
-                <p ng-show="goalForm.expires.$error.required" class="alert-box alert">Date is required</p>
-              </div>
-            </div>
-          </div>
-          <div class="row" ng-class="{ 'has-error' : submitted && goalForm.content.$invalid}">
-            <div class="large-12 columns">
-              <label for="content">Content
-                <textarea name="content" data-ng-model="goal.content" id="content" cols="30" rows="10" placeholder="Content" required></textarea>
-              </label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-              <div ng-show="submitted && goalForm.content.$invalid" class="help-block">
-                <p ng-show="goalForm.content.$error.required" class="alert-box alert">Content is required</p>
+                <p ng-show="goalForm.expires.$error.required" class="alert-box alert">Deadline is required</p>
               </div>
             </div>
           </div>

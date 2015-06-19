@@ -17,8 +17,6 @@
           <span data-ng-bind="goal.creator.displayName"></span>
         </small>
         <hr />
-        <p data-ng-bind="goal.content"></p>
-        <hr />
         <div class="row edit-goals">
           <div class="large-12 columns" data-ng-show="authentication.user._id == goal.creator._id">
             <a class="right" href="/#!/goals/{{goal._id}}/edit"><i class="fa fa-pencil-square-o"></i> Edit</a> <a class="right" data-ng-click="remove();"><i class="fa fa-trash-o"></i> Delete</a>
