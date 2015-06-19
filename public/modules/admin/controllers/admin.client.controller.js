@@ -14,6 +14,16 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin',
 
     $scope.findUsers = function() {
       $scope.users = Admin.getUsers();
+      $scope.usernames = [];
+
+      angular.forEach($scope.users, function(value) {
+        console.log(value);
+        $scope.usernames.push(value.displayName);
+      });
     };
+
+    $scope.addUser = function() {
+      $scope.users.push({});
+    }
 	}
 ]);
