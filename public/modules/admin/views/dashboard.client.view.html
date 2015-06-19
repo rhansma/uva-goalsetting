@@ -28,8 +28,10 @@
         </div>
 
         <div class="content" id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers();">
-          <input type="email" placeholder="E-mail" data-ng-model="email" />
-          <a data-ng-click="addUser()" class="button">Add user <i class="fa fa-plus-circle"></i></a>
+          <form data-ng-submit="addUser()">
+            <input type="email" placeholder="E-mail" data-ng-model="email" />
+          </form>
+          <a data-ng-click="addUser()" class="button" data-ng-show="email">Add user <i class="fa fa-plus-circle"></i></a>
           <span class="error" data-ng-bind="error" data-ng-show="error"></span>
           <table>
             <tr class="thead">

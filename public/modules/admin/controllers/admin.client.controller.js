@@ -28,6 +28,10 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
       user.$addUser(function() {
         notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
         $scope.spinner = false;
+        $scope.users = Admin.getUsers();
+        delete $scope.error;
+        $scope.email = null;
+        angular.element('input[type=email]').val('');
       }, function(errorResponse) {
         $scope.spinner = false;
         $scope.error = errorResponse.data.message;
