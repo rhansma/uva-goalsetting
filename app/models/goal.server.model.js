@@ -22,13 +22,7 @@ var GoalSchema = new Schema({
     type: String,
     default: '',
     trim: true,
-    required: 'Title cannot be blank'
-  },
-  content: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Content must be provided'
+    required: 'Goal cannot be blank'
   },
   creator: {
     type: Schema.ObjectId,
@@ -37,7 +31,7 @@ var GoalSchema = new Schema({
   },
   expires: {
     type: Date,
-    required: 'Set an expiry date for this goal, the date must be in the future.'
+    required: 'Set a deadline for this goal, the date must be in the future.'
   },
   rating: {
     type: Number,

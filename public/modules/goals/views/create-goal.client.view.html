@@ -12,7 +12,7 @@
       <form name="goalForm" data-ng-submit="create()" novalidate>
         <div class="row">
           <div class="large-12 columns" ng-class="{ 'has-error': goalForm.title.$dirty && goalForm.title.$invalid }">
-            <label for="title">Title
+            <label for="title">Goal
               <input class="custom-input-class" name="title" type="text" data-ng-model="title" id="title" placeholder="Title" required>
             </label>
           </div>
@@ -21,13 +21,6 @@
           <div class="large-12 columns" ng-class="{ 'has-error': goalForm.expires.$dirty && goalForm.expires.$invalid }">
             <label for="expires">Deadline
               <input name="expires" type="date" date-in-future data-ng-model="expires" id="expires" placeholder="Deadline" date-field required>
-            </label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-12 columns" ng-class="{ 'has-error': goalForm.content.$dirty && goalForm.content.$invalid }">
-            <label for="content">Content
-              <textarea name="content" data-ng-model="content" id="content" cols="30" rows="7" placeholder="Content" required></textarea>
             </label>
           </div>
         </div>
