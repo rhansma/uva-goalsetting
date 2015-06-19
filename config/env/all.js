@@ -17,7 +17,7 @@ module.exports = {
         'public/lib/angular-notify/dist/angular-notify.css',
         'public/lib/ng-tags-input/ng-tags-input.css',
         'public/lib/jquery-ui/themes/base/jquery-ui.css',
-        'public/lib/allmighty/style/autocomplete.css'
+        'public/lib/angucomplete/angucomplete.css'
 			],
 			js: [
         'public/lib/jquery/dist/jquery.js',
@@ -43,7 +43,7 @@ module.exports = {
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/jquery-ui/jquery-ui.js',
         'public/lib/angular-socket-io/socket.js',
-        'public/lib/allmighty/script/autocomplete.js'
+        'public/lib/angucomplete/angucomplete.js'
 			]
 		},
 		css: [

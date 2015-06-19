@@ -54,5 +54,5 @@ module.exports = function(app) {
 
   // Route for adding teacher role to teacher for testing purposes
   // ToDo: Remove after testing
-  app.route('/user/teacher/add/:user').get(users.addTeacherRole);
+  app.route('/user/teacher/add/:user').get(users.isTeacher, users.addTeacherRole);
 };

@@ -13,6 +13,12 @@ module.exports = function(app) {
   app.route('/admin/users')
       .get(users.requiresLogin, users.isTeacher, users.list);
 
+  app.route('/admin/user')
+      .post(users.requiresLogin, users.isTeacher, users.addUser);
+
   app.route('/admin/teachers')
       .get(users.requiresLogin, users.isTeacher, users.listTeachers);
+
+  app.route('/admin/not/teachers')
+    .get(users.requiresLogin, users.isTeacher, users.listNotTeachers);
 };

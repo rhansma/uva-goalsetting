@@ -35,3 +35,31 @@ exports.listTeachers = function(req, res) {
     }
   });
 };
+
+exports.listNotTeachers = function(req, res) {
+  User.find({roles: {$elemMatch:{$nin: ['teacher']}}}, 'email').exec(function(err, teachers) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(teachers);
+    }
+  });
+};
+
+exports.addUser = function(req, res) {
+  var user = new User();
+  user.email = req.body.email;
+  user.provider = 'AdminCreated';
+
+  user.save(function(err) {
+    if(err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(user);
+    }
+  });
+};

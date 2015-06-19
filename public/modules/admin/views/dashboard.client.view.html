@@ -1,4 +1,4 @@
-<section data-ng-controller="AdminController" data-ng-init="findTeachers();findUsers();">
+<section data-ng-controller="AdminController">
   <div class="row">
     <div class="large-12 columns">
       <h1>Admin dashboard</h1>
@@ -7,8 +7,11 @@
           <li class="tab-title" ng-class="{active: activeTab === 'addTeachers'}"><a ng-click="openTab('addTeachers');">Teachers</a></li>
           <li class="tab-title" ng-class="{active: activeTab === 'addUsers'}"><a ng-click="openTab('addUsers');">Users</a></li>
         </ul>
-        <div class="content" id="panel1" ng-if="activeTab === 'addTeachers'">
-          <!--<autocomplete data="users" data-ng-model="newTeacher"></autocomplete><a data-ng-click="addTeacher()" class="button">Make user teacher</a>-->
+        <div class="content" id="panel1" ng-if="activeTab === 'addTeachers'" data-ng-init="findTeachers();findNotTeachers();">
+          <data-angucomplete id="ex1" placeholder="Give user teacher rights" pause="100" selectedobject="newTeacher" localdata="notTeachers"
+                             searchfields="email" titlefield="email" minlength="1"></data-angucomplete>
+          <a data-ng-click="addTeacher(newTeacher.originalObject)" class="button" data-ng-show="newTeacher">Make <b>{{ newTeacher.title }}</b> teacher</a>
+          <span class="error" data-ng-bind="error" data-ng-show="error"></span>
           <table>
             <tr class="thead">
               <th>First name</th>
@@ -23,9 +26,11 @@
             </tr>
           </table>
         </div>
-        <div class="content" id="panel2" ng-if="activeTab === 'addUsers'">
-          <input type="email" placeholder="E-mail" />
+
+        <div class="content" id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers();">
+          <input type="email" placeholder="E-mail" data-ng-model="email" />
           <a data-ng-click="addUser()" class="button">Add user <i class="fa fa-plus-circle"></i></a>
+          <span class="error" data-ng-bind="error" data-ng-show="error"></span>
           <table>
             <tr class="thead">
               <th>First name</th>
