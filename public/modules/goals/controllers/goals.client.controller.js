@@ -3,6 +3,8 @@
 
 angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify', '$state', 'socket',
 	function($scope, Goals, Authentication, $location, $stateParams, moment, notify, $state, socket) {
+    $scope.loading = true;
+
     /* If goal is created update with public goal feed */
     socket.on('create', function(data) {
       if($state.is('publicGoalsFeed')) {
@@ -69,7 +71,9 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
     };
 
     $scope.find = function() {
-      $scope.goals = Goals.query();
+      $scope.goals = Goals.query(function() {
+        $scope.loading = false;
+      });
     };
 
     $scope.findOne = function() {
