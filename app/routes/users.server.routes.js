@@ -35,7 +35,9 @@ module.exports = function(app) {
   app.route('/login/callback').post(passport.authenticate('saml'),
       function(req, res) {
         res.redirect('/#!/goals');
-      });
+      }, function(req, res) {
+      res.redirect('/#!/login/failure');
+    });
 
   app.route('/login').get(passport.authenticate('saml', { failureRedirect: '/#!/login/failure' }),
       function(req, res) {
