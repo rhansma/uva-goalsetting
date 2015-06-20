@@ -122,7 +122,6 @@ exports.finishSubgoal = function(req, res) {
     }
   }
 
-  console.log(userGoal);
   userGoal.save(function(err) {
     if (err) {
       return res.status(400).send({
