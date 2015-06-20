@@ -3,7 +3,7 @@
 module.exports = {
 	db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/goalsetting',
 	assets: {
-		lib: {
+    lib: {
       css: [
         'public/lib/font-awesome/css/font-awesome.min.css',
         'public/lib/angular-notify/dist/angular-notify.css',
@@ -13,6 +13,7 @@ module.exports = {
         'public/lib/ngDialog/css/ngDialog.css'
       ],
       js: [
+        'public/lib/underscore/underscore.js',
         'public/lib/jquery/dist/jquery.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
