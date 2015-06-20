@@ -19,6 +19,7 @@ global.SAMLStrategy = new SamlStrategy({
       acceptedClockSkewMs: -1
     },
     function(profile, done) {
+      /* Find user in database */
       User.findOne({email: profile.email}).exec(function (err, user) {
         if (err) {
           return done(err);
@@ -27,20 +28,7 @@ global.SAMLStrategy = new SamlStrategy({
             return done(null, user);
           }
 
-          var newUser = new User();
-          newUser.firstName = profile['urn:mace:dir:attribute-def:givenName'];
-          newUser.lastName = profile['urn:mace:dir:attribute-def:sn'];
-          newUser.displayName = newUser.firstName + ' ' + newUser.lastName;
-          newUser.email = profile['urn:mace:dir:attribute-def:mail'];
-          newUser.provider = 'SurfConext';
-          newUser.roles = [];
-          newUser.roles.push(profile['urn:mace:dir:attribute-def:eduPersonAffiliation']);
-          newUser.save(function (err) {
-            if (err) {
-              return done(err);
-            }
-            return done(null, newUser);
-          });
+          return done(err);
         }
       });
     }
