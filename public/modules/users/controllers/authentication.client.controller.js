@@ -5,8 +5,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		$scope.authentication = Authentication;
 
     /* Show message if authentication using surfconext failed */
+    console.log($stateParams.failure);
     if($stateParams.failure === 'failure') {
-      console.log($stateParams.failure);
       $scope.surfConextFailed = true;
     }
 		// If user is signed in then redirect back to goals
