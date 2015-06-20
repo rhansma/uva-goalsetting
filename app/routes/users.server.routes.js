@@ -37,7 +37,7 @@ module.exports = function(app) {
         res.redirect('/#!/goals');
       });
 
-  app.route('/login').get(passport.authenticate('saml', { failureRedirect: '/#!/login/failure', failureFlash: true }),
+  app.route('/login').get(passport.authenticate('saml', { failureRedirect: '/#!/login/failure' }),
       function(req, res) {
         res.redirect('/');
       }
