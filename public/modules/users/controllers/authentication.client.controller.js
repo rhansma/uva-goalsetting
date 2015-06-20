@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication', '$rootScope',
-	function($scope, $http, $location, Authentication, $rootScope) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication', '$rootScope', '$stateParams',
+	function($scope, $http, $location, Authentication, $rootScope, $stateParams) {
 		$scope.authentication = Authentication;
 
+    /* Show message if authentication using surfconext failed */
+    if($stateParams.failure) $scope.surfConextFailed = true;
 		// If user is signed in then redirect back to goals
 		if ($scope.authentication._data.user) $location.path('/goals');
 

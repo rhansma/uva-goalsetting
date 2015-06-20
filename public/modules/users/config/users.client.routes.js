@@ -26,7 +26,7 @@ angular.module('users').config(['$stateProvider', 'AUTH_LEVEL',
       accessLevel: AUTH_LEVEL.public
 		}).
 		state('signin', {
-			url: '/signin',
+			url: '/signin?failure',
 			templateUrl: 'modules/users/views/authentication/signin.client.view.html',
       accessLevel: AUTH_LEVEL.public
 		}).
