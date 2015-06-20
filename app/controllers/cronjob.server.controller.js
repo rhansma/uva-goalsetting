@@ -60,7 +60,7 @@ new CronJob('0 0 * * * *', function() {
 }, null, true, 'Europe/Amsterdam');
 
 /* Cronjob for setting goals expired */
-new CronJob('0 0 * * * *', function() {
+new CronJob('0 20 * * * *', function() {
   var date = new Date();
 
   errorHandler.log('Checking for expired goals', 'info');
