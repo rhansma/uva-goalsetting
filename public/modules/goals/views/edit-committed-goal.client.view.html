@@ -20,8 +20,7 @@
         </p>
         <hr />
         <a class="left" data-ng-click="abort();" data-ng-class="{disabled: spinner}"><i class="fa fa-trash fa-2x"></i> <small>Delete goal</small></a>
-        <a class="right"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i> <small>Finished goal</small></a>
-        <input class="right" type="checkbox" data-ng-model="userGoal.finished" />
+        <a class="right" data-ng-click="finish(userGoal);"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i> <small>Finished goal</small></a>
         <br /><br />
       </div>
       <div class="goal panel">
@@ -34,10 +33,10 @@
           <div class="large-12 columns" ng-repeat="subgoal in userGoal.subgoals">
             <div class="row">
               <div class="large-3 columns">
-                <input type="checkbox" data-ng-model="subgoal.finished" /> <i class="fa fa-check fa-2x" style="color:#4CBB17;"></i>
+                <a data-ng-click="finishSubgoal(subgoal);"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i></a>
               </div>
               <div class="large-6 columns">
-                <input name="subgoalContent" type="text" data-ng-model="subgoal.content" placeholder="Content" required />
+                <input name="subgoalContent" type="text" data-ng-model="subgoal.content" placeholder="Subgoal" required />
               </div>
               <div class="large-3 columns">
                 <input name="subgoalExpires" type="date" data-ng-model="subgoal.expires" placeholder="Deadline" date-in-future data-ng-options="{allowInvalid: true}" required />

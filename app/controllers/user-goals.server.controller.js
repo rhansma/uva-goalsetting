@@ -97,6 +97,43 @@ exports.update = function(req, res) {
   });
 };
 
+exports.finish = function(req, res) {
+  var userGoal = req.userGoal;
+  userGoal.status = 'finished';
+  userGoal.statusChangeDate = new Date();
+
+  userGoal.save(function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(userGoal);
+    }
+  });
+};
+
+exports.finishSubgoal = function(req, res) {
+  var userGoal = req.userGoal;
+
+  for(var i = 0; i < userGoal.subgoals.length; i++) {
+    if(userGoal.subgoals[i]._id.toString() === req.params.subGoalId) {
+      userGoal.subgoals[i].finished = true;
+    }
+  }
+
+  console.log(userGoal);
+  userGoal.save(function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(userGoal);
+    }
+  });
+};
+
 /**
  * Abort a goal
  * @param req
@@ -337,6 +374,22 @@ exports.getGoalStatistics = function(req, res) {
  */
 exports.userGoalByID = function(req, res, next, id) {
   UserGoals.findById(id).populate('goal').exec(function(err, goal) {
+    if (err) return next(err);
+    if (!goal) return next(new Error('Failed to load user goal ' + id));
+    req.userGoal = goal;
+    next();
+  });
+};
+
+/**
+ * Middleware for retrieving usergoals by subgoal id
+ * @param req
+ * @param res
+ * @param next
+ * @param id
+ */
+exports.userGoalBySubGoalID = function(req, res, next, id) {
+  UserGoals.findOne({'subgoals._id': id, 'user': req.user._id}).exec(function(err, goal) {
     if (err) return next(err);
     if (!goal) return next(new Error('Failed to load user goal ' + id));
     req.userGoal = goal;

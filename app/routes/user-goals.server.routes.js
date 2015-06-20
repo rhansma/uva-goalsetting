@@ -24,5 +24,12 @@ module.exports = function(app) {
   app.route('/user/goals/:userGoalId/abort')
       .put(users.requiresLogin, userGoals.hasAuthorization, userGoals.abort);
 
+  app.route('/user/goals/:userGoalId/finish')
+    .put(users.requiresLogin, userGoals.hasAuthorization, userGoals.finish);
+
+  app.route('/user/subgoals/:subGoalId/finish')
+    .put(users.requiresLogin, userGoals.finishSubgoal);
+
   app.param('userGoalId', userGoals.userGoalByID);
+  app.param('subGoalId', userGoals.userGoalBySubGoalID);
 };

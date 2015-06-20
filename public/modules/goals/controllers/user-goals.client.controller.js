@@ -218,6 +218,30 @@ angular.module('goals').controller('UserGoalsController',
     $scope.checkExpired = function(expiryDate) {
       return moment(expiryDate).isBefore(new Date());
     };
+
+    $scope.finish = function(goal) {
+      $scope.spinner = true;
+
+      goal.$finish(function() {
+        $scope.spinner = false;
+        notify({message: 'Successfully finished goal', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+      }, function(errorResponse) {
+        $scope.spinner = false;
+        notify({message: errorResponse.data.message, templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+      });
+    };
+
+    $scope.finishSubgoal = function(subgoal) {
+      $scope.spinner = true;
+
+      UserGoals.finishSubgoal({'subGoalId': subgoal._id}, function() {
+        $scope.spinner = false;
+        notify({message: 'Successfully finished subgoal', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+      }, function(errorResponse) {
+        $scope.spinner = false;
+        notify({message: errorResponse.data.message, templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+      });
+    };
   }
 ]);
 
