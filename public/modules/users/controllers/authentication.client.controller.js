@@ -5,7 +5,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		$scope.authentication = Authentication;
 
     /* Show message if authentication using surfconext failed */
-    console.log($stateParams.failure);
+    console.log($stateParams;
     if($stateParams.failure === 'failure') {
       $scope.surfConextFailed = true;
     }
