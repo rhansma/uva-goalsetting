@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('goals').controller('UserGoalsController',
-  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog) {
+  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics) {
     /* Find committed goals */
     $scope.find = function() {
       $scope.userGoals = UserGoals.query();
@@ -178,7 +178,7 @@ angular.module('goals').controller('UserGoalsController',
     $scope.getStatistics = function() {
       $scope.labels = [];
       $scope.data = [[],[],[]];
-      $scope.series = ['Completed goals', 'Committed goals', 'Aborted goals'];
+      $scope.series = ['Completed goals', 'Committed goals', 'Aborted goals', 'Pending goals'];
       $scope.options = {
         scaleBeginAtZero: true
       };
@@ -190,64 +190,19 @@ angular.module('goals').controller('UserGoalsController',
         var finished = 0;
         var committed = 0;
 
-        /* Loop through all committed goals */
-        angular.forEach($scope.statistics.committed, function(elem) {
-          var object = elem._id;
-          var date = moment(new Date(object.year, object.month - 1, object.day)).format('MMM Do');
+        Statistics.getStatistics($scope.statistics).then(function(rawData) {
+          console.log(rawData);
+          $scope.labels = rawData.labels;
+          $scope.data[0] = rawData.data.finished;
+          $scope.data[1] = rawData.data.committed;
+          $scope.data[2] = rawData.data.aborted;
+          $scope.data[3] = rawData.data.pending;
 
-          /* Push to array if not yet present */
-          if($scope.labels.indexOf(date) === -1) {
-            $scope.labels.push(date); // Subtract one month because months are from 0-11 instead of 1-12
-          }
-
-          committed += elem.total;
-          $scope.data[1].push(committed);
-        });
-
-        /* Loop through other state changes */
-        angular.forEach($scope.statistics.finished, function(elem) {
-          var object = elem._id;
-          var date = moment(new Date(object.year, object.month - 1, object.day)).format('MMM Do');
-
-          /* Push to array if not yet present */
-          if($scope.labels.indexOf(date) === -1) {
-            $scope.labels.push(date); // Subtract one month because months are from 0-11 instead of 1-12
-          }
-
-          /* Count totals for right status */
-          switch(object.status) {
-            case 'aborted':
-              aborted += elem.total;
-              $scope.data[2].push(aborted);
-              break;
-            case 'finished':
-              finished += elem.total;
-              $scope.data[0].push(finished);
-              break;
-          }
-        });
-
-        $scope.total = $scope.finished = $scope.rejected = $scope.aborted = $scope.expired = $scope.committed = 0;
-        angular.forEach($scope.statistics.statistics, function(value) {
-          switch(value._id) {
-            case 'finished':
-              $scope.finished = value.total;
-              break;
-            case 'rejected':
-              $scope.rejected = value.total;
-              break;
-            case 'aborted':
-              $scope.aborted = value.total;
-              break;
-            case 'expired':
-              $scope.expired = value.total;
-              break;
-            case 'committed':
-              $scope.committed = value.total;
-              break;
-          }
-
-          $scope.total = $scope.finished + $scope.rejected + $scope.aborted + $scope.expired + $scope.committed;
+          $scope.total = rawData.totals.committed;
+          $scope.finished = rawData.totals.finished;
+          $scope.aborted = rawData.totals.aborted;
+          $scope.expired = rawData.totals.expired;
+          $scope.committed = rawData.totals.committed;
         });
       });
     };

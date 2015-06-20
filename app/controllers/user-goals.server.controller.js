@@ -267,7 +267,6 @@ exports.getGoalStatistics = function(req, res) {
       }
     }).exec(function(err, finished) {
       if (err) {
-        errorHandler.log(270);
         errorHandler.log(err);
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -299,7 +298,6 @@ exports.getGoalStatistics = function(req, res) {
           }
         }).exec(function(err, committed){
             if (err) {
-              errorHandler.log(302);
               errorHandler.log(err);
               return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -315,7 +313,6 @@ exports.getGoalStatistics = function(req, res) {
                 }
               }).exec(function(err, stats) {
                 if (err) {
-                  errorHandler.log(318);
                   errorHandler.log(err);
                   return res.status(400).send({
                     message: errorHandler.getErrorMessage(err)
