@@ -74,11 +74,11 @@ angular.module('goals').controller('UserGoalsController',
 
       /* Show dialog to confirm deletion */
       var dialog = ngDialog.openConfirm({
-        template: '<p>Are you sure you want to delete this goal?</p>\
-                  <div class="ngdialog-buttons">\
-                      <button type="button" class="ngdialog-button ngdialog-button-secondary primary" ng-click="closeThisDialog(0)">No</button>\
-                      <button type="button" class="ngdialog-button ngdialog-button-primary alert" ng-click="confirm(true)">Yes</button>\
-                  </div>',
+        template: '<p>Are you sure you want to delete this goal?</p>' +
+                  '<div class="ngdialog-buttons">' +
+                      '<button type="button" class="ngdialog-button ngdialog-button-secondary primary" ng-click="closeThisDialog(0)">No</button>' +
+                      '<button type="button" class="ngdialog-button ngdialog-button-primary alert" ng-click="confirm(true)">Yes</button>' +
+                  '</div>',
         plain: true
       });
       dialog.then(function(data) {
@@ -136,23 +136,26 @@ angular.module('goals').controller('UserGoalsController',
 
     /* Order by status */
     $scope.orderFunction = function(userGoal) {
+      var order = 4;
       switch (userGoal.status) {
         case 'committed':
-          return 0;
+          order = 0;
           break;
         case 'finished':
-          return 1;
+          order = 1;
           break;
         case 'expired':
-          return 2;
+          order = 2;
           break;
         case 'aborted':
-          return 3;
+          order = 3;
           break;
         default:
-          return 4;
+          order = 4;
           break;
       }
+
+      return order;
     };
 
     /* Save goal with new state */
@@ -229,6 +232,6 @@ angular.module('goals').controller('ModalController', ['$scope', 'close',
   function ($scope, close) {
     $scope.close = function (result) {
       close(result);
-    }
+    };
   }
 ]);

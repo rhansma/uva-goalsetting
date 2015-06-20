@@ -105,6 +105,6 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
         $scope.spinner = false;
         $scope.error = errorResponse.data.message;
       });
-    }
+    };
 	}
 ]);
