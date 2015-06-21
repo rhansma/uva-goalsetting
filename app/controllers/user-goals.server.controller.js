@@ -245,7 +245,7 @@ exports.abort = function(req, res) {
  * List of User goals
  */
 exports.list = function(req, res) {
-  UserGoals.find({user: req.user, status: {$ne: 'rejected'}, $or: [{group: null}, {grouped:{$gt: 0}}]}).populate('goal').exec(function(err, userGoals) {
+  UserGoals.find({user: req.user, status: {$nin: ['rejected', 'aborted']}, $or: [{group: null}, {grouped:{$gt: 0}}]}).populate('goal').exec(function(err, userGoals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
