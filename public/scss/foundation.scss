@@ -47,11 +47,11 @@
 body { background: url(/modules/core/img/background.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
 
 .top-fixed { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
-.top-header { height: 95px; background-color: #ffffff; }
+.top-header { height: 110px; background-color: #ffffff; }
 .top-header img { margin-top: 35px; }
 .top-header span { margin-top: 35px; color: $primary-color; }
 .top-bar img { height: 52px; margin: 0; padding: 0 1em 0 1em; }
-.top-breadcrumbs { position: fixed; top: 147px; left: 0; width: 100%; background-color: rgba(0,0,0,0.5); height: 40px; padding-top: 8px; font-size: 16px; color: $white; z-index: 100; }
+.top-breadcrumbs { position: fixed; top: 162px; left: 0; width: 100%; background-color: rgba(0,0,0,0.5); height: 40px; padding-top: 8px; font-size: 16px; color: $white; z-index: 100; }
 
 .goals { max-width: 93.75rem; }
 
