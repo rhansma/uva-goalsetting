@@ -80,6 +80,7 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 .create { padding: 20px; }
 
 .panel.drag-enter { background-color: #eee;}
+.panel.drag-enter.no-drag { background-color: $alert-color; }
 
 .ng-invalid.ng-dirty {
 	border-color: $alert-color;

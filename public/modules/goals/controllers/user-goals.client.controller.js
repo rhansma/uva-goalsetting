@@ -102,6 +102,11 @@ angular.module('goals').controller('UserGoalsController',
     $scope.onDropComplete = function(source, target){
       var userGoalGroup;
       /* Create a new userGoalGroup */
+
+      if($scope.userGoals[target].status !== 'committed') {
+        return false;
+      }
+
       if($scope.userGoals[target].group === undefined && $scope.userGoals[source].group === undefined) {
         userGoalGroup = new UserGoalGroups({
           parent: $scope.userGoals[target]._id,
@@ -194,7 +199,6 @@ angular.module('goals').controller('UserGoalsController',
         var committed = 0;
 
         Statistics.getStatistics($scope.statistics).then(function(rawData) {
-          console.log(rawData);
           $scope.labels = rawData.labels;
           $scope.data[0] = rawData.data.finished;
           $scope.data[1] = rawData.data.committed;
