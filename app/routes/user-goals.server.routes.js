@@ -30,6 +30,9 @@ module.exports = function(app) {
   app.route('/user/subgoals/:subGoalId/finish')
     .put(users.requiresLogin, userGoals.finishSubgoal);
 
+  app.route('/user/goals/:userGoalId/tag/:tag')
+      .post(users.requiresLogin, userGoals.hasAuthorization, userGoals.addTag);
+
   app.param('userGoalId', userGoals.userGoalByID);
   app.param('subGoalId', userGoals.userGoalBySubGoalID);
 };

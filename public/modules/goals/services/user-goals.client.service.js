@@ -8,7 +8,8 @@ angular.module('goals').factory('UserGoals', ['$resource',
   function($resource) {
     return $resource('user/goals/:userGoalId', {
       userGoalId: '@_id',
-      subGoalId: '@subGoalId'
+      subGoalId: '@subGoalId',
+      tag: '@tag'
     }, {
       update: {
         method: 'PUT'
@@ -28,6 +29,10 @@ angular.module('goals').factory('UserGoals', ['$resource',
       finishSubgoal: {
         method: 'PUT',
         url: 'user/subgoals/:subGoalId/finish'
+      },
+      addTag: {
+        method: 'POST',
+        url: 'user/goals/:userGoalId/tag/:tag'
       }
     });
   }

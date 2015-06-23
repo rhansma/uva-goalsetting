@@ -3,6 +3,12 @@
 angular.module('goals').controller('UserGoalsController',
   ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics',
 	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics) {
+    $scope.addTag = function(tag) {
+      UserGoals.addTag({tag: tag.text, _id: $scope.userGoal._id}, function() {
+        notify({message: tag.text + ' is added as tag to this goal', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+      });
+    };
+
     /* Find committed goals */
     $scope.find = function() {
       $scope.userGoals = UserGoals.query();

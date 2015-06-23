@@ -46,6 +46,23 @@ exports.create = function(req, res) {
   });
 };
 
+exports.addTag = function(req, res) {
+  var userGoal = req.userGoal;
+
+  userGoal.tags.push(req.params.tag);
+  userGoal.save(function(err) {
+    if(err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_TAG_ADDED, requestUrl, 'Goal');
+      res.json(userGoal);
+    }
+  });
+};
+
 /**
  * Show the current User goal
  */
