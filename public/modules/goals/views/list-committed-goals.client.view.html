@@ -27,7 +27,7 @@
           <h4 class="subheader" data-ng-bind="userGoal.goal.title"></h4>
           <small>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
           <hr />
-          <small data-ng-show="userGoal.subgoals.length">Subgoal completed: {{ countCompletedSubgoals(userGoal.subgoals)}} / {{ userGoal.subgoals.length }}</small>
+          <small data-ng-show="userGoal.subgoals.length">Subgoals completed: {{ countCompletedSubgoals(userGoal.subgoals)}} / {{ userGoal.subgoals.length }}</small>
           <small><a data-ng-href="#!/goal/committed/{{userGoal._id}}" data-ng-hide="userGoal.group || userGoal.status !== 'committed'">View details <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
           <small data-ng-show="userGoal.grouped > 0 && userGoal.status === 'committed'"><a data-ng-href="#!/goals/grouped/{{userGoal.group}}"><span data-ng-bind="userGoal.grouped"></span> goals in group <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
         </div>
