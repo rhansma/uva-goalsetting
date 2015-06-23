@@ -25,7 +25,7 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       });
 
       goal.$save(function(response) {
-        $location.path('goals/' + response._id);
+        $location.path('goals');
 
         $scope.title = '';
         $scope.expires = '';
