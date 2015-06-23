@@ -122,9 +122,10 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
     /* Publish all rated goals */
     $scope.publish = function() {
       $scope.spinner = true;
-      Goals.publish(function() {
+      Goals.publish(function(goals) {
         $scope.spinner = false;
         notify({message: 'All rated goals are published, students can now commit or reject to them.', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+        $scope.goals = goals;
       }, function(errorResponse) {
         $scope.spinner = false;
         $scope.error = errorResponse.data.message;

@@ -19,6 +19,7 @@ angular.module('goals').factory('Goals', ['$resource',
       },
       publish: {
         method: 'PUT',
+        isArray: true,
         url: 'goals/teacher/publish'
       }
     });

@@ -207,7 +207,7 @@ exports.publish = function(req, res) {
             '">link</a> (' + process.env.APP_URL + ') to commit to goals.</p></body></html>';
           mail.mailToAll(subject, body);
 
-          res.status(200).send();
+          res.json(goals);
         }
       });
     }
