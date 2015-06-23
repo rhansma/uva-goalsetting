@@ -28,6 +28,7 @@
         <div class="row">
           <div class="large-12 columns">
             <h5 class="subheader">Subgoals</h5>
+            <p>Create sub goals below to divide your goal in smaller parts.</p>
             <a class="tiny secondary button" ng-click="addSubgoal();">Add subgoal</a>
           </div>
           <div class="large-12 columns" ng-repeat="subgoal in userGoal.subgoals">
@@ -45,7 +46,6 @@
           </div>
         </div>
         <p>
-
           <div class="button right" data-ng-click="save()" data-ng-class="{ disabled: userGoal.status === 'aborted', disabled: checkExpired(userGoal.goal.expires) }" >Save <i class="fa fa-spinner fa-spin" ng-show="spinner"></i></div>
         </p>
       </div>
