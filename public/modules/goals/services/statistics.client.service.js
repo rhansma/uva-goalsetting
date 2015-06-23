@@ -32,8 +32,10 @@ angular.module('goals').factory('Statistics', ['_', '$q', 'moment',
         var object = elem._id;
         var date = new Date(object.year, object.month - 1, object.day);
 
-        committedData.date.push(date);
-        committedData.total.push(elem.total);
+        if(!isNaN(date.getTime())) {
+          committedData.date.push(date);
+          committedData.total.push(elem.total);
+        }
       });
 
       /* Loop through other state changes */
@@ -159,7 +161,11 @@ angular.module('goals').factory('Statistics', ['_', '$q', 'moment',
       var max = moment(obj._getMaxDate(dates));
 
       var date = min;
-      var labels = [min.format('MMM Do')];
+      var labels = [];
+
+      if(moment.isDate(min)) {
+        labels.push(min.format('MMM Do'));
+      }
 
       /* Loop through dates till max is reached */
       while(date.isBefore(max)) {
