@@ -247,6 +247,18 @@ angular.module('goals').controller('UserGoalsController',
       });
     };
 
+    $scope.countCompletedSubgoals = function(subgoals) {
+      var finished = 0;
+
+      angular.forEach(subgoals, function(subgoal) {
+        if(subgoal.finished) {
+          finished += 1;
+        }
+      });
+
+      return finished;
+    };
+
     $scope.activeTab = 'statistics';
 
     /**
