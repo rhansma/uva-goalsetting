@@ -178,9 +178,10 @@ angular.module('goals').controller('UserGoalsController',
 
       var goal = $scope.userGoal;
 
-      goal.$update(function() {
+      goal.$update(function(goal) {
         $scope.spinner = false;
-        notify({message: 'Succesfully saved', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+        notify({message: 'Successfully saved', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+        $scope.userGoal = goal;
       }, function(errorResponse) {
         $scope.spinner = false;
         notify({message: errorResponse.data.message, templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
