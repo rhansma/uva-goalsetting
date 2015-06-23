@@ -160,16 +160,17 @@ angular.module('goals').factory('Statistics', ['_', '$q', 'moment',
       var min = moment(obj._getMinDate(dates));
       var max = moment(obj._getMaxDate(dates));
 
-      var date = min;
       var labels = [];
 
-      if(moment.isDate(min)) {
-        labels.push(min.format('MMM Do'));
-      }
+      /* Check if date is valid */
+      if(moment.isMoment(min)) {
+        var date = min.subtract(1, 'day');
+        labels.push(date.format('MMM Do'));
 
-      /* Loop through dates till max is reached */
-      while(date.isBefore(max)) {
-        labels.push(date.add(1, 'day').format('MMM Do'));
+        /* Loop through dates till max is reached */
+        while(date.isBefore(max)) {
+          labels.push(date.add(1, 'day').format('MMM Do'));
+        }
       }
 
       return labels;
