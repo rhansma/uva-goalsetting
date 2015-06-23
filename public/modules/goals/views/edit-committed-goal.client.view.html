@@ -19,7 +19,7 @@
           <tags-input data-ng-model="userGoal.tags"></tags-input>
         </p>
         <hr />
-        <a class="left" data-ng-click="abort();" data-ng-class="{disabled: spinner}"><i class="fa fa-trash fa-2x"></i> <small>Delete goal</small></a>
+        <a class="left" data-ng-click="abort(userGoal);" data-ng-class="{disabled: spinner}"><i class="fa fa-trash fa-2x"></i> <small>Delete goal</small></a>
         <a class="right" data-ng-click="finish(userGoal);"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i> <small>Finished goal</small></a>
         <br /><br />
       </div>
@@ -34,7 +34,7 @@
           <div class="large-12 columns" ng-repeat="subgoal in userGoal.subgoals">
             <div class="row">
               <div class="large-3 columns">
-                <a data-ng-click="finishSubgoal(subgoal);"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i></a>
+                <a data-ng-click="finishSubgoal(goal);"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i></a>
               </div>
               <div class="large-6 columns">
                 <input name="subgoalContent" type="text" data-ng-model="subgoal.content" placeholder="Subgoal" required />

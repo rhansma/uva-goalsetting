@@ -66,7 +66,7 @@ angular.module('goals').controller('UserGoalsController',
       $scope._saveUserGoal(goal, 'committed');
     };
 
-    $scope.abort = function() {
+    $scope.abort = function(userGoal) {
       /* Don't send again if already busy */
       if($scope.spinner) {
         return false;
@@ -84,7 +84,6 @@ angular.module('goals').controller('UserGoalsController',
       dialog.then(function(data) {
         if(data) {
           $scope.spinner = true;
-          var userGoal = $scope.userGoal;
 
           userGoal.$abort(function() {
             notify({message: 'You\'ve aborted this goal', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
