@@ -1,4 +1,4 @@
-<section data-ng-controller="UserGoalsController" data-ng-init="getStatistics()">
+<section data-ng-controller="UserGoalsController">
 	<div class="top-breadcrumbs">
 		<div class="row">
 			<div class="large-12 columns">
@@ -6,7 +6,15 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="tabs">
+        <li class="tab-title" ng-class="{active: activeTab === 'statistics'}"><a ng-click="openTab('statistics');">Statistics</a></li>
+      </ul>
+      <br />
+    </div>
+  </div>
+	<div class="row" ng-if="activeTab === 'statistics'" data-ng-init="getStatistics()">
 		<div class="small-12 medium-6 large-3 columns">
 			<div class="goal panel">
 				Total: {{ total }}

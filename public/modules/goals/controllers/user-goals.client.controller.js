@@ -246,6 +246,16 @@ angular.module('goals').controller('UserGoalsController',
         notify({message: errorResponse.data.message, templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
       });
     };
+
+    $scope.activeTab = 'statistics';
+
+    /**
+     * Switch from tabs (statistics)
+     * @param tab
+     */
+    $scope.openTab = function(tab) {
+      $scope.activeTab = tab;
+    };
   }
 ]);
 
