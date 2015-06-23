@@ -27,7 +27,7 @@
     <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="goal in goals | orderBy: goal.created">
       <div class="goal panel" data-ng-class="{highlight: goal.highlight}">
         <a data-ng-click="goalClick(goal);">
-          <h6>Goal <i class="fa fa-list" data-ng-show="goal.published"></i></h6>
+          <h6>Goal <i class="fa fa-bookmark" data-ng-show="goal.published"></i></h6>
           <h4 data-ng-bind="goal.title"></h4>
           <small>
             Created on
