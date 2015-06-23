@@ -15,6 +15,7 @@
         </ul>
         <br />
         <div id="panel1" ng-if="activeTab === 'addTeachers'" data-ng-init="findTeachers();findNotTeachers();">
+          <p>Type in the e-mail address of a registered user below to make him/her a teacher.</p>
           <data-angucomplete id="ex1" placeholder="Give user teacher rights" pause="100" selectedobject="newTeacher" localdata="notTeachers"
           searchfields="email" titlefield="email" minlength="1"></data-angucomplete>
           <a data-ng-click="addTeacher(newTeacher.originalObject)" class="button" data-ng-show="newTeacher">Make <b>{{ newTeacher.title }}</b> teacher</a>
@@ -35,6 +36,7 @@
         </div>
 
         <div id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers();">
+          <p>Type in the e-mail address of a user to give him/her access to the app.</p>
           <form data-ng-submit="addUser()">
             <input type="email" placeholder="E-mail" data-ng-model="email" />
           </form>
