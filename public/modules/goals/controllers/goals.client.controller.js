@@ -119,6 +119,19 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       });
     };
 
+    /* Save teacher edits */
+    $scope.saveGoal = function(goal) {
+      $scope.spinner = true;
+
+      goal.$teacherUpdate(function() {
+        notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+        $scope.spinner = false;
+      }, function(errorResponse) {
+        $scope.spinner = false;
+        $scope.error = errorResponse.data.message;
+      });
+    };
+
     /* Publish all rated goals */
     $scope.publish = function() {
       $scope.spinner = true;

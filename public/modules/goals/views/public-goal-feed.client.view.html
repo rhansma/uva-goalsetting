@@ -38,7 +38,7 @@
         <!-- Teacher options -->
         <div class="row goals-edit" data-ng-show="teacher && edit">
           <div class="small-8 columns">
-            <input type="number" min="1" max="10" data-ng-model="goal.rating" name="rating" placeholder="Rating" />
+            <input type="number" min="1" max="10" data-ng-model="goal.rating" name="rating" placeholder="Rating" data-ng-blur="saveGoal(goal);"/>
           </div>
           <div class="small-4 columns" data-ng-show="teacher && edit">
             <a class="right" data-ng-click="remove(goal);"><i class="fa fa-trash-o"></i> Delete</a>
