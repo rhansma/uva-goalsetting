@@ -360,6 +360,11 @@ exports.getGoalStatistics = function(req, res) {
 
               /* Get totals */
               UserGoals.aggregate({
+                    $match: {
+                      'user': req.user._id
+                    }
+                  },
+                  {
                 $group: {
                   _id: '$status',
                   total: {$sum: 1}
