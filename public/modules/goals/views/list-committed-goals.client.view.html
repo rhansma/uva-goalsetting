@@ -9,7 +9,7 @@
   <a href="#!/goals/create" class="add-goal-button">+</a>
   <div class="row">
     <div class="small-12 columns">
-      <div class="goal panel" data-ng-hide="userGoals.length">
+      <div class="goal panel" data-ng-show="!userGoals.length && !loading">
         <h3>Welcome to the UvA GoalSetting App!</h3>
         <hr />
         <p>Scientific literature indicates that setting goals is a major source of success (Locke e.a). For you this means that you can pass this exam faster and more effectively, up to 50%.</p>

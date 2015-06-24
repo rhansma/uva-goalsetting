@@ -3,6 +3,8 @@
 angular.module('goals').controller('UserGoalsController',
   ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics',
 	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics) {
+    $scope.loading = true;
+
     $scope.addTag = function(tag) {
       UserGoals.addTag({tag: tag.text, _id: $scope.userGoal._id}, function() {
         notify({message: tag.text + ' is added as tag to this goal', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
@@ -11,7 +13,9 @@ angular.module('goals').controller('UserGoalsController',
 
     /* Find committed goals */
     $scope.find = function() {
-      $scope.userGoals = UserGoals.query();
+      $scope.userGoals = UserGoals.query(function() {
+        $scope.loading = false;
+      });
     };
 
     /* Find approved but not committed or rejected goals */
