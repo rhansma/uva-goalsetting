@@ -163,7 +163,7 @@ angular.module('goals').factory('Statistics', ['_', '$q', 'moment',
       var labels = [];
 
       /* Check if date is valid */
-      if(moment.isMoment(min)) {
+      if(moment.isMoment(min) && min.isValid()) {
         var date = min.subtract(1, 'day');
         labels.push(date.format('MMM Do'));
 
@@ -171,6 +171,8 @@ angular.module('goals').factory('Statistics', ['_', '$q', 'moment',
         while(date.isBefore(max)) {
           labels.push(date.add(1, 'day').format('MMM Do'));
         }
+      } else {
+        labels.push(moment(new Date()).format('MMM Do'));
       }
 
       return labels;
