@@ -8,6 +8,7 @@
 /**
  * Module dependencies.
  */
+var pmx = require('pmx');
 var users = require('../../app/controllers/users.server.controller'),
     goals = require('../../app/controllers/goals.server.controller');
 
@@ -34,4 +35,6 @@ module.exports = function(app) {
 
   // Finish by binding the goal middleware
   app.param('goalId', goals.goalByID);
+
+  app.use(pmx.expressErrorHandler());
 };
