@@ -142,6 +142,7 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
   console.log('test');
+  console.log(req);
   Goal.paginate({'private': {$ne: true}}, req.query.page, req.query.limit, function(err, pageCount, results) {
     if (err) {
       console.log(err);
