@@ -47,7 +47,8 @@ module.exports = {
         'public/lib/angular-socket-io/socket.js',
         'public/lib/angucomplete/angucomplete.js',
         'public/lib/angular-filter/dist/angular-filter.js',
-        'public/lib/ngDialog/js/ngDialog.js'
+        'public/lib/ngDialog/js/ngDialog.js',
+        'public/lib/ngInfiniteScroll/build/ng-infinite-scroll.js'
 			]
 		},
 		css: [

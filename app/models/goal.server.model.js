@@ -8,7 +8,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    mongoosePaginate = require('mongoose-paginate');
 
 /**
  * Goal Schema
@@ -65,4 +66,5 @@ GoalSchema.pre('validate', function(next) {
   next();
 });
 
+GoalSchema.plugin(mongoosePaginate, {});
 mongoose.model('Goal', GoalSchema);

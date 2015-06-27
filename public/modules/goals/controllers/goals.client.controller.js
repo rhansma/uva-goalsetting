@@ -4,6 +4,9 @@
 angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authentication', '$location', '$stateParams', 'moment', 'notify', '$state', 'socket',
 	function($scope, Goals, Authentication, $location, $stateParams, moment, notify, $state, socket) {
     $scope.loading = true;
+    $scope.page = 1;
+    $scope.goals = [];
+
 
     /* If goal is created update with public goal feed */
     socket.on('create', function(data) {
@@ -96,6 +99,24 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
           $scope.goal.subgoals[i].expires = new Date(moment($scope.goal.subgoals[i].expires).format('YYYY-MM-DD'));
         }
       });
+    };
+
+    $scope.getMoreGoals = function() {
+      $scope.loading = true;
+
+      /* Only load new page if more results available */
+      if($scope.page) {
+        $scope.tmpGoals = Goals.getMoreGoals({page: $scope.page});
+        $scope.tmpGoals.$promise.then(function(data) {
+          angular.forEach(data[1], function(value) {
+            $scope.goals.push(value);
+          });
+
+          /* Check if more results, increment page with one if so, else set false */
+          $scope.page = data[0] ? $scope.page + 1 : false;
+          $scope.loading = false;
+        });
+      }
     };
 
     /* Save teacher edits */
@@ -199,5 +220,17 @@ angular.module('goals').directive('dateField', function() {
         };
       }
     }
+  };
+});
+
+angular.module('goals').directive('whenScrolled', function() {
+  return function(scope, elm, attr) {
+    var raw = elm[0];
+
+    elm.bind('scroll', function() {
+      if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+        scope.$apply(attr.whenScrolled);
+      }
+    });
   };
 });

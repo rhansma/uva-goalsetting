@@ -3,7 +3,8 @@
 angular.module('goals').factory('Goals', ['$resource',
   function($resource) {
     return $resource('goals/:goalId', {
-      goalId: '@_id'
+      goalId: '@_id',
+      page: '@page'
     }, {
       update: {
         method: 'PUT'
@@ -21,6 +22,11 @@ angular.module('goals').factory('Goals', ['$resource',
         method: 'PUT',
         isArray: true,
         url: 'goals/teacher/publish'
+      },
+      getMoreGoals: {
+        method: 'GET',
+        isArray: true,
+        url: 'goals/?page=:page'
       }
     });
   }

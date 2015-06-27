@@ -9,6 +9,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+    paginate = require('express-paginate'),
     errorHandler = require('./errors.server.controller'),
     Goal = mongoose.model('Goal'),
     UserGoals = mongoose.model('UserGoals'),
@@ -140,13 +141,20 @@ exports.delete = function(req, res) {
  * List of Goals
  */
 exports.list = function(req, res) {
-  Goal.find({'private': {$ne: true}}).sort('-created').populate('creator', 'displayName').exec(function(err, goals) {
+  Goal.paginate({'private': {$ne: true}}, req.query.page, req.query.limit, function(err, pageCount, results) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(goals);
+      res.format({
+        json: function() {
+          res.json([
+            paginate.hasNextPages(req)(pageCount),
+            results
+          ]);
+        }
+      });
     }
   });
 };
@@ -224,6 +232,10 @@ exports.goalByID = function(req, res, next, id) {
     req.goal = goal;
     next();
   });
+};
+
+exports.paginate = function(req) {
+  //req.query.page = req.params.page;
 };
 
 /**
