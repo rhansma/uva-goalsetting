@@ -24,8 +24,8 @@
     </div>
     <div class="row">
       <div class="small-12 columns" data-ng-repeat="userGoal in userGoals">
-        <h3 data-ng-bind="::userGoal.status" data-ng-if="::userGoal.status != filtered[$index - 1].status"></h3>
-        <div class="noselect goal panel" ng-drag="::userGoal.status === 'committed'" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-class="{ 'no-drag': userGoal.status !== 'committed'}" data-ng-if="show($index)">
+        <h3 data-ng-bind="::userGoal.status" data-ng-if="::userGoal.status != filtered[$index - 1].status" data-ng-show="show($index)"></h3>
+        <div class="noselect goal panel" ng-drag="::userGoal.status === 'committed'" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-class="{ 'no-drag': userGoal.status !== 'committed'}" data-ng-show="show($index)">
           <h6>Goal</h6>
           <h4 class="subheader" data-ng-bind="::userGoal.goal.title"></h4>
           <small>Expires {{ ::userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
