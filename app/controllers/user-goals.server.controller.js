@@ -262,15 +262,21 @@ exports.abort = function(req, res) {
  * List of User goals
  */
 exports.list = function(req, res) {
+  var start = process.hrtime();
   UserGoals.find({user: req.user, status: {$nin: ['rejected', 'aborted']}, $or: [{group: null}, {grouped:{$gt: 0}}]}).populate('goal').exec(function(err, userGoals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      var end = process.hrtime(start);
+
+      console.log('Mongoose took: ' + ((end[0] * 1e9 + end[1]) / 1e9) + 's');
       var requestUrl = req.protocol + '://' + req.get('host') + req.url;
       tincan.sendStatementOnUser(req.user.email, process.env.TINCAN_VIEW, requestUrl, 'personal goal list');
       res.json(userGoals);
+      var end2 = process.hrtime(start);
+      console.log('Total: ' + ((end2[0] * 1e9 + end2[1]) / 1e9) + 's');
     }
   });
 };
