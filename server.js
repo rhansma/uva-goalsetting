@@ -1,8 +1,5 @@
 'use strict';
 
-/* Init pmx for keymetrics */
-require('pmx').init();
-
 /**
  * Module dependencies.
  */
