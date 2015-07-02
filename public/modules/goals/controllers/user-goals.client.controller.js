@@ -3,6 +3,16 @@
 angular.module('goals').controller('UserGoalsController',
   ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics', '$animate',
 	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics, $animate) {
+    $scope.index = 5;
+    $scope.show = function(index) {
+      if(index < $scope.index) {
+        true;
+      }
+    };
+
+    setInterval(function() {
+      $scope.index += 5;
+    }, 1000);
     $animate.enabled(false);
     $scope.loading = true;
 
