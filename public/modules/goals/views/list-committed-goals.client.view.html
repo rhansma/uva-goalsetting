@@ -37,6 +37,10 @@
           <a class="left" data-ng-click="abort(userGoal);" data-ng-class="{disabled: spinner}" data-ng-show="userGoal.status === 'committed'"><i class="fa fa-trash fa-2x"></i> <small>Delete goal</small></a>
         </div>
       </div>
+
+      <div class="small-12 columns" data-ng-show="limit < userGoals.length + 1000">
+        <a class="button" data-ng-click="raiseLimit()">Show more</a>
+      </div>
     </div>
   </div>
 </section>

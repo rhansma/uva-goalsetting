@@ -12,15 +12,8 @@ angular.module('goals').controller('UserGoalsController',
       });
     };
 
-    $scope.getMoreGoals = function(objects) {
-      $scope.disableLoading = true;
-
-      if($scope.limit < objects) {
-        setTimeout(function() {
-          $scope.disableLoading = false;
-          $scope.limit += 10;
-        }, 100);
-      }
+    $scope.raiseLimit = function() {
+      $scope.limit += 10;
     };
 
     /* Find committed goals */
