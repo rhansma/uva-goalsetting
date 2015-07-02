@@ -8,6 +8,8 @@ angular.module('goals').controller('UserGoalsController',
       if(index < $scope.index) {
         return true;
       }
+
+      return false;
     };
 
     setInterval(function() {
