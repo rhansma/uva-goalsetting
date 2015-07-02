@@ -1,27 +1,19 @@
 'use strict';
 
 angular.module('goals').controller('UserGoalsController',
-  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics', '$animate',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics, $animate) {
-    $scope.index = 5;
-    $scope.show = function(index) {
-      if(index < $scope.index) {
-        return true;
-      }
-
-      return false;
-    };
-
-    setInterval(function() {
-      $scope.index += 5;
-    }, 1000);
-    $animate.enabled(false);
+  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics) {
+    $scope.limit = 10;
     $scope.loading = true;
 
     $scope.addTag = function(tag) {
       UserGoals.addTag({tag: tag.text, _id: $scope.userGoal._id}, function() {
         notify({message: tag.text + ' is added as tag to this goal', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
       });
+    };
+
+    $scope.getMoreGoals = function() {
+      $scope.limit += 10;
     };
 
     /* Find committed goals */
