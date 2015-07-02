@@ -141,16 +141,12 @@ exports.delete = function(req, res) {
  * List of Goals
  */
 exports.list = function(req, res) {
-  console.log('test');
-  console.log(req);
-  Goal.paginate({'private': {$ne: true}}, req.query.page, req.query.limit, function(err, pageCount, results) {
+  Goal.paginate({'private': {$ne: true}}, {page: req.query.page, limit: req.query.limit}, function(err, results, pageCount) {
     if (err) {
-      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      console.log('no err');
       res.format({
         json: function() {
           res.json([
