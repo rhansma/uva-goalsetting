@@ -29,7 +29,7 @@ module.exports = function(app) {
       .delete(users.requiresLogin, goals.hasAuthorization, goals.delete);
 
   app.route('/goals/page/:page')
-      .get(users.requiresLogin, users.isTeacher, goals.list)
+      .get(users.requiresLogin, users.isTeacher, goals.list);
 
   app.route('/goals/teacher/publish')
       .put(users.requiresLogin, users.isTeacher, goals.publish);
