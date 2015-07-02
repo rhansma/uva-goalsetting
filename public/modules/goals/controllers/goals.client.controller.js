@@ -82,12 +82,6 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       }
     };
 
-    $scope.find = function() {
-      $scope.goals = Goals.query(function() {
-        $scope.loading = false;
-      });
-    };
-
     $scope.findOne = function() {
       $scope.goal = Goals.get({
         goalId: $stateParams.goalId
@@ -101,11 +95,10 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       });
     };
 
-    $scope.getMoreGoals = function() {
-      $scope.loading = true;
-
+    $scope.getGoals = function() {
       /* Only load new page if more results available */
       if($scope.page) {
+        $scope.loading = true;
         $scope.tmpGoals = Goals.getMoreGoals({page: $scope.page});
         $scope.tmpGoals.$promise.then(function(data) {
           angular.forEach(data[1], function(value) {
