@@ -15,6 +15,9 @@
     </div>
   </div>
 	<div class="row" ng-if="activeTab === 'statistics'" data-ng-init="getStatistics()">
+    <p class="text-center" data-ng-show="loading">
+      <i class="fa fa-spinner fa-spin"></i>
+    </p>
 		<div class="small-12 medium-6 large-3 columns">
 			<div class="goal panel">
 				Total: {{ total }}

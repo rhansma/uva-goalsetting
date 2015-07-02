@@ -8,6 +8,9 @@
   </div>
   <a href="#!/goals/create" class="add-goal-button">+</a>
   <div class="row">
+    <p class="text-center" data-ng-show="loading">
+      <i class="fa fa-spinner fa-spin"></i>
+    </p>
     <div class="small-12 columns">
       <div class="goal panel" data-ng-show="!userGoals.length && !loading">
         <h3>Welcome to the UvA GoalSetting App!</h3>

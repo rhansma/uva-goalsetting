@@ -220,6 +220,8 @@ angular.module('goals').controller('UserGoalsController',
           $scope.aborted = rawData.totals.aborted;
           $scope.expired = rawData.totals.expired;
           $scope.committed = rawData.totals.committed;
+
+          $scope.loading = false;
         });
       });
     };
