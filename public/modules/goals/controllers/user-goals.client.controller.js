@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('goals').controller('UserGoalsController',
-  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics) {
+  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics', '$animate',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics, $animate) {
+    $animate.enabled(false);
     $scope.loading = true;
 
     $scope.addTag = function(tag) {
