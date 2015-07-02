@@ -23,12 +23,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="small-12 columns" data-ng-repeat="userGoal in userGoals">
+      <div class="small-12 columns" data-ng-repeat="userGoal in filtered = (userGoals | orderBy:[orderFunction, 'goal.expires'])">
         <h3 data-ng-bind="::userGoal.status" data-ng-if="::userGoal.status != filtered[$index - 1].status"></h3>
-        <div class="noselect goal panel" ng-drag="::userGoal.status === 'committed'" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-class="{ 'no-drag': userGoal.status !== 'committed'}">
+        <div class="noselect goal panel" ng-drag="::userGoal.status === 'committed'" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-class="{ 'no-drag': userGoal.status !== 'committed'}" data-ng-if="$index <= 10">
           <h6>Goal</h6>
           <h4 class="subheader" data-ng-bind="::userGoal.goal.title"></h4>
-          <small>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
+          <small>Expires {{ ::userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
           <hr />
           <small data-ng-show="::userGoal.subgoals.length">Subgoals completed: {{ countCompletedSubgoals(userGoal.subgoals)}} / {{ ::userGoal.subgoals.length }}</small>
           <small><a data-ng-href="#!/goal/committed/{{ ::userGoal._id}}" data-ng-hide="userGoal.group || userGoal.status !== 'committed'">View details <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
