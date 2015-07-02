@@ -16,8 +16,10 @@ angular.module('goals').controller('UserGoalsController',
       $scope.disableLoading = true;
 
       if($scope.limit < objects) {
-        $scope.disableLoading = false;
-        $scope.limit += 10;
+        setTimeout(function() {
+          $scope.disableLoading = false;
+          $scope.limit += 10;
+        }, 100);
       }
     };
 
