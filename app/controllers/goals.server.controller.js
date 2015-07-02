@@ -17,7 +17,7 @@ var mongoose = require('mongoose'),
     mail = require('./mail.server.controller.js'),
     tincan = require('./tincan.server.controller.js');
 
-
+mongoose.set('debug', true);
 /**
  * Create a goal
  */
