@@ -91,7 +91,8 @@ module.exports = function(db) {
 		secret: config.sessionSecret,
 		store: new mongoStore({
 			db: db.connection.db,
-			collection: config.sessionCollection
+			collection: config.sessionCollection,
+      auto_reconnect: true
 		})
 	}));
 
