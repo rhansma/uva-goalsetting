@@ -6,7 +6,7 @@ angular.module('goals').controller('UserGoalsController',
     $scope.index = 5;
     $scope.show = function(index) {
       if(index < $scope.index) {
-        true;
+        return true;
       }
     };
 
