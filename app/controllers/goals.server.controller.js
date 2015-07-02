@@ -238,10 +238,6 @@ exports.goalByID = function(req, res, next, id) {
   });
 };
 
-exports.paginate = function(req) {
-  //req.query.page = req.params.page;
-};
-
 /**
  * Goal authorization middleware
  */

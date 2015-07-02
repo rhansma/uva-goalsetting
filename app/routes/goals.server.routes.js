@@ -40,7 +40,6 @@ module.exports = function(app) {
 
   // Finish by binding the goal middleware
   app.param('goalId', goals.goalByID);
-  app.param('page', goals.paginate);
 
   app.use(pmx.expressErrorHandler());
 };
