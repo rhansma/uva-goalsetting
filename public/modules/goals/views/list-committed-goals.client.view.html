@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="small-12 columns" data-ng-repeat="userGoal in filtered = (userGoals | orderBy:[orderFunction, 'goal.expires'] | limitTo: limit)" data-infinite-scroll="getMoreGoals(userGoals.length)"  data-infinite-scroll-distance="1" data-inifinite-scroll-immediate-check="false" data-infinite-scroll-disabled="disableLoading">
+      <div class="small-12 columns" data-ng-repeat="userGoal in filtered = (userGoals | orderBy:[orderFunction, 'goal.expires'] | limitTo: limit)">
         <h3 data-ng-bind="::userGoal.status" data-ng-if="::userGoal.status != filtered[$index - 1].status"></h3>
         <div class="noselect goal panel" ng-drag="::userGoal.status === 'committed'" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-class="{ 'no-drag': userGoal.status !== 'committed'}">
           <h6>Goal</h6>
