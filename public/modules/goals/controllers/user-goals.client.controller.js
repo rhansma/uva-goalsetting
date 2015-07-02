@@ -13,7 +13,10 @@ angular.module('goals').controller('UserGoalsController',
     };
 
     $scope.getMoreGoals = function(objects) {
+      $scope.disableLoading = true;
+
       if($scope.limit < objects) {
+        $scope.disableLoading = false;
         $scope.limit += 10;
       }
     };
