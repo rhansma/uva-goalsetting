@@ -24,17 +24,17 @@
     </div>
     <div class="row">
       <div class="small-12 columns" data-ng-repeat="userGoal in filtered = (userGoals | orderBy:[orderFunction, 'goal.expires'])">
-        <h3 data-ng-bind=":userGoal.status" data-ng-if=":userGoal.status != filtered[$index - 1].status"></h3>
-        <div class="noselect goal panel" ng-drag=":userGoal.status === 'committed'" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-class="{ 'no-drag': :userGoal.status !== 'committed'}">
+        <h3 data-ng-bind="::userGoal.status" data-ng-if="::userGoal.status != filtered[$index - 1].status"></h3>
+        <div class="noselect goal panel" ng-drag="::userGoal.status === 'committed'" ng-drag-data="$index" ng-drop="true" ng-drop-success="onDropComplete($data, $index);" data-ng-class="{ 'no-drag': userGoal.status !== 'committed'}">
           <h6>Goal</h6>
-          <h4 class="subheader" data-ng-bind=":userGoal.goal.title"></h4>
+          <h4 class="subheader" data-ng-bind="::userGoal.goal.title"></h4>
           <small>Expires {{ userGoal.goal.expires | amDateFormat:'MMMM Do YYYY' }}</small>
           <hr />
-          <small data-ng-show=":userGoal.subgoals.length">Subgoals completed: {{ countCompletedSubgoals(:userGoal.subgoals)}} / {{ :userGoal.subgoals.length }}</small>
-          <small><a data-ng-href="#!/goal/committed/{{ :userGoal._id}}" data-ng-hide=":userGoal.group || :userGoal.status !== 'committed'">View details <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
-          <small data-ng-show=":userGoal.grouped > 0 && :userGoal.status === 'committed'"><a data-ng-href="#!/goals/grouped/{{:userGoal.group}}"><span data-ng-bind=":userGoal.grouped"></span> goals in group <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
-          <a data-ng-click="finish(:userGoal);" data-ng-show=":userGoal.status === 'committed'"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i></a>
-          <a class="left" data-ng-click="abort(:userGoal);" data-ng-class="{disabled: spinner}" data-ng-show=":userGoal.status === 'committed'"><i class="fa fa-trash fa-2x"></i> <small>Delete goal</small></a>
+          <small data-ng-show="::userGoal.subgoals.length">Subgoals completed: {{ countCompletedSubgoals(userGoal.subgoals)}} / {{ ::userGoal.subgoals.length }}</small>
+          <small><a data-ng-href="#!/goal/committed/{{ ::userGoal._id}}" data-ng-hide="userGoal.group || userGoal.status !== 'committed'">View details <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
+          <small data-ng-show="userGoal.grouped > 0 && userGoal.status === 'committed'"><a data-ng-href="#!/goals/grouped/{{::userGoal.group}}"><span data-ng-bind="::userGoal.grouped"></span> goals in group <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
+          <a data-ng-click="finish(userGoal);" data-ng-show="userGoal.status === 'committed'"><i class="fa fa-check fa-2x" style="color:#4CBB17;"></i></a>
+          <a class="left" data-ng-click="abort(userGoal);" data-ng-class="{disabled: spinner}" data-ng-show="userGoal.status === 'committed'"><i class="fa fa-trash fa-2x"></i> <small>Delete goal</small></a>
         </div>
       </div>
     </div>
