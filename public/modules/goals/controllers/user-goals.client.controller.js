@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('goals').controller('UserGoalsController',
-  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics',
-	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics) {
+  ['$scope', 'UserGoals', 'Goals', 'UserGoalGroups', '$state', 'notify', '$stateParams', 'moment', 'ngDialog', 'Statistics', '$timeout',
+	function($scope, UserGoals, Goals, UserGoalGroups, $state, notify, $stateParams, moment, ngDialog, Statistics, $timeout) {
     $scope.limit = 10;
     $scope.loading = true;
 
@@ -13,7 +13,16 @@ angular.module('goals').controller('UserGoalsController',
     };
 
     $scope.raiseLimit = function() {
-      $scope.limit += 10;
+      /* Only raise limit if not loading */
+      if(!$scope.loading) {
+        $scope.loading = true;
+
+        /* Emulate data retrieval */
+        $timeout(function() {
+          $scope.limit += 10;
+          $scope.loading = false;
+        }, 1000);
+      }
     };
 
     /* Find committed goals */
