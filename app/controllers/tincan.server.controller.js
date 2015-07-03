@@ -11,6 +11,18 @@ var TinCan = require('tincanjs'),
     User = mongoose.model('User'),
     Goal = mongoose.model('Goal');
 
+/* Set defaults values for tincan statements */
+process.env.TINCAN_CREATED = process.env.TINCAN_CREATED || 'http://adlnet.gov/expapi/verbs/created';
+process.env.TINCAN_COMMITTED = process.env.TINCAN_COMMITTED || 'http://activitystrea.ms/schema/1.0/accept';
+process.env.TINCAN_COMPLETED = process.env.TINCAN_COMPLETED || 'http://activitystrea.ms/schema/1.0/complete';
+process.env.TINCAN_ABORTED = process.env.TINCAN_ABORTED || 'http://activitystrea.ms/schema/1.0/cancel';
+process.env.TINCAN_UPDATED = process.env.TINCAN_UPDATED || 'http://activitystrea.ms/schema/1.0/update';
+process.env.TINCAN_LOGIN = process.env.TINCAN_LOGIN || 'https://brindlewaye.com/xAPITerms/verbs/loggedin/';
+process.env.TINCAN_VIEW = process.env.TINCAN_VIEW || 'http://id.tincanapi.com/verb/viewed';
+process.env.TINCAN_APPROVED = process.env.TINCAN_APPROVED || 'http://activitystrea.ms/schema/1.0/approve';
+process.env.TINCAN_RATING = process.env.TINCAN_RATING || 'http://id.tincanapi.com/verb/rated';
+
+
 var tincan = new TinCan(
   {
     recordStores: [
