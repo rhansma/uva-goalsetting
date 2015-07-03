@@ -302,3 +302,29 @@ angular.module('goals').controller('ModalController', ['$scope', 'close',
     };
   }
 ]);
+
+angular.module('goals').directive('infiniteLimit', ['$window', '$q', function($window, $q) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      var offset = 10;
+      var scrolling = false;
+
+      return angular.element($window).bind('scroll', function() {
+        var deferred, _ref;
+
+        _ref = element[0].offsetParent;
+        if(!scrolling && (_ref != null ? _ref.offsetTop : void 0) + parseInt(element[0].style.height || 0, 10) < $window.scrollY + $window.innerHeight - offset) {
+          scrolling = true;
+          deferred = $q.defer();
+          scope.$apply(attrs.infiniteLimit)(deferred);
+          return deferred.promise.then(function() {
+            setTimeout(function() {
+              return scrolling = false;
+            }, 500);
+          });
+        }
+      });
+    }
+  }
+}]);
