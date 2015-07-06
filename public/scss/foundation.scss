@@ -47,12 +47,14 @@
 body { background: url(/modules/core/img/background.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
 
 .top-fixed { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
-.top-header { height: 110px; background-color: #ffffff; }
+.top-header { height: 110px; background-color: #ffffff; @media #{$small-only} { display: none; } }
 .top-header img { margin-top: 35px; }
 .top-header span { margin-top: 35px; color: $primary-color; }
 .top-header p { color: $primary-color; margin-left: 38px; margin-top: -10px; }
 .top-bar img { height: 52px; margin: 0; padding: 0 1em 0 1em; }
-.top-breadcrumbs { position: fixed; top: 162px; left: 0; width: 100%; background-color: rgba(0,0,0,0.5); height: 40px; padding-top: 8px; font-size: 16px; color: $white; z-index: 100; }
+.top-breadcrumbs { position: fixed; top: 162px; left: 0; width: 100%; background-color: rgba(0,0,0,0.5); height: 40px; padding-top: 8px; font-size: 16px; color: $white; z-index: 100; @media #{$small-only} { top: 48px; } }
+
+.content { padding-top: 230px; @media #{$small-only} { padding-top: 115px; } }
 
 .goals { max-width: 93.75rem; }
 
@@ -94,25 +96,12 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 
 .goals h3 { text-transform: capitalize; }
 
-.noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+.noselect { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
-.ngdialog-content {
-  position: absolute;
-  top: 40%;
-  left: 10%;
-  width: 80%;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-}
+.ngdialog-content { position: absolute; top: 40%; left: 10%; width: 80%; border-radius: 10px; padding: 10px; text-align: center; }
 
-.ngdialog-close {
-  display: none;
-}
+.ngdialog-close { display: none; }
+
+.undecorated-link:hover { text-decoration: none; }
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
