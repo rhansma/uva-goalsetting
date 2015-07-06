@@ -52,7 +52,7 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 .top-header span { margin-top: 35px; color: $primary-color; }
 .top-header p { color: $primary-color; margin-left: 38px; margin-top: -10px; }
 .top-bar img { height: 52px; margin: 0; padding: 0 1em 0 1em; }
-.top-breadcrumbs { position: fixed; top: 162px; left: 0; width: 100%; background-color: rgba(0,0,0,0.5); height: 40px; padding-top: 8px; font-size: 16px; color: $white; z-index: 100; @media #{$small-only} { top: 48px; } }
+.top-breadcrumbs { position: fixed; top: 162px; left: 0; width: 100%; background-color: rgba(0,0,0,0.5); height: 40px; padding-top: 8px; font-size: 16px; color: $white; z-index: 100; @media #{$small-only} { top: 52px; } }
 
 .content { padding-top: 230px; @media #{$small-only} { padding-top: 115px; } }
 
