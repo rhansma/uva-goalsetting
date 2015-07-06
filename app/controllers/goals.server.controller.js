@@ -203,28 +203,32 @@ exports.approved = function(req, res) {
 };
 
 /**
- * Publish all goals, model checks if rating is above 5.5, so not necessary to check here
+ * Publish all goals above 5.5
  * @param req
  * @param res
  */
 exports.publish = function(req, res) {
-  Goal.find().exec(function(err, goals) {
+  Goal.find({}).exec(function(err, goals) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
       _.each(goals, function(goal, index, list) {
-        goal.published = true;
-        goal.save();
+        /* Check if rating is above or egual to 5.5 and goal is not private */
+        if(goal.rating >= 5.5 && !goal.private) {
+          goal.published = true;
+          goal.save();
 
-        var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-        var goalInformation = {
-          rating: goal.rating,
-          deadline: goal.expires,
-          publicOrPrivate: goal.private ? 'private' : 'public'
-        };
-        tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_APPROVED, requestUrl, 'Goal', goalInformation);
+          var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+          var goalInformation = {
+            rating: goal.rating,
+            deadline: goal.expires,
+            publicOrPrivate: goal.private ? 'private' : 'public'
+          };
+
+          tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_APPROVED, requestUrl, 'Goal', goalInformation);
+        }
 
         /* If this was the last goal, send mail and respond with 200 */
         if(index === (_.size(list) - 1)) {
