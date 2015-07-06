@@ -118,7 +118,9 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
       var successes = 0;
       /* Loop through all goals and update them */
       angular.forEach($scope.goals, function(goal) {
-        goal.$teacherUpdate(function() {
+        Goals.teacherUpdate({
+          goalId: goal._id
+        }, function() {
           successes++;
 
           /* Show message if all changes are saved */
@@ -135,15 +137,17 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
 
     /* Save teacher edits */
     $scope.saveGoal = function(goal) {
-      $scope.spinner = true;
+      if(goal.rating > 0 && goal.rating <= 10) {
+        $scope.spinner = true;
 
-      goal.$teacherUpdate(function() {
-        notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
-        $scope.spinner = false;
-      }, function(errorResponse) {
-        $scope.spinner = false;
-        $scope.error = errorResponse.data.message;
-      });
+        Goals.teacherUpdate(goal, function() {
+          notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
+          $scope.spinner = false;
+        }, function(errorResponse) {
+          $scope.spinner = false;
+          $scope.error = errorResponse.data.message;
+        });
+      }
     };
 
     /* Publish all rated goals */
@@ -185,7 +189,7 @@ angular.module('goals')
         });
       }
     };
-  });
+});
 
 angular.module('goals').directive('dateField', function() {
   return {
