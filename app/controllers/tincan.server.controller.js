@@ -21,7 +21,7 @@ process.env.TINCAN_LOGIN = process.env.TINCAN_LOGIN || 'https://brindlewaye.com/
 process.env.TINCAN_VIEW = process.env.TINCAN_VIEW || 'http://id.tincanapi.com/verb/viewed';
 process.env.TINCAN_APPROVED = process.env.TINCAN_APPROVED || 'http://activitystrea.ms/schema/1.0/approve';
 process.env.TINCAN_RATING = process.env.TINCAN_RATING || 'http://id.tincanapi.com/verb/rated';
-
+process.env.TINCAN_TAG_ADDED = process.env.TINCAN_TAG_ADDED || 'http://activitystrea.ms/schema/1.0/tag';
 
 var tincan = new TinCan(
   {

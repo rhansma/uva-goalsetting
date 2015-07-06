@@ -147,6 +147,7 @@ module.exports = function(grunt) {
         TINCAN_VIEW: 'http://id.tincanapi.com/verb/viewed',
         TINCAN_APPROVED: 'http://activitystrea.ms/schema/1.0/approve',
         TINCAN_RATING: 'http://id.tincanapi.com/verb/rated',
+        TINCAN_TAG_ADDED: 'http://activitystrea.ms/schema/1.0/tag',
         MAIL_FROM: 'uva@ihatestatistics.com'
       },
       secretVars: {
