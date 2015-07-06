@@ -62,7 +62,7 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 .add-goal-button:hover { -ms-transform: scale(1.25,1.25); -webkit-transform: scale(1.25,1.25); transform: scale(1.25,1.25); }
 
 .panel { background-color: #FFFFFF; }
-.goal { margin-bottom: 30px; }
+.goal { margin-bottom: 30px; border: 2px solid $white; }
 .goal h4 { color: $primary-color; margin: 10px 0 0px 0; }
 .goal a { color: $oil; }
 .goal small { color: $monsoon; }
@@ -91,7 +91,7 @@ body { background: url(/modules/core/img/background.jpg) no-repeat center center
 	border-color: $success-color;
 }
 
-.goal.highlight { border: 2px solid $primary-color }
+.goal.highlight { border: 2px solid $primary-color; }
 .switch span { color: $oil; }
 
 .goals h3 { text-transform: capitalize; }
