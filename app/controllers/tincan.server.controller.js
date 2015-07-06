@@ -36,7 +36,7 @@ var tincan = new TinCan(
   }
 );
 
-function _sendStatement(verb, userEmail, userRole, userName, objectType, requestUrl, objectTitle, origin, rating) {
+function _sendStatement(verb, userEmail, userRole, userName, objectType, requestUrl, objectTitle, origin, goalInformation) {
   var statement = {
     'actor': {
       'mbox': 'mailto:' + userEmail,
@@ -61,21 +61,31 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
     }
   };
 
+  statement.target.definition.extensions = {};
   /* Add origin if set */
   if(typeof origin !== 'undefined') {
-    statement.target.definition.extensions = {};
     statement.target.definition.extensions['http://goalsetting.uva.nl/goal/origin'] = origin;
+  }
+
+  /* Add public/private if set */
+  if(typeof goalInformation.publicOrPrivate !== 'undefined') {
+    statement.target.definition.extensions['http://goalsetting.uva.nl/goal/publicOrPrivate'] = goalInformation.publicOrPrivate;
+  }
+
+  /* Add deadline if set */
+  if(typeof goalInformation.deadline !== 'undefined') {
+    statement.target.definition.extensions['http://goalsetting.uva.nl/goal/deadline'] = goalInformation.deadline;
+  }
+
+  /* Add rating if set */
+  if(typeof goalInformation.rating !== 'undefined') {
+    statement.target.definition.extensions['http://goalsetting.uva.nl/goal/rating'] = rating;
   }
 
   /* Add origin if set */
   if(typeof objectTitle !== 'undefined') {
     statement.target.definition.description = {};
     statement.target.definition.description['en-US'] = objectTitle;
-  }
-
-  /* Add rating if set */
-  if(typeof rating !== 'undefined') {
-    statement.target.definition.extensions['http://goalsetting.uva.nl/goal/rating'] = rating;
   }
 
   tincan.sendStatement(statement, function(results, statement) {
@@ -91,8 +101,10 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
  * @param verb
  * @param requestUrl
  * @param type
+ * @param goalInformation (rating, deadline, publicOrPrivate)
  */
-exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type, rating) {
+exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type, goalInformation) {
+  console.log(goalInformation);
   User.find({'email': email}).exec(function(err, user) {
     if(err) {
       errorHandler.log(err);
@@ -102,7 +114,7 @@ exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type, rati
           errorHandler.log(err);
         }
         else {
-          _sendStatement(verb, user[0].email, user[0].roles[0], user[0].displayName, type, requestUrl, goal.title, goal.creator.displayName, rating);
+          _sendStatement(verb, user[0].email, user[0].roles[0], user[0].displayName, type, requestUrl, goal.title, goal.creator.displayName, goalInformation);
         }
       });
     }

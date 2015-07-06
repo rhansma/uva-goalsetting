@@ -35,7 +35,12 @@ exports.create = function(req, res) {
           /* Send statement to LRS if committed to goal */
           if(userGoals.status === 'committed') {
             var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-            tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_COMMITTED, requestUrl, 'Goal');
+            var goalInformation = {
+              rating: goal.rating,
+              deadline: goal.expires,
+              publicOrPrivate: goal.private ? 'private' : 'public'
+            };
+            tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_COMMITTED, requestUrl, 'Goal', goalInformation);
           }
 
           res.json(userGoals);
@@ -57,7 +62,12 @@ exports.addTag = function(req, res) {
       });
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_TAG_ADDED, requestUrl, 'Goal');
+      var goalInformation = {
+        rating: goal.rating,
+        deadline: goal.expires,
+        publicOrPrivate: goal.private ? 'private' : 'public'
+      };
+      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_TAG_ADDED, requestUrl, 'Goal', goalInformation);
       res.json(userGoal);
     }
   });
@@ -88,7 +98,12 @@ exports.update = function(req, res) {
         userGoal.status = 'finished';
 
         var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-        tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Goal');
+        var goalInformation = {
+          rating: goal.rating,
+          deadline: goal.expires,
+          publicOrPrivate: goal.private ? 'private' : 'public'
+        };
+        tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Goal', goalInformation);
       }
     }
 
@@ -97,7 +112,12 @@ exports.update = function(req, res) {
       _.each(oldGoal.subgoals, function(oldSubgoal) {
         if(subgoal.finished && oldSubgoal.finished === false) {
           var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-          tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Subgoal');
+          var goalInformation = {
+            rating: goal.rating,
+            deadline: goal.expires,
+            publicOrPrivate: goal.private ? 'private' : 'public'
+          };
+          tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Subgoal', goalInformation);
         }
       });
     });
@@ -173,7 +193,12 @@ exports.abort = function(req, res) {
       });
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_ABORTED, requestUrl, 'Goal');
+      var goalInformation = {
+        rating: goal.rating,
+        deadline: goal.expires,
+        publicOrPrivate: goal.private ? 'private' : 'public'
+      };
+      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_ABORTED, requestUrl, 'Goal', goalInformation);
       UserGoals.find({$and: [
           {'group': userGoalGroup},
           {'group': {$exists: true}}

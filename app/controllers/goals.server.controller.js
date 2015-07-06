@@ -34,7 +34,12 @@ exports.create = function(req, res) {
       });
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-      tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_CREATED, requestUrl, 'Goal');
+      var goalInformation = {
+        deadline: goal.expires,
+        publicOrPrivate: goal.private ? 'private' : 'public'
+      };
+
+      tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_CREATED, requestUrl, 'Goal', goalInformation);
 
       var userGoals = new UserGoals();
       userGoals.status = 'committed';
@@ -47,7 +52,7 @@ exports.create = function(req, res) {
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_COMMITTED, requestUrl, 'Goal');
+          tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_COMMITTED, requestUrl, 'Goal', goalInformation);
           res.json(goal);
         }
       });
@@ -76,8 +81,12 @@ function _update(req, res, goal) {
       });
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+      var goalInformation = {
+        deadline: goal.expires,
+        publicOrPrivate: goal.private ? 'private' : 'public'
+      };
 
-      tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_UPDATED, requestUrl, 'Goal');
+      tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_UPDATED, requestUrl, 'Goal', goalInformation);
       res.json(goal);
     }
   });
@@ -107,7 +116,13 @@ exports.updateByTeacher = function(req, res) {
   /* Teacher rates goal, send statement to LRS */
   if(goal.rating !== null) {
     var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-    tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_RATED, requestUrl, 'Goal', goal.rating);
+    var goalInformation = {
+      rating: goal.rating,
+      deadline: goal.expires,
+      publicOrPrivate: goal.private ? 'private' : 'public'
+    };
+
+    tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_RATED, requestUrl, 'Goal', goalInformation);
   }
   _update(req, res, goal);
 };
@@ -204,7 +219,12 @@ exports.publish = function(req, res) {
         goal.save();
 
         var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-        tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_APPROVED, requestUrl, 'Goal');
+        var goalInformation = {
+          rating: goal.rating,
+          deadline: goal.expires,
+          publicOrPrivate: goal.private ? 'private' : 'public'
+        };
+        tincan.sendStatementOnGoal(req.user.email, goal._id, process.env.TINCAN_APPROVED, requestUrl, 'Goal', goalInformation);
 
         /* If this was the last goal, send mail and respond with 200 */
         if(index === (_.size(list) - 1)) {
