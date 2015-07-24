@@ -62,7 +62,12 @@ exports.addTag = function(req, res) {
       });
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_TAG_ADDED, requestUrl, 'Goal');
+      var goalInformation = {
+        rating: undefined,
+        deadline: undefined,
+        publicOrPrivate: undefined
+      };
+      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_TAG_ADDED, requestUrl, 'Goal', goalInformation);
       res.json(userGoal);
     }
   });
@@ -93,7 +98,12 @@ exports.update = function(req, res) {
         userGoal.status = 'finished';
 
         var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-        tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Goal');
+        var goalInformation = {
+          rating: undefined,
+          deadline: undefined,
+          publicOrPrivate: undefined
+        };
+        tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Goal', goalInformation);
       }
     }
 
@@ -102,7 +112,12 @@ exports.update = function(req, res) {
       _.each(oldGoal.subgoals, function(oldSubgoal) {
         if(subgoal.finished && oldSubgoal.finished === false) {
           var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-          tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Subgoal');
+          var goalInformation = {
+            rating: undefined,
+            deadline: undefined,
+            publicOrPrivate: undefined
+          };
+          tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Subgoal', goalInformation);
         }
       });
     });
@@ -130,6 +145,13 @@ exports.finish = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+      var goalInformation = {
+        rating: undefined,
+        deadline: undefined,
+        publicOrPrivate: undefined
+      };
+      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Goal', goalInformation);
       res.json(userGoal);
     }
   });
@@ -150,6 +172,13 @@ exports.finishSubgoal = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      var requestUrl = req.protocol + '://' + req.get('host') + req.url;
+      var goalInformation = {
+        rating: undefined,
+        deadline: undefined,
+        publicOrPrivate: undefined
+      };
+      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_COMPLETED, requestUrl, 'Subgoal', goalInformation);
       res.json(userGoal);
     }
   });
@@ -178,7 +207,12 @@ exports.abort = function(req, res) {
       });
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_ABORTED, requestUrl, 'Goal');
+      var goalInformation = {
+        rating: undefined,
+        deadline: undefined,
+        publicOrPrivate: undefined
+      };
+      tincan.sendStatementOnGoal(req.user.email, userGoal.goal, process.env.TINCAN_ABORTED, requestUrl, 'Goal', goalInformation);
       UserGoals.find({$and: [
           {'group': userGoalGroup},
           {'group': {$exists: true}}
@@ -274,7 +308,12 @@ exports.list = function(req, res) {
       });
     } else {
       var requestUrl = req.protocol + '://' + req.get('host') + req.url;
-      tincan.sendStatementOnUser(req.user.email, process.env.TINCAN_VIEW, requestUrl, 'personal goal list');
+      var goalInformation = {
+        rating: undefined,
+        deadline: undefined,
+        publicOrPrivate: undefined
+      };
+      tincan.sendStatementOnUser(req.user.email, process.env.TINCAN_VIEW, requestUrl, 'personal goal list', goalInformation);
       res.json(userGoals);
     }
   });
