@@ -104,7 +104,6 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
  * @param goalInformation (rating, deadline, publicOrPrivate)
  */
 exports.sendStatementOnGoal = function(email, goal, verb, requestUrl, type, goalInformation) {
-  console.log(goalInformation);
   User.find({'email': email}).exec(function(err, user) {
     if(err) {
       errorHandler.log(err);
