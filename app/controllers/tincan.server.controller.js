@@ -37,6 +37,8 @@ var tincan = new TinCan(
 );
 
 function _sendStatement(verb, userEmail, userRole, userName, objectType, requestUrl, objectTitle, origin, goalInformation) {
+  var timestamp = new Date();
+  timestamp.setSeconds(timestamp.getSeconds() - 15);
   var statement = {
     'actor': {
       'mbox': 'mailto:' + userEmail,
@@ -45,6 +47,7 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
     'verb': {
       'id': verb
     },
+    'timestamp': timestamp.toISOString(),
     'target': {
       'id': requestUrl,
       'objectType': 'Activity',
@@ -87,6 +90,7 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
     statement.target.definition.description = {};
     statement.target.definition.description['en-US'] = objectTitle;
   }
+
 
   tincan.sendStatement(statement, function(results, statement) {
     errorHandler.log(results, 'info');
