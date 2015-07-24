@@ -79,7 +79,7 @@ function _sendStatement(verb, userEmail, userRole, userName, objectType, request
 
   /* Add rating if set */
   if(typeof goalInformation.rating !== 'undefined') {
-    statement.target.definition.extensions['http://goalsetting.uva.nl/goal/rating'] = rating;
+    statement.target.definition.extensions['http://goalsetting.uva.nl/goal/rating'] = goalInformation.rating;
   }
 
   /* Add origin if set */
