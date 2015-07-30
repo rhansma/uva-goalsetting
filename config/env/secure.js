@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  port: 443,
+  port: 3001,
   db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/goalsetting',
   assets: {
     lib: {
