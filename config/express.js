@@ -151,7 +151,17 @@ module.exports = function(db) {
 		// Create HTTPS Server
 		var httpsServer = https.createServer({
 			key: privateKey,
-			cert: certificate
+			cert: certificate,
+			ciphers: [
+				"ECDHE-RSA-AES128-SHA256",
+				"DHE-RSA-AES128-SHA256",
+				"AES128-GCM-SHA256",
+				"!RC4", // RC4 be gone
+				"HIGH",
+				"!MD5",
+				"!aNULL"
+			].join(':'),
+			honorCipherOrder: true
 		}, app);
 
 		// Return HTTPS server instance
