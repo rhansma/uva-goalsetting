@@ -1,6 +1,6 @@
-<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="goalsetting.ihatestatistics.com">
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="virgo.ic.uva.nl">
     <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://goalsetting.ihatestatistics.com/login/callback" index="0"/>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://virgo.ic.uva.nl/login/callback" index="0"/>
         <md:AttributeConsumingService index="0">
             <md:ServiceName xml:lang="en">UvA GoalSetting App</md:ServiceName>
             <md:ServiceDescription xml:lang="en">This is the UvA GoalSetting App</md:ServiceDescription>

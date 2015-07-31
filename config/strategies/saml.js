@@ -6,8 +6,7 @@
 var passport = require('passport'),
 	SamlStrategy = require('passport-saml').Strategy,
   fs = require('fs'),
-	User = require('mongoose').model('User'),
-  pvk = fs.readFileSync('./config/keys/mykey.key', 'utf-8');
+	User = require('mongoose').model('User');
 
 // Set in global scope, so it can be used again for the metadata route
 global.SAMLStrategy = new SamlStrategy({
