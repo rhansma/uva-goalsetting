@@ -13,14 +13,20 @@ var mongoose = require('mongoose'),
   errorHandler = require('./errors.server.controller.js'),
   smtpTransport = require('nodemailer-smtp-transport');
 
-var transport = nodemailer.createTransport(smtpTransport({
+var options = {
   host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  auth: {
+  port: process.env.MAIL_PORT
+};
+
+/* Set authentication only if data is supplied */
+if(process.env.MAIL_USERNAME !== null && process.env.MAIL_PASSWORD !== null) {
+  options.auth = {
     user: process.env.MAIL_USERNAME,
     pass: process.env.MAIL_PASSWORD
-  }
-}));
+  };
+}
+
+  var transport = nodemailer.createTransport(smtpTransport(options));
 
 /**
  * Mail function
