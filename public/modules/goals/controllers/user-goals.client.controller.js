@@ -200,6 +200,10 @@ angular.module('goals').controller('UserGoalsController',
         $scope.spinner = false;
         notify({message: 'Successfully saved', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
         $scope.userGoal = goal;
+
+        for(var i in $scope.userGoal.subgoals) {
+          $scope.userGoal.subgoals[i].expires = new Date(moment($scope.userGoal.subgoals[i].expires).format('YYYY-MM-DD'));
+        }
       }, function(errorResponse) {
         $scope.spinner = false;
         notify({message: errorResponse.data.message, templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
