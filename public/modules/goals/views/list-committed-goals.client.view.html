@@ -18,7 +18,7 @@
         <p>Scientific literature indicates that setting goals is a major source of success (Locke e.a). For you this means that you can pass this exam faster and more effectively, up to 50%.</p>
         <p>The key is to make your goals <b>SMART</b>: <b>S</b>pecific, <b>M</b>easurable, <b>A</b>ttainable, <b>R</b>ealistic and <b>T</b>ime-bound.</p>
         <p>
-          Start by creating your first goal now! Click the plus button in the top right corner.</p>
+          Start by creating your first goal now! Click the plus button in the bottom right corner.</p>
         </div>
       </div>
     </div>
@@ -33,8 +33,8 @@
           <small data-ng-show="::userGoal.subgoals.length">Subgoals completed: {{ countCompletedSubgoals(userGoal.subgoals)}} / {{ ::userGoal.subgoals.length }}</small>
           <small><a data-ng-href="#!/goal/committed/{{ ::userGoal._id}}" data-ng-hide="userGoal.group || userGoal.status !== 'committed'">View details <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
           <small data-ng-show="userGoal.grouped > 0 && userGoal.status === 'committed'"><a data-ng-href="#!/goals/grouped/{{::userGoal.group}}"><span data-ng-bind="::userGoal.grouped"></span> goals in group <i class="fa fa-arrow-circle-right fa-lg"></i></a></small>
-          <a class="right" data-ng-click="finish(userGoal);" data-ng-show="userGoal.status === 'committed'"> <small>Finished goal</small><i class="fa fa-check fa-lg" style="color:#4CBB17;"></i></a> 
-          <a class="right" data-ng-click="abort(userGoal);" data-ng-class="{disabled: spinner}" data-ng-show="userGoal.status === 'committed'"><small>Delete goal</small> <i class="fa fa-trash fa-lg"></i> </a>
+          <a class="right" data-ng-click="finish(userGoal);" data-ng-show="userGoal.status === 'committed'"> <small>Finish goal</small><i class="fa fa-check fa-lg" style="color:#4CBB17;"></i></a>
+          <a class="right space" data-ng-click="abort(userGoal);" data-ng-class="{disabled: spinner}" data-ng-show="userGoal.status === 'committed'"><small>Delete goal</small> <i class="fa fa-trash fa-lg"></i> </a>
         </div>
       </div>
 
