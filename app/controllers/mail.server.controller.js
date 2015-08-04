@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
   Mail = mongoose.model('Mail'),
   _ = require('lodash'),
   nodemailer = require('nodemailer'),
+  errorHandler = require('./errors.server.controller.js'),
   smtpTransport = require('nodemailer-smtp-transport');
 
 var transport = nodemailer.createTransport(smtpTransport({
@@ -34,6 +35,12 @@ function _mail(to, subject, body) {
     to: to,
     subject: subject,
     html: body
+  }, function(error, info){
+    if(error){
+      return errorHandler.log(error);
+    }
+    errorHandler.log('Message sent: ' + info.response);
+
   });
 }
 
