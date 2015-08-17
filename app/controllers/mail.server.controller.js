@@ -18,7 +18,7 @@ var options = {
   port: process.env.MAIL_PORT
 };
 
-/* Set authentication only if data is supplied */
+/* Set authentication only if both username and password are supplied */
 if(process.env.MAIL_USERNAME !== null && process.env.MAIL_PASSWORD !== null) {
   options.auth = {
     user: process.env.MAIL_USERNAME,
