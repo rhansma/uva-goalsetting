@@ -12,7 +12,7 @@ var passport = require('passport'),
 global.SAMLStrategy = new SamlStrategy({
       path: '/login/callback',
       entryPoint: 'https://engine.surfconext.nl/authentication/idp/single-sign-on',
-      issuer: 'virgo.ic.uva.nl',
+      issuer: 'https://virgo.ic.uva.nl',
       identifierFormat: 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent',
       callbackUrl: 'https://virgo.ic.uva.nl/login/callback',
       acceptedClockSkewMs: -1
