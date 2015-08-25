@@ -37,10 +37,10 @@
 
         <div id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers();">
           <p>Type in the e-mail address of a user to give him/her access to the app.</p>
-          <form data-ng-submit="addUser()">
-            <input type="email" placeholder="E-mail" data-ng-model="email" />
+          <form data-ng-submit="addUser()" novalidate>
+            <input type="text" placeholder="E-mail" data-ng-model="email" />
           </form>
-          <a data-ng-click="addUser()" class="button" data-ng-show="email">Add user <i class="fa fa-plus-circle"></i></a>
+          <a data-ng-click="addUser()" class="button">Add user <i class="fa fa-plus-circle"></i></a>
           <span class="error" data-ng-bind="error" data-ng-show="error"></span>
           <table>
             <tr class="thead">

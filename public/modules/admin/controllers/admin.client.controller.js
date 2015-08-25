@@ -31,11 +31,7 @@ angular.module('admin').controller('AdminController', ['$scope', 'Admin', 'notif
      * Add new user
      */
     $scope.addUser = function() {
-      var user = new Admin({
-        email: this.email
-      });
-
-      user.$addUser(function() {
+      Admin.addUser({email: this.email}, function() {
         notify({message: 'Changes saved!', classes: 'alert', templateUrl: 'modules/goals/partials/angular-notify.client.partial.html'});
         $scope.spinner = false;
         $scope.users = Admin.getUsers();

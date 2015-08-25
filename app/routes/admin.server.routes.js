@@ -16,9 +16,6 @@ module.exports = function(app) {
   app.route('/admin/user')
       .post(users.requiresLogin, users.isTeacher, users.addUser);
 
-  app.route('/admin/user/batch')
-    .post(users.requiresLogin, users.isTeacher, users.addUserBatch);
-
   app.route('/admin/teacher/:userId')
       .delete(users.requiresLogin, users.isTeacher, users.deleteTeacher);
 

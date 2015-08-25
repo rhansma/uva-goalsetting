@@ -85,7 +85,6 @@ function _addUser(email, res) {
         };
         render('invite-email.html', context, function(err, html) {
           Mail.mail(email, 'Start setting goals', html);
-          res.json(user);
         });
       });
     }
@@ -98,16 +97,8 @@ function _addUser(email, res) {
  * @param res
  */
 exports.addUser = function(req, res) {
-  _addUser(req.body.email, res);
-};
-
-/**
- * Add users in batch
- * @param req
- * @param res
- */
-exports.addUserBatch = function(req, res) {
-  var emails = req.body.emails.split(';');
+  console.log(req.body);
+  var emails = req.body.email.split(';');
 
   for(var i = 0; i < emails.length; i++) {
     _addUser(emails[i]);
