@@ -215,8 +215,8 @@ exports.publish = function(req, res) {
       });
     } else {
       _.each(goals, function(goal, index, list) {
-        /* Check if rating is above or egual to 5.5 and goal is not private */
-        if(goal.rating >= 5.5 && !goal.private) {
+        /* Check if goal is not private */
+        if(!goal.private) {
           goal.published = true;
           goal.save();
 
