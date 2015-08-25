@@ -36,7 +36,7 @@
         </div>
 
         <div id="panel2" ng-if="activeTab === 'addUsers'" data-ng-init="findUsers();">
-          <p>Type in the e-mail address of a user to give him/her access to the app.</p>
+          <p>Type in the e-mail address of a user to give him/her access to the app. Batch creation of user is done by inserting multiple addresses separated with a semicolon.</p>
           <form data-ng-submit="addUser()" novalidate>
             <input type="text" placeholder="E-mail" data-ng-model="email" />
           </form>
