@@ -10,6 +10,9 @@
 var _ = require('lodash'),
     errorHandler = require('../errors.server.controller.js'),
     mongoose = require('mongoose'),
+    path = require('path'),
+    Mail = require('../mail.server.controller.js'),
+    emailTemplates = require('swig-email-templates'),
     User = mongoose.model('User');
 
 /**
@@ -63,14 +66,9 @@ exports.listNotTeachers = function(req, res) {
   });
 };
 
-/**
- * Add a new user for login with surfconext
- * @param req
- * @param res
- */
-exports.addUser = function(req, res) {
+function _addUser(email, res) {
   var user = new User();
-  user.email = req.body.email;
+  user.email = email;
   user.provider = 'AdminCreated';
 
   user.save(function(err) {
@@ -79,9 +77,43 @@ exports.addUser = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(user);
+      emailTemplates({
+        root: path.join(__dirname, '../../views/templates')
+      }, function(err, render) {
+        var context = {
+          APP_URL: process.env.APP_URL
+        };
+        render('invite-email.html', context, function(err, html) {
+          Mail.mail(email, 'Start setting goals', html);
+          res.json(user);
+        });
+      });
     }
   });
+}
+
+/**
+ * Add a new user for login with surfconext
+ * @param req
+ * @param res
+ */
+exports.addUser = function(req, res) {
+  _addUser(req.body.email, res);
+};
+
+/**
+ * Add users in batch
+ * @param req
+ * @param res
+ */
+exports.addUserBatch = function(req, res) {
+  var emails = req.body.emails.split(';');
+
+  for(var i = 0; i < emails.length; i++) {
+    _addUser(emails[i]);
+  }
+
+  res.send(200);
 };
 
 /**
