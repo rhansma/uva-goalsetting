@@ -17,8 +17,8 @@
     </div>
   </div>
 
-  <div class="row goals">
-    <div data-infinite-scroll="getMoreGoals(page)"  data-infinite-scroll-distance="3" data-infinite-scroll-disabled="loading">
+  <div class="row goals" data-infinite-scroll="getGoals()"  data-infinite-scroll-distance="5" data-infinite-scroll-disabled="loading">
+    <div>
       <div class="small-12 medium-6 large-4 end columns" data-ng-repeat="goal in goals | orderBy: goal.created">
         <div class="goal panel" data-ng-class="{highlight: goal.highlight}">
           <a data-ng-click="goalClick(goal);">
