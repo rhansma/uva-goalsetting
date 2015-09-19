@@ -97,7 +97,6 @@ function _addUser(email, res) {
  * @param res
  */
 exports.addUser = function(req, res) {
-  console.log(req.body);
   var emails = req.body.email.split(';');
 
   for(var i = 0; i < emails.length; i++) {
