@@ -188,7 +188,7 @@ exports.approved = function(req, res) {
     }
 
     /* Find and return all goals not already committed or rejected */
-    Goal.find({_id: {$nin: goals}}).where('rating').gt(5).exec(function(err, goals) {
+    Goal.find({_id: {$nin: goals}}).exec(function(err, goals) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)

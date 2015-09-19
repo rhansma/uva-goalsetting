@@ -44,7 +44,7 @@ var GoalSchema = new Schema({
     min: 0,
     default: 0
   },
-  published: {
+    published: {
     type: Boolean,
     default: false
   },
@@ -55,16 +55,7 @@ var GoalSchema = new Schema({
 });
 
 /**
- * Run some validation before saving/updating
+ * Load paginate plugin
  */
-GoalSchema.pre('validate', function(next) {
-  /* Make sure goal is only published after a minimum rating of 5.5 */
-  if (this.published && this.rating < 5.5) {
-    this.published = false;
-  }
-
-  next();
-});
-
 GoalSchema.plugin(mongoosePaginate, {});
 mongoose.model('Goal', GoalSchema);
