@@ -262,7 +262,9 @@ exports.goalByID = function(req, res, next, id) {
  * Goal authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-  if (req.goal.creator.id !== req.user.id) {
+  var creator =  req.goal.creator !== null ? req.goal.creator.id : false;
+
+  if (req.user.roles[0] !== 'teacher' && creator !== req.user.id) {
     return res.status(403).send({
       message: 'User is not authorized'
     });

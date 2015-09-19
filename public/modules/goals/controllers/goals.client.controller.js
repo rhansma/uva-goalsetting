@@ -68,7 +68,9 @@ angular.module('goals').controller('GoalsController', ['$scope', 'Goals', 'Authe
 
     $scope.remove = function(goal) {
       if (goal) {
-        goal.$remove();
+        Goals.remove({
+          goalId: goal._id
+        });
 
         for (var i in $scope.goals) {
           if ($scope.goals[i] === goal) {
